@@ -1,4 +1,4 @@
-#Second R-Ladies Tbilisi meetup - December 15,2016
+#Second R-Ladies Tbilisi meetup - December 13,2016
 #Prepared by Dinara Urazova and Liili Abuladze
 
 #Vectors - basic building blocks in R; An object that consists of the same data type (e.g. numbers, strings, logical values)
@@ -6,6 +6,7 @@
 #Review - constructing basic numeric vectors
 #c is short for "combine"
 a<-c(1,2,3,4,5)
+a
 b<-c(6,7,8,9,10)
 
 #Joining vectors:
@@ -21,9 +22,10 @@ ba
 #using start:end notation
 e <- 1:10
 f <- 10:1
+#print the outcome
 e
 f
-
+str(e) #integer
 #seq(from=1, to=10, by=1) --> this tells you that we create a sequence of numbers from 1 to 10 with a step of 1
 #you can shorten the command by excluding "from", "to" and "by":
 g <- seq(1, 10, 1)
@@ -32,12 +34,13 @@ g
 #experiment with changing elements of seq 
 h <- seq(1,10,0.5)
 h
-
+str(h)
 i<-seq(10,1,-3) 
 i
 
 #Explore your data by using str() - this helps you to understand the types of variables the vector/ dataset has
 str(ba)
+str(a)
 
 #There are other ways to create and manipulate numeric vectors, which can be learned individually
 
@@ -58,11 +61,15 @@ countries[1]
 countries[4]<-"Poland"
 countries
 
+#add several values at the same time
+countries[c(4,5)]<-c("Poland", "Hungary")
+countries
+
 #Get the first and the third value
 countries[c(1, 3)]
 
 #Get a range of values
-countries[2:4]
+countries[3:5]
 
 #Creating other objects, like sex, ethnicity, religion, etc.
 #Let 1 stand for "Female" and 2 for "Male" - we make it a "factor" variable - a categorical (not numerical)
@@ -70,8 +77,9 @@ sex <- factor(c(1,2,2,1,2,1,1,2))
 sex
 str(sex) #this tells you that "sex" is indeed a factor variable
 
+#lets create another vector with similar length to be used together with sex
 age <- c(20, 34, 56, 33, 78, 35, 12, 92)
-str(age) 
+str(age) #numerical var, so this is different from "sex" which is factor
 age1 <-age[sex==1] #this creates a new variable for age of women only (sex=1 stands for females)
 age1
 mean(age1)
@@ -82,20 +90,23 @@ mean(age1)
 #A dataframe is a list with equal length vectors at each index.
 #Creating a dataframe
 X <- data.frame(S=sex, A=age)
-
+X
 #Explore the types of data in your dataframe by using str()
 str(X) #we see that S is a factor variable, and A is a numerical variable
 
 #And saving:
 save(X,file="mydata.Rda")
+#where is the file? In the general Documents directory.
 
 #Store your data
 write.table(X, file="mydata.txt", col.names = TRUE) #col.names=T helps to separate columns in the data
 
 
+
 #How about data that is already available
 #First tell R where to find the dataset
-setwd("C:/Users/Dinara/Desktop/Data/")
+#setwd("C:/Users/Dinara/Desktop/Data/")
+
 setwd("C:/Users/KASUTAJA/Documents/RLadies")
 #Import dataset --> for txt files use read.table
 newdata <- read.table(file="data1.txt", header = FALSE, sep = " ")
@@ -105,11 +116,11 @@ newdata
 
 #Lets import another dataset - this one is an Excel file --> use read.csv for Excel files
 Cars_data <- read.csv(file = "cars.csv")
-
+Cars_data
 #For STATA files use read.dta, for SPSS files use read.spss, for .txt files use read.txt
 
 #If you want to share an object with someone else in text format (e.g. to get r help :)), use dput
-dput(Cars_data)
+dput(newdata)
 
 
 #There are several datasets online. Load them:
@@ -131,6 +142,7 @@ class(newdata) #tells you whether it is a dataframe, matrix, etc.
 class(mtcars)
 class(VADeaths)
 dim(newdata) #tells you what are the dimensions of the dataset
+dim(mtcars)
 summary(newdata) #summarises the dataset
 View(newdata) #opens a separate viewing window of the dataset
 #?<name of data set>
@@ -141,6 +153,7 @@ names(mtcars) #see the names of the variables
 #subsetting the first 10 observations(=rows) of mtcars
 mtcars2<- mtcars[1:10,] #having a space after the comma is interntional --> this indicates that we want to include all columns in the new dataset
 mtcars2
+mtcars2<- mtcars[1:10,1]
 
 #you can also include all rows, but select a set of columns
 #[, 1:10]
@@ -167,14 +180,18 @@ rep(c(1,2,3), 10)
 ls()
 #Remove any objects if necessary
 rm()
-
+rm(mtcars4)
 
 #Let's do a simple plot
 summary(USArrests)
 plot(USArrests$Murder, USArrests$UrbanPop)
 
-#swirl is useful to do basic expressions in R
+#for practice swirl is useful to do basic expressions in R
 #after each session you can use this at home to learn more
 install.packages("swirl")
 library(swirl)
 install_from_swirl("R Programming Alt")  # this may take a while (10-30 min)
+swirl()
+#follow instructions
+#to exit: esc
+#to continue, type library(swirl)
