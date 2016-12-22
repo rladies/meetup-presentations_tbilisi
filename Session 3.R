@@ -32,6 +32,17 @@ as.integer("5.27")
 #but cannot coerce a non-decimal string
 as.integer("Joe")
 
+#Why L here?
+x <- 1:1000
+y <- x+1
+typeof(y) # double, twice the memory size
+object.size(y) # 840 bytes (on win64) 
+z <- x+1L
+a<-x+4L
+object.size(y)
+object.size(z)
+object.size(a)
+
 #LOGICAL --> TRUE, FALSE
 v <- TRUE 
 class(v)
@@ -56,6 +67,11 @@ levels(a)
 a[3] <- "d" #creates NA
 a[3] <- "a" # allows to add existing levels
 a
+#add several:
+a[c(3:4)]<-"a"
+a[c(3,5)]<-"b"
+a
+
 #Change levels
 levels(a)[1] <- "AA"
 a
@@ -124,15 +140,17 @@ M5[,-c(3,5)] #deletes 3rd and 5th column
 M5[1:3,] #selects columns 1 to 3
 M5[c(1,2),] #selects the 1st and 2nd rows
 
+#create a matrix with a step of 5 or 0.5
+M6<-matrix(seq(0,25,5),2)
+M6<-matrix(seq(0,25,0.5),3)
+M6
+
 #assign names/labels to matrix vectors
 #dimnames can also be used for arrays or data frames
 
 dimnames(M2) <- list(month.abb[1:2], month.abb[3:5])
 dimnames(M2)[[1]] <- letters[1:2]
 
-#dimnames(M2) = list( 
- # +   c("one", "two"),         # row names 
-#  +   c("col1", "col2","col3")) # column names 
 M2
 str(M2)
 
