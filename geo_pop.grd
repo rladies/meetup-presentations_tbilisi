@@ -1,0 +1,27 @@
+[general] 
+creator=R package 'raster' 
+created= 2011-11-12 16:19:36 
+[georeference] 
+nrows= 197 
+ncols= 500 
+xmin= 39.9 
+ymin= 40.9833333333333 
+xmax= 46.7666666666667 
+ymax= 43.6916666666667 
+projection= +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+[data] 
+datatype= INT2S 
+byteorder= little 
+nbands= 1 
+bandorder= BIL 
+categorical= FALSE 
+minvalue= 1 
+maxvalue= 7150 
+nodatavalue= -9999 
+[legend] 
+legendtype=  
+values=  
+color=  
+[description] 
+layername= geo_pop 
+history=  
