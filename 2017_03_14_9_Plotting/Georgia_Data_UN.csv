@@ -1,0 +1,152 @@
+variable,type,year,value,geo
+GDP: Gross domestic product (million current US$),economic,2014,16530,
+GDP: Gross domestic product (million current US$),economic,2010,11638,
+GDP: Gross domestic product (million current US$),economic,2005,6411,
+"GDP growth rate (annual %, const. 2005 prices)",economic,2014,4.8,
+"GDP growth rate (annual %, const. 2005 prices)",economic,2010,6.2,
+"GDP growth rate (annual %, const. 2005 prices)",economic,2005,9.6,
+GDP per capita (current US$),economic,2014,4097,
+GDP per capita (current US$),economic,2010,2738.3,
+GDP per capita (current US$),economic,2005,1432.5,
+Economy: Agriculture (% of GVA),economic,2014,9.1,
+Economy: Agriculture (% of GVA),economic,2010,8.3,
+Economy: Agriculture (% of GVA),economic,2005,16.5,
+Economy: Industry (% of GVA),economic,2014,24,
+Economy: Industry (% of GVA),economic,2010,22,
+Economy: Industry (% of GVA),economic,2005,26.5,
+Economy: Services and other activity (% of GVA),economic,2014,66.9,
+Economy: Services and other activity (% of GVA),economic,2010,69.8,
+Economy: Services and other activity (% of GVA),economic,2005,57,
+Employment: Agriculture (% of employed),economic,2014,NA,
+Employment: Agriculture (% of employed),economic,2010,53.4,
+Employment: Agriculture (% of employed),economic,2005,54.3,
+Employment: Industry (% of employed),economic,2014,NA,
+Employment: Industry (% of employed),economic,2010,10.4,
+Employment: Industry (% of employed),economic,2005,9.3,
+Employment: Services and other (% of employed),economic,2014,NA,
+Employment: Services and other (% of employed),economic,2010,36.2,
+Employment: Services and other (% of employed),economic,2005,36.4,
+Unemployment (% of labour force),economic,2014,12.4,
+Unemployment (% of labour force),economic,2010,16.3,
+Unemployment (% of labour force),economic,2005,13.8,
+Labour force participation female,economic,2014,57,
+Labour force participation female,economic,2010,56.2,
+Labour force participation female,economic,2005,55.4,
+CPI: Consumer price index (2000=100),economic,2014,NA,
+CPI: Consumer price index (2000=100),economic,2010,189,
+CPI: Consumer price index (2000=100),economic,2005,132,
+Agricultural production index (2004-2006=100),economic,2014,86,
+Agricultural production index (2004-2006=100),economic,2010,67,
+Agricultural production index (2004-2006=100),economic,2005,121,
+Food production index (2004-2006=100),economic,2014,88,
+Food production index (2004-2006=100),economic,2010,68,
+Food production index (2004-2006=100),economic,2005,121,
+Index of industrial production (2005=100),economic,2014,185,
+Index of industrial production (2005=100),economic,2010,137,
+Index of industrial production (2005=100),economic,2005,100,
+"Balance of payments, current account (million US$)",economic,2014,-1820,
+"Balance of payments, current account (million US$)",economic,2010,-1328,
+"Balance of payments, current account (million US$)",economic,2005,-757,
+Exports (million US$),economic,2015,2203.6,
+Imports (million US$),economic,2015,7724.4,
+Balance (million US$),economic,2015,-5520.8,
+Major trading partners (% of exports),Azerbaijan,2015,10.9,
+Major trading partners (% of exports),Bulgaria,2015,9.7,
+Major trading partners (% of exports),Turkey,2015,7.6,
+Major trading partners (% of imports),Turkey,2015,17.2,
+Major trading partners (% of imports),China,2015,7.6,
+Major trading partners (% of imports),Russia,2015,6.7,
+Population growth rate (average annual %),social,2010-2015,-1.2,
+Urban population (%),social,2015,53.6,
+Urban population growth rate (average annual %),social,2010-2015,-0.1,
+"Fertility rate, total (live births per woman)",social,2010-2015,1.8,
+"Life expectancy at birth (females, years)",social,2010-2015,78.1,
+"Life expectancy at birth (males, years)",social,2010-2015,70.9,
+Total dependency ratio (Pop. aged 0-14 & 65+ per 100 pop. 15-64),social,2015,46,
+Tourist arrivals at national borders (000),social,2014,2229,
+Refugees and others of concern to UNHCR,social,mid-2015,268306,
+Infant mortality rate (per 1 000 live births),social,2010-2015,14,
+Health: Total expenditure (% of GDP),social,2014,7.4,
+Health: Physicians (per 1 000 pop.),social,2013,4.3,
+Education: Government expenditure (% of GDP),social,2014,2,
+Education: Tertiary gross enrolment ratio (f-m per 100 pop.),social,2014,8.9,
+Intentional homicide rate (per 100 000 pop.),social,2014,2.7,
+Seats held by women in national parliaments (%),social,2016,11.3,
+Mobile-cellular subscriptions (per 100 inhabitants),Environment,2014,124.9,
+Individuals using the Internet (%),Environment,2014,48.9,
+Patents: Resident filings (per million pop.),Environment,2014,24,
+Threatened species,Environment,2015,114,
+Forested area (% of land area),Environment,2013,40.6,
+CO2 emission estimates (tons per capita),Environment,2013,1.8,
+"Energy production, primary (Petajoules)",Environment,2013,59,
+Energy supply per capita (Gigajoules),Environment,2013,40,
+Terrestrial and marine areas protected (% of total area),Environment,2014,6.5,
+Net Official Development Assistance received (% of GNI),Environment,2014,3.4,
+Export of Services,Travel,2012,55.5,
+Export of Services,Transportation,2012,33.4,
+Export of Services,Remaining,2012,11.1,
+Total Services Trade,Exports,2000,0.4,
+Total Services Trade,Exports,2001,0.4,
+Total Services Trade,Exports,2002,0.5,
+Total Services Trade,Exports,2003,0.5,
+Total Services Trade,Exports,2004,0.6,
+Total Services Trade,Exports,2005,0.7,
+Total Services Trade,Exports,2006,0.8,
+Total Services Trade,Exports,2007,0.8,
+Total Services Trade,Exports,2008,1,
+Total Services Trade,Exports,2009,2,
+Total Services Trade,Exports,2010,1.5,
+Total Services Trade,Exports,2011,2,
+Total Services Trade,Exports,2012,2.5,
+Total Services Trade,Imports,2000,0.4,
+Total Services Trade,Imports,2001,0.4,
+Total Services Trade,Imports,2002,0.5,
+Total Services Trade,Imports,2003,0.5,
+Total Services Trade,Imports,2004,0.7,
+Total Services Trade,Imports,2005,0.8,
+Total Services Trade,Imports,2006,0.8,
+Total Services Trade,Imports,2007,0.7,
+Total Services Trade,Imports,2008,0.8,
+Total Services Trade,Imports,2009,0.9,
+Total Services Trade,Imports,2010,1,
+Total Services Trade,Imports,2011,1.1,
+Total Services Trade,Imports,2012,1.1,
+Merchandize Trade Balance,Exports,2013,0,Dev. Asia Pacific
+Merchandize Trade Balance,Exports,2013,0.5,Europe
+Merchandize Trade Balance,Exports,2013,0.4,North America
+Merchandize Trade Balance,Exports,2013,0.3,South Eastern Europe
+Merchandize Trade Balance,Exports,2013,2,CIS
+Merchandize Trade Balance,Exports,2013,0,North Africa
+Merchandize Trade Balance,Exports,2013,0.1,Sub-Saharan Africa
+Merchandize Trade Balance,Exports,2013,0.1,Latin Am. And Carr.
+Merchandize Trade Balance,Exports,2013,0.2,Eastern Asia
+Merchandize Trade Balance,Exports,2013,0.2,Southern Asia
+Merchandize Trade Balance,Exports,2013,0,South-Eastern Asia
+Merchandize Trade Balance,Exports,2013,0.4,Western Asia
+Merchandize Trade Balance,Exports,2013,0,Oceania
+Merchandize Trade Balance,Imports,2013,0.5,Dev. Asia Pacific
+Merchandize Trade Balance,Imports,2013,2,Europe
+Merchandize Trade Balance,Imports,2013,0.5,North America
+Merchandize Trade Balance,Imports,2013,0.7,South Eastern Europe
+Merchandize Trade Balance,Imports,2013,2.2,CIS
+Merchandize Trade Balance,Imports,2013,0,North Africa
+Merchandize Trade Balance,Imports,2013,0,Sub-Saharan Africa
+Merchandize Trade Balance,Imports,2013,0.2,Latin Am. And Carr.
+Merchandize Trade Balance,Imports,2013,0.8,Eastern Asia
+Merchandize Trade Balance,Imports,2013,0.4,Southern Asia
+Merchandize Trade Balance,Imports,2013,0.2,South-Eastern Asia
+Merchandize Trade Balance,Imports,2013,1.7,Western Asia
+Merchandize Trade Balance,Imports,2013,0,Oceania
+Merchandize Trade Balance,Balance,2013,-0.5,Dev. Asia Pacific
+Merchandize Trade Balance,Balance,2013,-1.5,Europe
+Merchandize Trade Balance,Balance,2013,-0.1,North America
+Merchandize Trade Balance,Balance,2013,-0.4,South Eastern Europe
+Merchandize Trade Balance,Balance,2013,-0.2,CIS
+Merchandize Trade Balance,Balance,2013,0,North Africa
+Merchandize Trade Balance,Balance,2013,0.1,Sub-Saharan Africa
+Merchandize Trade Balance,Balance,2013,-0.1,Latin Am. And Carr.
+Merchandize Trade Balance,Balance,2013,-0.6,Eastern Asia
+Merchandize Trade Balance,Balance,2013,-0.2,Southern Asia
+Merchandize Trade Balance,Balance,2013,-0.2,South-Eastern Asia
+Merchandize Trade Balance,Balance,2013,-1.3,Western Asia
+Merchandize Trade Balance,Balance,2013,0,Oceania
