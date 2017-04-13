@@ -1,0 +1,16 @@
+install.packages("foreign")
+library("foreign")
+
+#it is better to have two separate files for ui and server, called exactly "ui.R" and "server.R"
+
+#first you have to define your data source
+
+#for .sav datasource:
+#mydata = read.spss('data/CB_2015_Regional_Only_Responses_140416.sav', to.data.frame=TRUE)
+
+
+#for .dta datasource:
+#to avoid the issues, write the abolute path of data file. or set working directory (setwd())
+mydata = read.dta('C:/Users/tedo/Desktop/R-Ladies/meetup/data/CB_2015_Regional_Only_Responses_140416.dta')
+
+
