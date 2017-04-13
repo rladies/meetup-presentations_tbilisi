@@ -67,14 +67,16 @@
 66,235,"TUR","Turkey",6,"Afyon",66,"Basmakçi","District","District",NA,NA
 67,235,"TUR","Turkey",6,"Afyon",67,"Bayat","District","District",NA,NA
 68,235,"TUR","Turkey",6,"Afyon",68,"Bolvadin","District","District",NA,NA
-69,235,"TUR","Turkey",6,"Afyon",69,"Dazkiri
+69,235,"TUR","Turkey",6,"Afyon",69,"Dazkiri
+
 ","District","District",NA,NA
 70,235,"TUR","Turkey",6,"Afyon",70,"Dinar","District","District",NA,NA
 71,235,"TUR","Turkey",6,"Afyon",71,"Emirdag","District","District",NA,NA
 72,235,"TUR","Turkey",6,"Afyon",72,"Evciler","District","District",NA,NA
 73,235,"TUR","Turkey",6,"Afyon",73,"Hocalar","District","District",NA,NA
 74,235,"TUR","Turkey",6,"Afyon",74,"Kizilören","District","District",NA,NA
-75,235,"TUR","Turkey",6,"Afyon",75,"Merkez","District","District",NA,"Afyonkarahisar Merkez
+75,235,"TUR","Turkey",6,"Afyon",75,"Merkez","District","District",NA,"Afyonkarahisar Merkez
+
 "
 76,235,"TUR","Turkey",6,"Afyon",76,"Sandikli","District","District",NA,NA
 77,235,"TUR","Turkey",6,"Afyon",77,"Sincanli","District","District",NA,NA
@@ -93,7 +95,8 @@
 90,235,"TUR","Turkey",8,"Aksaray",90,"Güzelyurt","District","District",NA,NA
 91,235,"TUR","Turkey",8,"Aksaray",91,"Merkez","District","District",NA,"Aksaray"
 92,235,"TUR","Turkey",8,"Aksaray",92,"Ortaköy","District","District",NA,NA
-93,235,"TUR","Turkey",8,"Aksaray",93,"Sariyahsi
+93,235,"TUR","Turkey",8,"Aksaray",93,"Sariyahsi
+
 ","District","District",NA,NA
 94,235,"TUR","Turkey",9,"Amasya",94,"Göynücek","District","District",NA,NA
 95,235,"TUR","Turkey",9,"Amasya",95,"Gümüshaciköy","District","District",NA,NA
@@ -124,7 +127,8 @@
 120,235,"TUR","Turkey",10,"Ankara",120,"Mamak","District","District",NA,NA
 121,235,"TUR","Turkey",10,"Ankara",121,"Nallihan","District","District",NA,NA
 122,235,"TUR","Turkey",10,"Ankara",122,"Polatli","District","District",NA,NA
-123,235,"TUR","Turkey",10,"Ankara",123,"Sincan
+123,235,"TUR","Turkey",10,"Ankara",123,"Sincan
+
 ","District","District",NA,NA
 124,235,"TUR","Turkey",10,"Ankara",124,"Yenimahalle","District","District",NA,NA
 125,235,"TUR","Turkey",11,"Antalya",125,"Ibradi","District","District",NA,NA
@@ -168,7 +172,8 @@
 163,235,"TUR","Turkey",14,"Aydin",163,"Koçarli","District","District",NA,NA
 164,235,"TUR","Turkey",14,"Aydin",164,"Kusadasi","District","District",NA,NA
 165,235,"TUR","Turkey",14,"Aydin",165,"Kuyucak","District","District",NA,NA
-166,235,"TUR","Turkey",14,"Aydin",166,"Merkez","District","District",NA,"Aydin Merkez
+166,235,"TUR","Turkey",14,"Aydin",166,"Merkez","District","District",NA,"Aydin Merkez
+
 "
 167,235,"TUR","Turkey",14,"Aydin",167,"Nazilli","District","District",NA,NA
 168,235,"TUR","Turkey",14,"Aydin",168,"Söke","District","District",NA,NA
@@ -189,7 +194,8 @@
 183,235,"TUR","Turkey",15,"Balikesir",183,"Kepsut","District","District",NA,NA
 184,235,"TUR","Turkey",15,"Balikesir",184,"Manyas","District","District",NA,NA
 185,235,"TUR","Turkey",15,"Balikesir",185,"Marmara","District","District",NA,NA
-186,235,"TUR","Turkey",15,"Balikesir",186,"Merkez","District","District",NA,"Balikesir Merkezi
+186,235,"TUR","Turkey",15,"Balikesir",186,"Merkez","District","District",NA,"Balikesir Merkezi
+
  Merkez"
 187,235,"TUR","Turkey",15,"Balikesir",187,"Sindirgi","District","District",NA,NA
 188,235,"TUR","Turkey",15,"Balikesir",188,"Savastepe","District","District",NA,NA
@@ -226,7 +232,8 @@
 219,235,"TUR","Turkey",21,"Bitlis",219,"Adilcevaz","District","District",NA,NA
 220,235,"TUR","Turkey",21,"Bitlis",220,"Ahlat","District","District",NA,NA
 221,235,"TUR","Turkey",21,"Bitlis",221,"Güroymak","District","District",NA,NA
-222,235,"TUR","Turkey",21,"Bitlis",222,"Hizan
+222,235,"TUR","Turkey",21,"Bitlis",222,"Hizan
+
 ","District","District",NA,NA
 223,235,"TUR","Turkey",21,"Bitlis",223,"Merkez","District","District",NA,"Bitlis Merkezi"
 224,235,"TUR","Turkey",21,"Bitlis",224,"Mutki","District","District",NA,NA
@@ -294,7 +301,8 @@
 286,235,"TUR","Turkey",26,"Denizli",286,"Merkez","District","District",NA,"Denizli Merkez"
 287,235,"TUR","Turkey",26,"Denizli",287,"Sarayköy","District","District",NA,NA
 288,235,"TUR","Turkey",26,"Denizli",288,"Serinhisar","District","District",NA,NA
-289,235,"TUR","Turkey",26,"Denizli",289,"Tavas
+289,235,"TUR","Turkey",26,"Denizli",289,"Tavas
+
 ","District","District",NA,NA
 290,235,"TUR","Turkey",27,"Diyarbakir",290,"Çinar","District","District",NA,NA
 291,235,"TUR","Turkey",27,"Diyarbakir",291,"Çüngüs","District","District",NA,NA
@@ -308,7 +316,8 @@
 299,235,"TUR","Turkey",27,"Diyarbakir",299,"Kocaköy","District","District",NA,NA
 300,235,"TUR","Turkey",27,"Diyarbakir",300,"Kulp","District","District",NA,NA
 301,235,"TUR","Turkey",27,"Diyarbakir",301,"Lice","District","District",NA,NA
-302,235,"TUR","Turkey",27,"Diyarbakir",302,"Merkez","District","District",NA,"Diyarbakir Merkezi
+302,235,"TUR","Turkey",27,"Diyarbakir",302,"Merkez","District","District",NA,"Diyarbakir Merkezi
+
 "
 303,235,"TUR","Turkey",27,"Diyarbakir",303,"Silvan","District","District",NA,NA
 304,235,"TUR","Turkey",28,"Edirne",304,"Ipsala","District","District",NA,NA
@@ -340,7 +349,8 @@
 330,235,"TUR","Turkey",30,"Erzincan",330,"Otlukbeli","District","District",NA,NA
 331,235,"TUR","Turkey",30,"Erzincan",331,"Refahiye","District","District",NA,NA
 332,235,"TUR","Turkey",30,"Erzincan",332,"Tercan","District","District",NA,NA
-333,235,"TUR","Turkey",31,"Erzurum",333,"Ispir
+333,235,"TUR","Turkey",31,"Erzurum",333,"Ispir
+
 ","District","District",NA,NA
 334,235,"TUR","Turkey",31,"Erzurum",334,"Çat","District","District",NA,NA
 335,235,"TUR","Turkey",31,"Erzurum",335,"Askale","District","District",NA,NA
@@ -367,7 +377,8 @@
 356,235,"TUR","Turkey",32,"Eskisehir",356,"Günyüzü","District","District",NA,NA
 357,235,"TUR","Turkey",32,"Eskisehir",357,"Han","District","District",NA,NA
 358,235,"TUR","Turkey",32,"Eskisehir",358,"Mahmudiye","District","District",NA,NA
-359,235,"TUR","Turkey",32,"Eskisehir",359,"Merkez","District","District",NA,"Eskisehir Merkez
+359,235,"TUR","Turkey",32,"Eskisehir",359,"Merkez","District","District",NA,"Eskisehir Merkez
+
  Merkez"
 360,235,"TUR","Turkey",32,"Eskisehir",360,"Mihaliçcik","District","District",NA,NA
 361,235,"TUR","Turkey",32,"Eskisehir",361,"Mihalgazi","District","District",NA,NA
@@ -376,7 +387,8 @@
 364,235,"TUR","Turkey",32,"Eskisehir",364,"Sivrihisar","District","District",NA,NA
 365,235,"TUR","Turkey",33,"Gümüshane",365,"Siran","District","District",NA,NA
 366,235,"TUR","Turkey",33,"Gümüshane",366,"Köse","District","District",NA,NA
-367,235,"TUR","Turkey",33,"Gümüshane",367,"Kürtün
+367,235,"TUR","Turkey",33,"Gümüshane",367,"Kürtün
+
 ","District","District",NA,NA
 368,235,"TUR","Turkey",33,"Gümüshane",368,"Kelkit","District","District",NA,NA
 369,235,"TUR","Turkey",33,"Gümüshane",369,"Merkez","District","District",NA,"Gümüshane"
@@ -388,7 +400,8 @@
 375,235,"TUR","Turkey",34,"Gaziantep",375,"Karkamis","District","District",NA,NA
 376,235,"TUR","Turkey",34,"Gaziantep",376,"Nizip","District","District",NA,NA
 377,235,"TUR","Turkey",34,"Gaziantep",377,"Nurdagi","District","District",NA,NA
-378,235,"TUR","Turkey",34,"Gaziantep",378,"Oguzeli
+378,235,"TUR","Turkey",34,"Gaziantep",378,"Oguzeli
+
 ","District","District",NA,NA
 379,235,"TUR","Turkey",34,"Gaziantep",379,"Yavuzeli","District","District",NA,NA
 380,235,"TUR","Turkey",35,"Giresun",380,"Çamoluk","District","District",NA,NA
@@ -423,11 +436,13 @@
 409,235,"TUR","Turkey",37,"Hatay",409,"Reyhanli","District","District",NA,NA
 410,235,"TUR","Turkey",37,"Hatay",410,"Samandag","District","District",NA,NA
 411,235,"TUR","Turkey",37,"Hatay",411,"Yayladagi","District","District",NA,NA
-412,235,"TUR","Turkey",38,"Igdir",412,"Aralik
+412,235,"TUR","Turkey",38,"Igdir",412,"Aralik
+
 ","District","District",NA,NA
 413,235,"TUR","Turkey",38,"Igdir",413,"Karakoyunlu","District","District",NA,NA
 414,235,"TUR","Turkey",38,"Igdir",414,"Merkez","District","District",NA,"Igdir"
-415,235,"TUR","Turkey",38,"Igdir",415,"Tuzluca
+415,235,"TUR","Turkey",38,"Igdir",415,"Tuzluca
+
 ","District","District",NA,NA
 416,235,"TUR","Turkey",39,"Isparta",416,"Aksu","District","District",NA,NA
 417,235,"TUR","Turkey",39,"Isparta",417,"Atabey","District","District",NA,NA
@@ -482,14 +497,16 @@
 466,235,"TUR","Turkey",40,"Istanbul",466,"Zeytinburnu","District","District",NA,NA
 467,235,"TUR","Turkey",41,"Izmir",467,"Ödemis","District","District",NA,NA
 468,235,"TUR","Turkey",41,"Izmir",468,"Çesme","District","District",NA,NA
-469,235,"TUR","Turkey",41,"Izmir",469,"Çigli
+469,235,"TUR","Turkey",41,"Izmir",469,"Çigli
+
 ","District","District",NA,NA
 470,235,"TUR","Turkey",41,"Izmir",470,"Aliaga","District","District",NA,NA
 471,235,"TUR","Turkey",41,"Izmir",471,"Balçova","District","District",NA,NA
 472,235,"TUR","Turkey",41,"Izmir",472,"Bayindir","District","District",NA,NA
 473,235,"TUR","Turkey",41,"Izmir",473,"Bergama","District","District",NA,NA
 474,235,"TUR","Turkey",41,"Izmir",474,"Beydag","District","District",NA,NA
-475,235,"TUR","Turkey",41,"Izmir",475,"Bornova
+475,235,"TUR","Turkey",41,"Izmir",475,"Bornova
+
 ","District","District",NA,NA
 476,235,"TUR","Turkey",41,"Izmir",476,"Buca","District","District",NA,NA
 477,235,"TUR","Turkey",41,"Izmir",477,"Dikili","District","District",NA,NA
@@ -582,7 +599,8 @@
 564,235,"TUR","Turkey",48,"Kayseri",564,"Hacilar","District","District",NA,NA
 565,235,"TUR","Turkey",48,"Kayseri",565,"Kocasinan","District","District",NA,NA
 566,235,"TUR","Turkey",48,"Kayseri",566,"Melikgazi","District","District",NA,NA
-567,235,"TUR","Turkey",48,"Kayseri",567,"Pinarbasi
+567,235,"TUR","Turkey",48,"Kayseri",567,"Pinarbasi
+
 ","District","District",NA,NA
 568,235,"TUR","Turkey",48,"Kayseri",568,"Sarioglan","District","District",NA,NA
 569,235,"TUR","Turkey",48,"Kayseri",569,"Sariz","District","District",NA,NA
@@ -600,7 +618,8 @@
 581,235,"TUR","Turkey",50,"Kinkkale",581,"Delice","District","District",NA,NA
 582,235,"TUR","Turkey",50,"Kinkkale",582,"Karakeçili","District","District",NA,NA
 583,235,"TUR","Turkey",50,"Kinkkale",583,"Keskin","District","District",NA,NA
-584,235,"TUR","Turkey",50,"Kinkkale",584,"Merkez
+584,235,"TUR","Turkey",50,"Kinkkale",584,"Merkez
+
 ","District","District",NA,"Kirikkale"
 585,235,"TUR","Turkey",50,"Kinkkale",585,"Sulakyurt","District","District",NA,NA
 586,235,"TUR","Turkey",50,"Kinkkale",586,"Yahsihan","District","District",NA,NA
@@ -625,7 +644,8 @@
 605,235,"TUR","Turkey",53,"Kocaeli",605,"Körfez","District","District",NA,NA
 606,235,"TUR","Turkey",53,"Kocaeli",606,"Kandira","District","District",NA,NA
 607,235,"TUR","Turkey",53,"Kocaeli",607,"Karamürsel","District","District",NA,NA
-608,235,"TUR","Turkey",53,"Kocaeli",608,"Merkez","District","District",NA,"Kocaeli Merkezi
+608,235,"TUR","Turkey",53,"Kocaeli",608,"Merkez","District","District",NA,"Kocaeli Merkezi
+
 "
 609,235,"TUR","Turkey",54,"Konya",609,"Çeltik","District","District",NA,NA
 610,235,"TUR","Turkey",54,"Konya",610,"Çumra","District","District",NA,NA
@@ -660,7 +680,8 @@
 639,235,"TUR","Turkey",54,"Konya",639,"Yunak","District","District",NA,NA
 640,235,"TUR","Turkey",55,"Malatya",640,"Akçadag","District","District",NA,NA
 641,235,"TUR","Turkey",55,"Malatya",641,"Arapkir","District","District",NA,NA
-642,235,"TUR","Turkey",55,"Malatya",642,"Arguvan
+642,235,"TUR","Turkey",55,"Malatya",642,"Arguvan
+
 ","District","District",NA,NA
 643,235,"TUR","Turkey",55,"Malatya",643,"Battalgazi","District","District",NA,NA
 644,235,"TUR","Turkey",55,"Malatya",644,"Darende","District","District",NA,NA
@@ -682,7 +703,8 @@
 660,235,"TUR","Turkey",56,"Manisa",660,"Kirkagaç","District","District",NA,NA
 661,235,"TUR","Turkey",56,"Manisa",661,"Köprübasi","District","District",NA,NA
 662,235,"TUR","Turkey",56,"Manisa",662,"Kula","District","District",NA,NA
-663,235,"TUR","Turkey",56,"Manisa",663,"Merkez","District","District",NA,"Manisa Merkezi
+663,235,"TUR","Turkey",56,"Manisa",663,"Merkez","District","District",NA,"Manisa Merkezi
+
  Merkezi"
 664,235,"TUR","Turkey",56,"Manisa",664,"Salihli","District","District",NA,NA
 665,235,"TUR","Turkey",56,"Manisa",665,"Sarigöl","District","District",NA,NA
@@ -695,7 +717,8 @@
 672,235,"TUR","Turkey",57,"Mardin",672,"Derik","District","District",NA,NA
 673,235,"TUR","Turkey",57,"Mardin",673,"Kiziltepe","District","District",NA,NA
 674,235,"TUR","Turkey",57,"Mardin",674,"Mazidagi","District","District",NA,NA
-675,235,"TUR","Turkey",57,"Mardin",675,"Merkez
+675,235,"TUR","Turkey",57,"Mardin",675,"Merkez
+
 ","District","District",NA,"Mardin Merkez"
 676,235,"TUR","Turkey",57,"Mardin",676,"Midyat","District","District",NA,NA
 677,235,"TUR","Turkey",57,"Mardin",677,"Nusaybin","District","District",NA,NA
@@ -731,7 +754,8 @@
 707,235,"TUR","Turkey",60,"Mus",707,"Varto","District","District",NA,NA
 708,235,"TUR","Turkey",61,"Nevsehir",708,"Acigöl","District","District",NA,NA
 709,235,"TUR","Turkey",61,"Nevsehir",709,"Ürgüp","District","District",NA,NA
-710,235,"TUR","Turkey",61,"Nevsehir",710,"Avanos
+710,235,"TUR","Turkey",61,"Nevsehir",710,"Avanos
+
 ","District","District",NA,NA
 711,235,"TUR","Turkey",61,"Nevsehir",711,"Derinkuyu","District","District",NA,NA
 712,235,"TUR","Turkey",61,"Nevsehir",712,"Gülsehir","District","District",NA,NA
@@ -765,7 +789,8 @@
 740,235,"TUR","Turkey",64,"Osmaniye",740,"Bahçe","District","District",NA,NA
 741,235,"TUR","Turkey",64,"Osmaniye",741,"Düziçi","District","District",NA,NA
 742,235,"TUR","Turkey",64,"Osmaniye",742,"Hasanbeyli","District","District",NA,NA
-743,235,"TUR","Turkey",64,"Osmaniye",743,"Kadirli
+743,235,"TUR","Turkey",64,"Osmaniye",743,"Kadirli
+
 ","District","District",NA,NA
 744,235,"TUR","Turkey",64,"Osmaniye",744,"Merkez","District","District",NA,"Osmaniye"
 745,235,"TUR","Turkey",64,"Osmaniye",745,"Sumbas","District","District",NA,NA
@@ -803,17 +828,21 @@
 777,235,"TUR","Turkey",67,"Samsun",777,"Havza","District","District",NA,NA
 778,235,"TUR","Turkey",67,"Samsun",778,"Kavak","District","District",NA,NA
 779,235,"TUR","Turkey",67,"Samsun",779,"Ladik","District","District",NA,NA
-780,235,"TUR","Turkey",67,"Samsun",780,"Merkez","District","District",NA,"Samsun Merkezi
- Merkezi
+780,235,"TUR","Turkey",67,"Samsun",780,"Merkez","District","District",NA,"Samsun Merkezi
+
+ Merkezi
+
 "
 781,235,"TUR","Turkey",67,"Samsun",781,"Ondokuz Mayis","District","District",NA,NA
 782,235,"TUR","Turkey",67,"Samsun",782,"Salipazari","District","District",NA,NA
 783,235,"TUR","Turkey",67,"Samsun",783,"Tekkeköy","District","District",NA,NA
 784,235,"TUR","Turkey",67,"Samsun",784,"Terme","District","District",NA,NA
-785,235,"TUR","Turkey",67,"Samsun",785,"Vezirköprü
+785,235,"TUR","Turkey",67,"Samsun",785,"Vezirköprü
+
 ","District","District",NA,NA
 786,235,"TUR","Turkey",67,"Samsun",786,"Yakakent","District","District",NA,NA
-787,235,"TUR","Turkey",68,"Sanliurfa",787,"Akçakale
+787,235,"TUR","Turkey",68,"Sanliurfa",787,"Akçakale
+
 ","District","District",NA,NA
 788,235,"TUR","Turkey",68,"Sanliurfa",788,"Birecik","District","District",NA,NA
 789,235,"TUR","Turkey",68,"Sanliurfa",789,"Bozova","District","District",NA,NA
@@ -846,7 +875,8 @@
 816,235,"TUR","Turkey",71,"Sirnak",816,"Cizre","District","District",NA,NA
 817,235,"TUR","Turkey",71,"Sirnak",817,"Güçlükonak","District","District",NA,NA
 818,235,"TUR","Turkey",71,"Sirnak",818,"Merkez","District","District",NA,"Sirnak"
-819,235,"TUR","Turkey",71,"Sirnak",819,"Silopi
+819,235,"TUR","Turkey",71,"Sirnak",819,"Silopi
+
 ","District","District",NA,NA
 820,235,"TUR","Turkey",71,"Sirnak",820,"Uludere","District","District",NA,NA
 821,235,"TUR","Turkey",72,"Sivas",821,"Imranli","District","District",NA,NA
@@ -854,7 +884,8 @@
 823,235,"TUR","Turkey",72,"Sivas",823,"Altinyayla","District","District",NA,NA
 824,235,"TUR","Turkey",72,"Sivas",824,"Sarkisla","District","District",NA,NA
 825,235,"TUR","Turkey",72,"Sivas",825,"Divrigi","District","District",NA,NA
-826,235,"TUR","Turkey",72,"Sivas",826,"Dogansar
+826,235,"TUR","Turkey",72,"Sivas",826,"Dogansar
+
 ","District","District",NA,NA
 827,235,"TUR","Turkey",72,"Sivas",827,"Gölova","District","District",NA,NA
 828,235,"TUR","Turkey",72,"Sivas",828,"Gürün","District","District",NA,NA
@@ -880,13 +911,15 @@
 848,235,"TUR","Turkey",74,"Tokat",848,"Artova","District","District",NA,NA
 849,235,"TUR","Turkey",74,"Tokat",849,"Basçiftlik","District","District",NA,NA
 850,235,"TUR","Turkey",74,"Tokat",850,"Erbaa","District","District",NA,NA
-851,235,"TUR","Turkey",74,"Tokat",851,"Merkez
+851,235,"TUR","Turkey",74,"Tokat",851,"Merkez
+
 ","District","District",NA,"Tokat"
 852,235,"TUR","Turkey",74,"Tokat",852,"Niksar","District","District",NA,NA
 853,235,"TUR","Turkey",74,"Tokat",853,"Pazar","District","District",NA,NA
 854,235,"TUR","Turkey",74,"Tokat",854,"Resadiye","District","District",NA,NA
 855,235,"TUR","Turkey",74,"Tokat",855,"Sulusaray","District","District",NA,NA
-856,235,"TUR","Turkey",74,"Tokat",856,"Turhal
+856,235,"TUR","Turkey",74,"Tokat",856,"Turhal
+
 ","District","District",NA,NA
 857,235,"TUR","Turkey",74,"Tokat",857,"Yesilyurt","District","District",NA,NA
 858,235,"TUR","Turkey",74,"Tokat",858,"Zile","District","District",NA,NA
@@ -909,7 +942,8 @@
 875,235,"TUR","Turkey",75,"Trabzon",875,"Vakfikebir","District","District",NA,NA
 876,235,"TUR","Turkey",75,"Trabzon",876,"Yomra","District","District",NA,NA
 877,235,"TUR","Turkey",76,"Tunceli",877,"Çemisgezek","District","District",NA,NA
-878,235,"TUR","Turkey",76,"Tunceli",878,"Hozat
+878,235,"TUR","Turkey",76,"Tunceli",878,"Hozat
+
 ","District","District",NA,NA
 879,235,"TUR","Turkey",76,"Tunceli",879,"Mazgirt","District","District",NA,NA
 880,235,"TUR","Turkey",76,"Tunceli",880,"Merkez","District","District",NA,"Tunceli"
@@ -920,7 +954,8 @@
 885,235,"TUR","Turkey",77,"Usak",885,"Banaz","District","District",NA,NA
 886,235,"TUR","Turkey",77,"Usak",886,"Esme","District","District",NA,NA
 887,235,"TUR","Turkey",77,"Usak",887,"Karahalli","District","District",NA,NA
-888,235,"TUR","Turkey",77,"Usak",888,"Merkez","District","District",NA,"Usak
+888,235,"TUR","Turkey",77,"Usak",888,"Merkez","District","District",NA,"Usak
+
 "
 889,235,"TUR","Turkey",77,"Usak",889,"Sivasli","District","District",NA,NA
 890,235,"TUR","Turkey",77,"Usak",890,"Ulubey","District","District",NA,NA
@@ -933,7 +968,8 @@
 897,235,"TUR","Turkey",78,"Van",897,"Ercis","District","District",NA,NA
 898,235,"TUR","Turkey",78,"Van",898,"Gürpinar","District","District",NA,NA
 899,235,"TUR","Turkey",78,"Van",899,"Gevas","District","District",NA,NA
-900,235,"TUR","Turkey",78,"Van",900,"Merkez","District","District",NA,"Van Merkez
+900,235,"TUR","Turkey",78,"Van",900,"Merkez","District","District",NA,"Van Merkez
+
 "
 901,235,"TUR","Turkey",78,"Van",901,"Muradiye","District","District",NA,NA
 902,235,"TUR","Turkey",78,"Van",902,"Saray","District","District",NA,NA
