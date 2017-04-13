@@ -1,0 +1,76 @@
+Admin Region Name,select,order,Admin Region Code,type,Series Name,Series Code,YR2000,YR2005,YR2009
+"Georgia, Achara, Guria",0,,GEO_Achara_and_Guria_AGG_MAL_Survey_080,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,NA,25.5
+"Georgia, Achara, Guria",0,,GEO_Achara_and_Guria_AGG_MAL_Survey_080,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,NA,0.3
+"Georgia, Achara, Guria",0,,GEO_Achara_and_Guria_AGG_MAL_Survey_080,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,NA,19.7
+"Georgia, Achara, Guria",0,,GEO_Achara_and_Guria_AGG_MAL_Survey_080,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,NA,0.9
+"Georgia, Achara, Guria",0,,GEO_Achara_and_Guria_AGG_MAL_Survey_080,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,NA,1.5
+,1,1,,1,,,,,
+"Georgia, Adjara Aut. Rep.",1,2,GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,28.1,NA
+,1,1,,2,,,,,
+"Georgia, Adjara Aut. Rep.",1,2,GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,0.3,NA
+,1,1,,3,,,,,
+"Georgia, Adjara Aut. Rep.",1,2,GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,23.2,NA
+,1,1,,4,,,,,
+"Georgia, Adjara Aut. Rep.",1,2,GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,2.2,NA
+,1,1,,5,,,,,
+"Georgia, Adjara Aut. Rep.",1,2,GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,1,NA
+"Georgia, Guria",1,3,GEO_Guria_GE.GU_1298_GEO003,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,7.9,NA
+"Georgia, Guria",1,3,GEO_Guria_GE.GU_1298_GEO003,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,2.4,NA
+"Georgia, Guria",1,3,GEO_Guria_GE.GU_1298_GEO003,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,4.1,NA
+"Georgia, Guria",1,3,GEO_Guria_GE.GU_1298_GEO003,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,3.1,NA
+"Georgia, Guria",1,3,GEO_Guria_GE.GU_1298_GEO003,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,5.6,NA
+"Georgia, Imereti, Racha-Leckhumi",0,,GEO_Imereti_and_Racha-Leckhumi_AGG_MAL_Survey_081,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,NA,29.6
+"Georgia, Imereti",1,4,GEO_Imereti_GE.IM_1299_GEO004,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.2,2.9,NA
+"Georgia, Imereti",1,4,GEO_Imereti_GE.IM_1299_GEO004,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,8.4,20.3,NA
+"Georgia, Imereti",1,4,GEO_Imereti_GE.IM_1299_GEO004,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,2.6,4,NA
+"Georgia, Imereti",1,4,GEO_Imereti_GE.IM_1299_GEO004,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,1.2,2.9,NA
+"Georgia, Imereti",1,4,GEO_Imereti_GE.IM_1299_GEO004,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,9.9,21.5,NA
+"Georgia, Imereti, Racha-Leckhumi",0,,GEO_Imereti_and_Racha-Leckhumi_AGG_MAL_Survey_081,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,NA,0.5
+"Georgia, Imereti, Racha-Leckhumi",0,,GEO_Imereti_and_Racha-Leckhumi_AGG_MAL_Survey_081,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,NA,15.1
+"Georgia, Imereti, Racha-Leckhumi",0,,GEO_Imereti_and_Racha-Leckhumi_AGG_MAL_Survey_081,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,NA,1.5
+"Georgia, Imereti, Racha-Leckhumi",0,,GEO_Imereti_and_Racha-Leckhumi_AGG_MAL_Survey_081,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,NA,1.9
+"Georgia, Kakheti",1,5,GEO_Kakheti_GE.KA_1300_GEO005,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,7,19.6,13.2
+"Georgia, Kakheti",1,5,GEO_Kakheti_GE.KA_1300_GEO005,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.4,1.3,1
+"Georgia, Kakheti",1,5,GEO_Kakheti_GE.KA_1300_GEO005,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,8.2,16.1,6
+"Georgia, Kakheti",1,5,GEO_Kakheti_GE.KA_1300_GEO005,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,1.2,2.2,1
+"Georgia, Kakheti",1,5,GEO_Kakheti_GE.KA_1300_GEO005,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,1,4.5,2.3
+"Georgia, Kvemo Kartli",1,6,GEO_Kvemo_Kartli_GE.KK_1301_GEO006,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,9.5,28.2,19.1
+"Georgia, Kvemo Kartli",1,6,GEO_Kvemo_Kartli_GE.KK_1301_GEO006,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.9,0.3,1.1
+"Georgia, Kvemo Kartli",1,6,GEO_Kvemo_Kartli_GE.KK_1301_GEO006,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,14.9,23.2,15.4
+"Georgia, Kvemo Kartli",1,6,GEO_Kvemo_Kartli_GE.KK_1301_GEO006,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,4.2,2.2,1.4
+"Georgia, Kvemo Kartli",1,6,GEO_Kvemo_Kartli_GE.KK_1301_GEO006,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,1.7,2.9,1.9
+"Georgia, Shida Kartli, Mtckheta-Mtianeti",0,,GEO_Mtckheta-Mtianeti_and_Shida_Kartli_AGG_MAL_Survey_082,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,NA,19
+"Georgia, Mtskheta-Mtianeti",1,7,GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.2,0,NA
+"Georgia, Mtskheta-Mtianeti",1,7,GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,8.3,14.6,NA
+"Georgia, Mtskheta-Mtianeti",1,7,GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,1.2,2,NA
+"Georgia, Mtskheta-Mtianeti",1,7,GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,0.5,0,NA
+"Georgia, Mtskheta-Mtianeti",1,7,GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,7.4,25.4,NA
+"Georgia, Samtskhe-Javakheti",1,8,GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.8,0,0.8
+"Georgia, Samtskhe-Javakheti",1,8,GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,14.8,24.1,11.8
+"Georgia, Samtskhe-Javakheti",1,8,GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,2.8,4.3,2.2
+"Georgia, Samtskhe-Javakheti",1,8,GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,1.7,1.1,1.8
+"Georgia, Samtskhe-Javakheti",1,8,GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,7.7,21.1,13.6
+"Georgia, Samergelo and Zemo (upper) Svaneti",1,9,GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,0.7,0.7
+"Georgia, Samergelo and Zemo (upper) Svaneti",1,9,GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,13.5,8.5
+"Georgia, Samergelo and Zemo (upper) Svaneti",1,9,GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,2.6,1.5
+"Georgia, Samergelo and Zemo (upper) Svaneti",1,9,GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,3.7,1.1
+"Georgia, Samergelo and Zemo (upper) Svaneti",1,9,GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,19,18.2
+,1,10,,2,,,,,
+"Georgia, Shida Kartli",1,11,GEO_Shida_Kartli_GE.SD_1306_GEO011,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,0.6,1.2,NA
+,1,10,,3,,,,,
+"Georgia, Shida Kartli",1,11,GEO_Shida_Kartli_GE.SD_1306_GEO011,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,11.5,9.3,NA
+,1,10,,4,,,,,
+"Georgia, Shida Kartli",1,11,GEO_Shida_Kartli_GE.SD_1306_GEO011,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,2,1.5,NA
+,1,10,,5,,,,,
+"Georgia, Shida Kartli",1,11,GEO_Shida_Kartli_GE.SD_1306_GEO011,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,1.5,2.8,NA
+,1,10,,1,,,,,
+"Georgia, Shida Kartli",1,11,GEO_Shida_Kartli_GE.SD_1306_GEO011,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,8.4,20.4,NA
+"Georgia, Shida Kartli, Mtckheta-Mtianeti",0,,GEO_Mtckheta-Mtianeti_and_Shida_Kartli_AGG_MAL_Survey_082,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,NA,0.8
+"Georgia, Shida Kartli, Mtckheta-Mtianeti",0,,GEO_Mtckheta-Mtianeti_and_Shida_Kartli_AGG_MAL_Survey_082,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,NA,5.7
+"Georgia, Shida Kartli, Mtckheta-Mtianeti",0,,GEO_Mtckheta-Mtianeti_and_Shida_Kartli_AGG_MAL_Survey_082,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,NA,0.4
+"Georgia, Shida Kartli, Mtckheta-Mtianeti",0,,GEO_Mtckheta-Mtianeti_and_Shida_Kartli_AGG_MAL_Survey_082,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,NA,2.3
+"Georgia, Tbilisi",1,12,GEO_Tbilisi_GE.TB_1307_GEO012,1,"Prevalence of overweight, weight for height (% of children under 5)",SN.SH.STA.OWGH.ZS,NA,17.5,17.3
+"Georgia, Tbilisi",1,12,GEO_Tbilisi_GE.TB_1307_GEO012,2,"Prevalence of severe wasting, weight for height (% of children under 5)",SN.SH.SVR.WAST.ZS,NA,1.1,0.8
+"Georgia, Tbilisi",1,12,GEO_Tbilisi_GE.TB_1307_GEO012,3,"Prevalence of stunting, height for age (% of children under 5)",SN.SH.STA.STNT.ZS,NA,6.8,7.4
+"Georgia, Tbilisi",1,12,GEO_Tbilisi_GE.TB_1307_GEO012,4,"Prevalence of underweight, weight for age (% of children under 5)",SN.SH.STA.MALN.ZS,NA,1.4,1.1
+"Georgia, Tbilisi",1,12,GEO_Tbilisi_GE.TB_1307_GEO012,5,"Prevalence of wasting, weight for height (% of children under 5)",SN.SH.STA.WAST.ZS,NA,3.4,1.2
