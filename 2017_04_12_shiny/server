@@ -1,0 +1,37 @@
+install.packages("shiny")
+install.packages("ggplot2")
+install.packages("foreign")
+library("shiny")    
+library("foreign")
+library("ggplot2")
+
+#it is better to have two separate files for ui and server, called exactly "ui.R" and "server.R"
+
+function(input, output) {
+  
+# inside reactive functions we write the data manipulation that we want to see dynamically on website.
+# to use user interface elements, just write input$ and name of element of ui, for example input$slInput.
+# input$slInput[1] means that this input has two values and we are taking first one, input$slInput[2] means second one
+# mydata is the name of my data file
+# note that in some parts of the code the datafile has to have a bit different name (mydata1 vs mydata) in order for the code to run  
+
+  mydata1 = reactive({
+    mydata = subset(mydata, mydata$AGE >= input$slInput[1] & mydata$AGE <= input$slInput[2])
+    mydata
+  })
+  
+# objects that we want to see on the website, must be defined as output$ and the desired name, in this case plt.
+# depending on object type, we write render functions, for example, for plots we need renderPlot, for table - renderDataTable etc.
+
+      output$plt = renderPlot({
+      
+        axis_data = input$yInput      #this is just a variable which's value is whatever we choose on user interface element 'yInput'.
+      
+      gg = ggplot(
+        mydata1(), aes_string(axis_data)   #we take dynamic mydata1() variable as data source. the x variable is whatever we choose on 'Yinput'
+      )
+      gg = gg + geom_histogram(stat = "count") #chart type is histogram, we want to have quantities of bins
+      
+      print(gg)
+  })
+}
