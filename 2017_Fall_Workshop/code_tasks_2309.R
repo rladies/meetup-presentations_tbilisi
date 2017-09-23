@@ -4,19 +4,20 @@
 ###############################
 
 ## PRACTICAL SESSION 1 ##
+
 #1. Set your working directory
 getwd()
 setwd("C:/Users/KASUTAJA/Documents/RLadies/workshop")
 
 #2. Create six objects named var0, var1, var2, var3, var4, var5, var6, var7
-#with the following content: 5, 2+2, 4*5, 240/60, 4^15, ´this is¡, 
-#´my object¡, ´5¡
+#with the following content: 5, 2+2, 4*5, 240/60, 4^15, Â´this is", "my object", "5"
 
 var0 <- 5
 var1 <- 2+2
-var1
+var1 #prints the outcome
+
 var2 <- 4*5
-var2
+var2 #prints the outcome
 var3 <- 240/60
 var4 <- 4^5
 var5 <- "this is"
@@ -27,7 +28,7 @@ var7 <- "5"
 class(var0)
 class(var7)
 
-#var0 is numeric (5), var7 is character ("5")
+#class tells you that var0 is numeric (5), var7 is character ("5") because we defined them as such when we created them
 
 #4. Do a summing operation with var0 and var3.
 # There are two ways to do that
@@ -36,8 +37,10 @@ var0+var3
 
 sum(var0, var3)
 
+#Both give the same answer: 9
+
 #5. Paste var5 and var6 into var56.
-paste(var5, var6)
+var56 <- paste(var5, var6)
 
 #6.Install the following packages: foreign, readr. Load them.
 install.packages("foreign")
@@ -48,17 +51,19 @@ library("readr")
 
 #7.Read about these packages - what are they for?
 #Three ways to read: help, ? or choose from the "Packages" tab
-
+help(foreign)
 help(readr)
 
 #Both packages are for reading in (importing) data from other formats into R
 
 #8. Save your R file in your working directory.
+
 #Go to File--> Save as
 
 
 ## PRACTICAL SESSION 2 ##
-#1. Load data ´iris¡ from the R datasets
+
+#1. Load data Â´irisÂ¡ from the R datasets
 data(iris)
 
 
@@ -95,10 +100,10 @@ summary(iris)
 #7.900, 4.400, 6.900, 2.500
 
 
-#6. Run a frequency (flat contingency) table of the ´Petal.Width¡ variable
+#6. Run a frequency (flat contingency) table of the "Petal.Width" variable
 ftable(iris$Petal.Width)
 
-#7. Create a new object ´sep_length¡ with the first 10 values of ´Sepal.Length¡ variable.
+#7. Create a new object "sep_length" with the first 10 values of "Sepal.Length" variable.
 sep_length <- iris$Sepal.Length[1:10]
 sep_length
 
