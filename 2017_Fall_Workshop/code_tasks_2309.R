@@ -1,6 +1,6 @@
 ###############################
 ## R-Ladies Tbilisi         ###
-## 23.09.2017               ###
+## Fall  2017               ###
 ###############################
 
 ## PRACTICAL SESSION 1 ##
@@ -10,7 +10,7 @@ getwd()
 setwd("C:/Users/KASUTAJA/Documents/RLadies/workshop")
 
 #2. Create six objects named var0, var1, var2, var3, var4, var5, var6, var7
-#with the following content: 5, 2+2, 4*5, 240/60, 4^15, ´this is", "my object", "5"
+#with the following content: 5, 2+2, 4*5, 240/60, 4^15, "this is", "my object", "5"
 
 var0 <- 5
 var1 <- 2+2
@@ -39,7 +39,7 @@ sum(var0, var3)
 
 #Both give the same answer: 9
 
-#5. Paste var5 and var6 into var56.
+#5. Paste var5 and var6 into one new object called "var56".
 var56 <- paste(var5, var6)
 
 #6.Install the following packages: foreign, readr. Load them.
@@ -63,7 +63,7 @@ help(readr)
 
 ## PRACTICAL SESSION 2 ##
 
-#1. Load data ´iris¡ from the R datasets
+#1. Load data "iris" from existing R datasets
 data(iris)
 
 
@@ -74,7 +74,7 @@ class(iris)
 #What is the factor variable called? 
 str(iris)
 
-#It includes 5 variables: Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species
+#The dataset includes 5 variables: Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species
 #The factor variables is called "Species"
 
 #How many levels does the factor variable have?
@@ -88,7 +88,7 @@ head(iris$Species)
 
 #All are setosa species
 
-#If you want to check more than six observations, select them
+#If you want to check more than six observations, specify this using squared brackets
 iris$Species[1:20]
 
 #Still the first 20 are setosa species
