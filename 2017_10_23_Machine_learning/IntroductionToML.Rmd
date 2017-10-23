@@ -1,0 +1,362 @@
+---
+title: 'Introduction to Machine Learning'
+author: "Vincenzo Lagani"
+date: "October 23, 2017"
+output:
+  html_document: default
+  word_document: default
+---
+  
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+### Data analysis task: predicting hand-written digits.
+
+The present document shows how to use the multilayer perceptron and decision trees for building mathematical models able to automatically identify hand written digits.
+
+### Set-up
+
+We will use the *rpart* and *mxnet* packages for running the analysis. Let's install and load them both.
+
+```{r install, message=FALSE, warning=FALSE}
+
+#installing package rpart
+if(!require('rpart')){
+  install.packages('rpart')  
+  library('rpart')
+}
+
+#installing package mxnet
+if(!require('mxnet')){
+  cran <- getOption("repos")
+  cran["dmlc"] <- "https://apache-mxnet.s3-accelerate.dualstack.amazonaws.com/R/CRAN/"
+  options(repos = cran)
+  install.packages("mxnet")
+  library("mxnet")
+}
+
+#additional packages for visualization purposes
+if(!require('rpart.plot')){
+  install.packages('rpart.plot')  
+  library('rpart.plot')
+}
+if(!require('corrplot')){
+  install.packages('corrplot')  
+  library('corrplot')
+}
+
+```
+
+### The data: the MNIST dataset.
+
+The MNIST dataset is a collection of hand-written digits appositely created for testing machine learning methods. The dataset was originally provided by Chris Burges, Corinna Cortes and Yann LeCun (http://yann.lecun.com/exdb/mnist/). A CSV version for ease to load in R can be found here: https://pjreddie.com/projects/mnist-in-csv/, courtesy of Joseph Redmond. Donwload both training and test set and unzip them in the same folder containing this Rmd file.
+
+Once the files are ready, they can be loaded in R:
+
+```{r, message=FALSE, warning=FALSE}
+
+#loading training set
+training <- read.csv('mnist_train.csv', header = FALSE, stringsAsFactors = FALSE);
+training <- as.matrix(training);
+
+#loading the test set
+test <- read.csv('mnist_test.csv', header = FALSE, stringsAsFactors = FALSE);
+test <- as.matrix(test);
+
+#adding colnames
+colnames(training) <- c('label', paste0('pixel', 1:(dim(training)[2] - 1)))
+colnames(test) <- c('label', paste0('pixel', 1:(dim(test)[2] - 1)))
+
+```
+
+Let's have a look to the sample number 50 of the training set:
+
+
+```{r, message=FALSE, warning=FALSE}
+
+cat(training[50, ])
+
+```
+
+The first '3' indicates that the sample refers to the digit three; the rest of the values are a single-dimension representation of the following 28x28 pixels image, obtained by lining up the pixels by row:
+
+```{r, message=FALSE, warning=FALSE}
+
+corrplot(t(matrix(training[50, -1], 28, 28)), method = 'shade', 
+         is.corr = FALSE, tl.pos = 'n', cl.pos = 'n')
+
+```
+
+### First attempt with neural networks
+
+We will now attempt a very initial analysis with the multilayer perceptron implemented in mxnet.
+
+```{r, message=FALSE, warning=FALSE}
+
+#setting mx seed for ensuring replication
+mx.set.seed(12345)
+
+#training the network
+nn <- mx.mlp(data = training[ , -1], #training data
+             label = training[ , 1], #training label
+             array.layout = "rowmajor", #simply indicates that rows are samples
+             hidden_node = c(5), #only one hidden layer with 5 nodes
+             out_node = 10, #10 output nodes, one for each digit in 0-9
+             activation = "tanh", #activation function for the hidden nodes
+             out_activation = "softmax", #activation function for the output nodes
+             learning.rate = 0.1, #learning rates
+             num.round = 10, #number of rounds of the back-propagation algorithsm
+             verbose = FALSE) #no display of additional information
+
+```
+
+The *nn* object now contains the topology and parameters of the network. We can use *nn* for predicting the label of the test set. Each prediction will have 10 values, one for each digit. In order to identify the predicted digit, we must find the maximum for each column
+
+```{r, message=FALSE, warning=FALSE}
+
+#extracting predictions
+predMatrix <- predict(nn, test[ , -1], array.layout = "rowmajor")
+print(predMatrix[1:10, 1:5])
+
+#formatting predictions
+preds <- apply(predMatrix, 2, which.max) - 1
+print(preds[1:5])
+
+```
+
+Finally, we can compute the accuracy of our predictions. We will also compute and display the confusion matrix, which represent the interplay between the actual label and the predicted ones.
+
+```{r, message=FALSE, warning=FALSE}
+
+#accuracy
+acc <- sum(preds == test[ , 1])/(dim(test)[1])
+print(paste0('The accuracy is: ', round(acc, 3)))
+
+#confusion matrix
+labels <- test[ , 1];
+confusion <- table(preds, labels);
+print('Confusion matrix')
+print(confusion)
+corrplot(corr = confusion, method = 'circle', is.corr = FALSE, bg = 'black', cl.pos = 'n')
+
+```
+
+### What went wrong?
+
+Obviously, our analysis gave poor results. The reasons can be several: too few back-propagation rounds, a slow learning rate, an insufficient number of hidden nodes. We will concentrate on the latter, by trying several *model configuration*. Each configuration will be identical to the others, except for the number of nodes in the hidden layer.
+
+#### Experimentation protocol: training - validation - test
+
+We will adopt a simple protocol for selecting the best configuration and assessing its performances:
+
+* the models will be derive from the training set
+
+* each model will be assessed on a validation set
+
+* the configuration that best performs on the validation set will be used for training a final model on training + validation set combined
+
+* the final model is assessed on the test set
+
+The golden rule is that the test set is never used during the training of the models or the selection of the best configuration. Furthermore, only the performances obtained on the test set should be regarded as a reliable estimate of the predictive power of the model.
+
+```{r, message=FALSE, warning=FALSE}
+
+#splitting the training set 
+set.seed(12345)
+trainID <- sample(dim(training)[1], floor(0.8 * dim(training)[1]));
+train <- training[trainID, ];
+valid <- training[-trainID, ];
+
+```
+
+We can now loop over several configurations for identifying the best one.
+
+```{r, message=FALSE, warning=FALSE}
+
+#number of nodes
+ns <- c(4, 9, 16, 25, 36, 49)
+
+#networks
+nns <- vector('list', length(ns))
+
+#accuracy vectors
+trainAcc <- vector('numeric', length(ns))
+validAcc <- vector('numeric', length(ns))
+
+#setting mx seed
+mx.set.seed(12345)
+
+#looping over the  configurations
+for(i in 1:length(ns)){
+  
+  #current cycle
+  print(i)
+  
+  #number of hidden nodes
+  n <- ns[i];
+  
+  #training the network
+  nn <- mx.mlp(data = train[ , -1],
+               label = train[ , 1], 
+               array.layout = "rowmajor",
+               hidden_node = c(n), 
+               out_node = 10,
+               activation = "tanh",
+               out_activation = "softmax",
+               learning.rate = 0.1, 
+               num.round = 10,
+               verbose = FALSE)
+  nns[[i]] <- nn;
+  
+  #accuracy on the training set
+  preds <- predict(nn, train[ , -1], array.layout = "rowmajor")
+  preds <- apply(preds, 2, which.max) - 1
+  trainAcc[i] <- sum(preds == train[ , 1])/(dim(train)[1])
+  
+  #accuracy on the test set
+  preds <- predict(nn, valid[ , -1], array.layout = "rowmajor")
+  preds <- apply(preds, 2, which.max) - 1
+  validAcc[i] <- sum(preds == valid[ , 1])/(dim(valid)[1])
+  
+}
+
+#plotting the results
+plot(ns, trainAcc, type = 'l', main = 'Classification performances \n line = training, point = validation', xlab = 'Number hidden nodes', ylab = 'Accuracy')
+points(ns, validAcc)
+
+#choosing the best network
+bestID <- which.max(validAcc)
+print(paste0('The best configuration is the number ', bestID, ', corresponding to ', ns[bestID], ' hidden nodes.'))
+
+```
+
+An important consideration on the previous graph: the performance estimates on the training and validation sets are very close to each other. This is not true in general, and usually performances on the validation set are worse than the ones on the training set.
+
+```{r, message=FALSE, warning=FALSE}
+
+#retrain on the whole train + validation set
+bestNn <- mx.mlp(data = training[ , -1],
+             label = training[ , 1], 
+             array.layout = "rowmajor",
+             hidden_node = ns[bestID], 
+             out_node = 10,
+             activation = "tanh",
+             out_activation = "softmax",
+             learning.rate = 0.1, 
+             num.round = 10,
+             verbose = FALSE)
+
+#accuracy on the test set
+preds <- predict(bestNn, test[ , -1], array.layout = "rowmajor")
+preds <- apply(preds, 2, which.max) - 1
+acc <- sum(preds == test[ , 1])/(dim(test)[1])
+print(paste0('The accuracy is: ', round(acc, 3)))
+
+#confusion matrix
+labels <- test[ , 1];
+confusion <- table(preds, labels)
+print('Confusion matrix')
+print(confusion)
+corrplot(corr = confusion, method = 'circle', is.corr = FALSE, bg = 'black', cl.pos = 'n')
+
+```
+
+The performances on the test set further confirm that the chosen configuration has a predictive power (test set accuracy: `r acc`) comparable to the one estimated on the validation set (validation set accuracy: `r validAcc[bestID]`).
+
+### Under the hood of the multilayer perceptron
+
+Let's analyze the weights of the edges connecting the hidden to the output layer.
+
+```{r, message=FALSE, warning=FALSE}
+
+#extracting the weights
+hoWeights <- as.matrix(bestNn$arg.params[[3]]);
+print(dim(hoWeights))
+
+```
+
+The matrix of weights *hoWeights* contains one column for each output node. This means that the first and second column correspond to the zero and one digit, respectively. Let's visualize these two vector of weights, by rearranging each of them as a square matrix.
+
+
+```{r, message=FALSE, warning=FALSE}
+
+#arranging the plots
+par(mfrow=c(2,2))
+
+#plotting the weights for zero
+zeroWeights <- matrix(hoWeights[ , 1], sqrt(length(hoWeights[ , 1])), sqrt(length(hoWeights[ , 1])));
+corrplot(corr = zeroWeights, method = 'circle', is.corr = FALSE, bg = 'black', title = 'Weights for the digit zero', cl.pos = 'n', tl.pos = 'n')
+
+#plotting the weights for one
+oneWeights <- matrix(hoWeights[ , 2], sqrt(length(hoWeights[ , 2])), sqrt(length(hoWeights[ , 2])));
+corrplot(corr = oneWeights, method = 'circle', is.corr = FALSE, bg = 'black', title = 'Weights for the digit one', cl.pos = 'n', tl.pos = 'n')
+
+```
+
+Here the left plot refers to the weights of the digit zero, while the right plot to weights the digit one. Red circle correspond to negative values, blue ones to positive values. At a first glance it is evident that some of the weights of the first plot have their sign inverted in the second one. However, it is not easy to understand why the first set of weights allow to identify the digit zero and the second set the digit one. It could be argued that simply re-arranging these weights in a square matrix does not ensure the possibility of gaining any insight. However, interpreting the status of a neural network in a human interpretable way is usually a quite difficult task.
+
+### Decision trees
+
+We will now apply a decision tree algorithm to the MNIST dataset, using the *rpart* function with the default configuration for classification tasks.
+
+```{r, message=FALSE, warning=FALSE}
+
+#training the tree
+set.seed(12345);
+tree <- rpart(label ~ ., as.data.frame(training), method = 'class');
+
+#prediction on the test set
+preds <- predict(tree, as.data.frame(test[, -1]))
+preds <- apply(preds, 1, which.max) - 1
+acc <- sum(preds == test[,1])/dim(test)[1]
+print(paste0('Accuracy on the test set: ', acc));
+
+```
+
+We will forgo optimizing the configuration, and we will focus on the interpretation of the model. The *prp* function of the *rpart.plot* package provides a nice visualization of the tree.
+
+```{r, message=FALSE, warning=FALSE}
+
+#tree visualization
+prp(tree)
+
+```
+
+The tree can be easily interpreted as a set of rules that determine the digits on the basis of the intensity level of a few pixels. In this specific case, the rules can be even applied by hand. Furthermore, only 13 pixels are required for applying the model. This means that decision trees can also work as feature selection methods, indicating which predictors are necessary for solving the problem and which can be discarded. The following image indicate the portions of the 28x28 pixel images that are necessary for classifying digit with the obtained tree.
+
+```{r, message=FALSE, warning=FALSE}
+
+#involved pixels
+pixels <- c(351, 490, 235, 291, 569, 436, 347, 656, 431, 212, 99, 157, 406);
+
+#creating the image
+pixelsImage <- matrix(0, 28, 28);
+for(i in 1:length(pixels)){
+  rowId <- floor(pixels[i] / 28);
+  colId <- pixels[i] - rowId * 28;
+  pixelsImage[rowId, colId] <- 1;
+}
+
+#plotting
+corrplot(pixelsImage , is.corr = FALSE, method = 'shade', addgrid.col = 'grey', cl.pos = 'n')
+
+```
+
+### Analyzing the Iris dataset
+
+The Iris dataset is one of the most known in the field of statistics and machine learning. First introduced by R. A. Fisher, one of the founder of modern statistics, it can be regarded as the equivalent of "hello word!" of the classification problems. The dataset and its respective description can be found in the University of California Irvine (UCI) Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/iris). 
+
+The goal of the analysis is to discriminate between three types of Iris on the basis of sepal and petal characteristics.
+
+Tasks to perform:
+
+1) load the Iris dataset and create randomly shuffled training, validation and test set;
+
+2) identify the best model with both the *mx.mlp*and *rpart* functions. For *rpart*, consider varying the hyper-parameter *minsplit*, which sets the minimum number of observation that must be present in a node in order to be considered for splitting. 
+
+3) Compare the two models: which is the best performing? 
+
+4) Comment on the decision tree created by *rpart*; what can you derive from its structure?
