@@ -1,0 +1,9 @@
+
+Creating R packages in windows
+https://www.r-bloggers.com/how-to-create-an-r-package-in-windows/
+
+Rtools
+https://cran.r-project.org/bin/windows/Rtools/
+
+Roxygen2
+https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html
