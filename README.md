@@ -9,6 +9,10 @@ R-Ladies თბილისის ჯგუფი გლობალური R-
 
 Twitter: @RLadiesTbilisi
 
+Facebook: https://www.facebook.com/rladiestbilisi
+
+Meetup: https://www.meetup.com/rladies-tbilisi/
+
 E-mail: tbilisi [at] rladies [dot] org
 
 
