@@ -1,0 +1,17 @@
+Package: linmod
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2017-11-22
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: GPL-2
+LazyLoad: yes
+VignetteBuilder: knitr
+Depends: 
+	methods,
+	knitr
+Imports:
+	ggplot2
+RoxygenNote: 6.0.1
