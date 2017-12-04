@@ -40,7 +40,7 @@ February-March - Beginners' workshops
    
    [2017_09-10 Fall Beginners' Workshops](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_Fall_Workshop)
  
- [2017_06_28 Time series in R]()
+ [2017_06_28 Time series in R](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_06_28_Time_series)
  
  [2017_06_20 Extracting information from Facebook](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_06_20_extracting_facebook)
  
