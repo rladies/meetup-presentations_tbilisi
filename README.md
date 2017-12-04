@@ -7,7 +7,7 @@ R-Ladies თბილისის ჯგუფი გლობალური R-
 
 გთხოვთ, შეავსოთ ეს ფორმა, რათა ორგანიზატორებმა შეძლონ შეხვედრების დაგეგმვა და თქვენი მოწვევა: http://bit.ly/R-LadiesTbilisi. 
 
-Twitter: @RLadiesTbilisi
+Twitter: https://twitter.com/rladiestbilisi
 
 Facebook: https://www.facebook.com/rladiestbilisi
 
