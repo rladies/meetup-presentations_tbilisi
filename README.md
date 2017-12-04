@@ -12,7 +12,7 @@ Twitter: @RLadiesTbilisi
 E-mail: tbilisi [at] rladies [dot] org
 
 
-Upcoming meetups
+## Upcoming meetups
 
 ## 2018
 
@@ -23,7 +23,7 @@ February-March - Beginners' workshops
 2017_12_14 Data structures and writing efficient code (for beginners)
 
 
-Past meetups
+## Past meetups
  
   ## 2017
  [2017_11_22 Creating R packages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_11_22_package_development)  
