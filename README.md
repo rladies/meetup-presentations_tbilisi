@@ -23,14 +23,14 @@ E-mail: tbilisi [at] rladies [dot] org
 February-March - Beginners' workshops
 
 ## 2017
-December 28
+December 28 TBC
 
-December 21
+December 21 TBC
 
 ## Past meetups
  
   ## 2017
-[2017_12_14 Data structures and writing efficient code (for beginners)] (https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_12_14_datatypes_dplyr)
+[2017_12_14 Data structures and writing efficient code (for beginners)](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_12_14_datatypes_dplyr)
 
 [2017_11_22 Creating R packages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2017_11_22_package_development)  
  
