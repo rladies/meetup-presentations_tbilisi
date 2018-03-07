@@ -17,16 +17,17 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-March 5 - RMarkdown
 March 26 - TBC
 
-## 2018
+
+## Past meetups
+ ## 2018
+[2018_03_05_RMarkdown](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/RMarkdown)
 
 [2018_February-March - Beginners' workshops](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_Winter_Spring_Beginners)
 
 [2018_02_13_Caucasus_Barometer_2017](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_02_13_CaucasusBarometer)
 
-## Past meetups
  
   ## 2017
 [2017_12_21_operators_conditionals_loops](https://github.com/rladies/meetup-presentations_tbilisi/blob/master/2017_12_21_operators_conditional_loops)
