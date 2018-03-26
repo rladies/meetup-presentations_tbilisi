@@ -23,7 +23,7 @@ April 27 - TBC
 
 ## Past meetups
  ## 2018
-[2018_03_26_Website_blogdown] (https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Website)
+[2018_03_26_Website_blogdown](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Website)
 
 [2018_03_05_RMarkdown](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/RMarkdown)
 
