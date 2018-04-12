@@ -1,3 +1,4 @@
+
 <img src="https://github.com/rladies/starter-kit/blob/master/logo/R-LadiesGlobal_RBG_online_LogoWithText_Horizontal.png" data-canonical-src="https://github.com/rladies/starter-kit/blob/master/logo/R-LadiesGlobal_RBG_online_LogoWithText_Horizontal.png" width="300" height="100" />
 
 # R-Ladies Tbilisi
@@ -17,12 +18,14 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-April 4 - Machine learning
-April 11 - TBC
 April 27 - TBC
 
 ## Past meetups
  ## 2018
+[2018_04_11_Data_wrangling](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Data_Wrangling) 
+ 
+[2018_04_04_Machine_Learning](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Machine_Learning) 
+ 
 [2018_03_26_Website_blogdown](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Website)
 
 [2018_03_05_RMarkdown](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/RMarkdown)
