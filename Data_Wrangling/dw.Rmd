@@ -1,0 +1,229 @@
+---
+title: "DATAWRANGLING"
+author: "sopo ruxadze"
+date: "10 აპრილი, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+## R Markdown
+ჩვენი შეხვედრა ეხება Data Wrangling -ის თემას სადაც გავეცნობით ‘dplyr’ სა და ‘tidyr’ პაკეტების გამოყენებას. Data Wrangling საშუალებას იძლევა მონაცემთა ბაზებზე მოვახდინოთ სხვადასხვა სახის მანიპულაცია, რაც ამარტივებს მონაცმთა ვიზუალიზაციას და საშუალებას გვაძლევს მონაცემთა ბაზებზე ჩავატაროთ სხვადსხვა მოქმედება. მოცემული სესიის მიზანია მსმენელს გააცნოს სხვადსხვა სახის ბრძანება, ისეთი როგორიც არის შეჯამება, ახალი ცვლადის შექმნა, მონაცემთა სორტირება, მონაცემთა გავრცელება, დაჯგუფება და შერწყმა, რაც მუდმივად გამოსადეგია მონაცემთა ბაზებთან მუშაობისას. სესია ჩატარდება ქართულ ენაზე.
+
+## DATA WRANGling
+
+We will discuss about Data Wrangling and how to use ‘dplyr’ and ‘tidyr’ packages. Data wrangling gives possibility to manipulate on data, which make data visualization more flexible and give us possibility to do different operations on data. This workshop introduces students to the set of commands such as summarise, create, sort variable in a dataframe, spread, gather data and merge datasets which are very useful when we are working on big data. The session will be in Georgian language.
+
+
+## DPLYR package
+მოცემული მონაცემები გადავიყვანოთ tables კლასში
+
+Converts data to tbl class. tbl’s are easier to examine than
+ data frames
+ 
+``` dplyr::tbl_df(iris)
+
+
+ Information dense summary of tbl data
+ 
+dplyr::glimpse(iris)
+utils::View(iris)
+fix(iris)
+``` 
+## slide
+"Piping" with %>% makes code more readable, x %>% f(y) is the same as f(x, y)
+
+ გვეხმარება მონაცემთა დაფილტვრაში
+
+```
+library("dplyr") 
+ir0 <- iris %>%
+  group_by(Species) %>%
+  summarise(avg = mean(Sepal.Width)) %>%
+  arrange(avg)  
+
+ir1 <- iris %>%
+  group_by(Species) %>%
+  count(Sepal.Width)
+```
+
+## Reshaping Data
+```
+install.packages("babynames")
+library(babynames)
+data(babynames)
+head(babynames)
+
+### Gather helps to Gather columns into rows
+#View(stackloss)
+#View(mtcars)
+#View(pressure)
+```
+## Slide with R Output
+
+```View(cases)
+class(cases)
+tidyr::gather(cases,"year","n", 2:4)
+# "cases" is the data frame which reshape
+# "year" it is key variable which contains column names
+# "n" is the value column that contains the former column cells
+# "2:4" names or numeric indexes of columns to collapse
+
+View(pollution)
+tidyr::spread(pollution, size, amount)
+#"pollution" is the data frame which reshape
+#"size"is key value and each unique value 
+#in the key column becomes a column name
+# " amount" is value and each value in the value column
+#becomes a cell in the new columns
+```
+## slide UNITE and SEPARATE
+```
+View(storms)
+# when we want to separate the one coumn
+# into several we use separate function
+storms1 <- tidyr::separate(storms, date, c("y","m","d"), sep = "-")
+
+#View the storms1 data and if you want to 
+#unit several columns into one, shoud use function - unite
+tidyr::unite(storms1, "date", y, m, d, sep = "/")
+# (sep = "-" or sep = ".")
+
+#### if we have a vectors and want to combaine them
+### into dataframe we use function data_fram form dplyr package
+dplyr::data_frame(a = 1:10, b= 11:20)
+```
+
+## slide arrane
+
+
+```View(mtcars)
+# for order the existed rows by values of column 
+# we use "arrange" form low to high
+dplyr::arrange(mtcars,hp)
+### to arrange data from high to low
+dplyr::arrange(mtcars, desc(hp))
+
+View(tb)
+### Rename the columns of a data frame
+dplyr::rename(tb,y = year)
+```
+## Subset Observations (Rows) 
+```
+dplyr::filter(iris,Sepal.Length >7)  
+#Extract rows that meet logical criteria
+
+## to remove duplicate rows use distinct
+dt <- dplyr::data_frame(a= 1:3, b=4:6,d= c(1,1,1))
+dt <- tidyr::gather(dt,"type","n")
+dplyr::distinct(dt)
+
+#### Randomly select n rows
+samn <- dplyr::sample_n(iris,10, replace=T)
+### Select rows by position
+dplyr::slice(iris,10:15)
+ 
+### Select and order top n entries (by group if grouped data)
+dplyr::top_n(storms,2,date)
+```
+## Subset Variables (Columns)
+if we want to select columns from dataset 
+by names we use  "Select" Function 
+```
+install.packages("dplyr")
+library(dplyr)
+View(babynames)
+dt1 <-dplyr::select(babynames,year,name,n)
+select(iris, contains("."))
+#Select columns whose name ends with a character string
+dplyr::select(iris, ends_with("Length")) 
+#Select columns whose name starts with a character string
+select(iris, starts_with("Sepal")) 
+View(storms)
+select(storms, -long) # Select all columns except Species
+```
+## Summarise Data
+```
+View(pollution)
+View(mtcars)
+#Summarise data into single row of values
+
+dplyr::summarise(mtcars,avg = mean(hp)) 
+dplyr:: count(iris, Species, wt = Sepal.Length)
+dplyr::summarise(pollution, median = median(amount),
+ variance = var(amount))
+dplyr:: summarise(pollution, mean = mean(amount), 
+sum = sum(amount), n = n ())
+###Summarise uses summary functions, functions that
+## take a vector of values and return a single value, such as 
+dplyr::n_distinct(pollution) ##  of distinct values in a vector
+dplyr::last(pollution)
+class(pollution)
+```
+## Make  New Variable
+Compute and append one or more new columns
+```
+dplyr::mutate(iris, sepal = Sepal.Length + Sepal.Width)
+### Compute one or more new columns. Drop original columns
+irr <- dplyr::transmute(iris, sepal = Sepal.Length+Sepal.Width)
+dplyr::lead(iris) ### Copy with values shifed by 1
+dplyr::lag(iris) #### Copy with values lagged by 1
+View(storms)
+dplyr::mutate(storms, ratio = pressure / wind)
+storm3 <- dplyr::mutate(storms, 
+ratio = pressure / wind, inverse = ratio^-1)
+```
+## Group Data
+Group data into rows with the same value of Species
+
+```
+saxeoba <- dplyr::group_by(iris, Species)
+### Remove grouping information from data frame
+dplyr::ungroup(iris)
+fix(iris)
+library(dplyr)
+## Compute separate summary row for each group
+typ <- iris %>% 
+group_by(Species) %>% 
+summarise(sum = sum(Sepal.Length)) 
+
+### %>% arrange(meanlength)
+typ1 <- iris %>% 
+group_by(Species) %>% 
+mutate(meanlength = 1/Sepal.Length)   
+```
+## Combination
+```
+View(storms)
+storms %>%
+  filter(wind >= 50) %>%
+  select(name, pressure, year, month, day)
+
+View(storms)
+storms %>% 
+  mutate(ratio = wind/ pressure, invers = ratio ^-1) %>% 
+  select(name,ratio, invers)
+
+
+View(pollution)
+pollution %>% group_by(city)
+pollution %>% group_by(city) %>% summarise()
+pollution %>% group_by(city) %>% 
+  summarise(mean= mean(amount),sum = sum(amount),n = n())
+pollution %>% group_by(city) %>% 
+  summarise(mean= mean(amount))
+
+pollution %>% group_by(size) %>% 
+  summarise(mean= mean(amount))
+```
+
+## what we already know ???
+
+#1. take a glance of 'tb' data
+#2. group_by 'tb' data by country and year (HInt: use '%>%' )
+#3. from 'tb' data group_by country and year and summarise number of child according to these countryies and year
+#4. and do another summarise by (use %>% ) 
+getwd()
+ 
+
