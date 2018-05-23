@@ -18,10 +18,12 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-April 27 - TBC
+
 
 ## Past meetups
  ## 2018
+ [2018_05_23_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_05_23_Beginners)
+ 
 [2018_04_11_Data_wrangling](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Data_Wrangling) 
  
 [2018_04_04_Machine_Learning](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Machine_Learning) 
