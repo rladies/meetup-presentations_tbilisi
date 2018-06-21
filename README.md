@@ -18,7 +18,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-
+[2018_07_03_Survival]
 
 ## Past meetups
  ## 2018
