@@ -1,0 +1,111 @@
+---
+title: "Survival analysis, news & organisational issues"
+author: "Liili Abuladze"
+date: "3 July 2018"
+output:
+  ioslides_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## Today's agenda
+
+1. Survival analysis
+
+2. News from the eRum conference
+
+3. Future activities & organisation
+
+4. Take a R-Ladies hex sticker with you!
+
+```{r, echo=FALSE}
+logo<-"Logo_RLGlobal_text.png"
+```
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## Steps in survival analysis using R
+
+-1. Know the type of your data (right censored, interval, etc)
+
+-2. Prepare and explore the data
+
+-3. Create a survival object
+
+-4. Draw a survival or hazard curve (descriptive or fitted model data)
+
+-5. Fit a survival model (Cox, exponential)
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+
+
+## Survival analysis
+
+
+```{r, out.width = "630px"}
+knitr::include_graphics("/survival.png")
+```
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## AIDS data for survival analysis
+- Download dataset "AIDS2" from https://vincentarelbundock.github.io/Rdatasets/datasets.html
+
+- Estimate survival time from diagnosis to death
+
+- Check the "survminer" package cheat sheet https://www.rstudio.com/resources/cheatsheets/
+
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+
+
+## News from the eRum conference
+
+- European R User Meeting https://2018.erum.io/
+
+- 2016: Poznan, 2018: Budapest, 2020: ??
+
+- Diversity scholarships available for attending
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## eRum: Watch talks on youtube
+
+```{r, out.width = "600px"}
+knitr::include_graphics("/erum.png")
+```
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## eRum: Download slides
+
+```{r, out.width = "600px"}
+knitr::include_graphics("/erum2.png")
+```
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## Future activities & organisational issues
+- Meetups
+
+- 7 - 9 November 2018: DataFest https://datafest.ge/ 
+
+- Social media and communication
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
+## Other networks
+- R-Ladies Global Slack group coming soon
+
+- R-Ladies Remote --> join the mailing list remote@rladies.org, Twitter: @RLadiesRemote
+
+- R-Spatial Ladies --> join the Slack group; Github resources https://github.com/rspatialladies 
+
+<IMG style="position:absolute;bottom:5%;left:10%;width:90px;"SRC="`r logo`">
+
