@@ -18,10 +18,12 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-[2018_07_03_Survival](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Survival)
+Check our social media channels for announcements on next meetups!
 
 ## Past meetups
  ## 2018
+ [2018_07_03_Survival](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Survival)
+ 
  [2018_05_23_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_05_23_Beginners)
  
 [2018_04_11_Data_wrangling](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Data_Wrangling) 
