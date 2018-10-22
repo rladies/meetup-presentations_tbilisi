@@ -18,7 +18,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-October 20-21 & 27-28: Beginner workshops: https://goo.gl/forms/CWHJ9QkMrGwKD2gg2
+October 20-21 & 27-28: Beginner workshops 
 
 November 6: Meetup hosting Omayma Said and Isabella Gollini
 
@@ -26,6 +26,8 @@ November 7-9: R-Ladies Tbilisi is @ DataFest Tbilisi https://datafest.ge/
 
 ## Past meetups
  ## 2018
+ [2018_October_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_October_Beginners)
+ 
  [2018_07_03_Survival](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Survival)
  
  [2018_05_23_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_05_23_Beginners)
