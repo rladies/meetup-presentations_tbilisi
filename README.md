@@ -18,15 +18,17 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-October 20-21 & 27-28: Beginner workshops 
-
-November 6: Meetup hosting Omayma Said and Isabella Gollini
-
-November 7-9: R-Ladies Tbilisi is @ DataFest Tbilisi https://datafest.ge/
+November 20: Nutsa Abazadze: internal R packages(https://github.com/rladies/meetup-presentations_tbilisi/tree/master/r_package_nutsa)
 
 ## Past meetups
  ## 2018
- [2018_October_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_October_Beginners)
+November 7-9: R-Ladies Tbilisi is @ DataFest Tbilisi https://datafest.ge/
+
+November 6: Meetup hosting Omayma Said and Isabella Gollini
+
+October 20-21 & 27-28: Beginner workshops 
+
+[2018_October_Beginners](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2018_October_Beginners)
  
  [2018_07_03_Survival](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/Survival)
  
