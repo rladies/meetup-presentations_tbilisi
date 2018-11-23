@@ -22,7 +22,7 @@ December: TBC
 
 ## Past meetups
  ## 2018
-[November 20: Nutsa Abazadze: internal R packages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/r_package_nutsa)
+[2018 11 20 Nutsa Abazadze: internal R packages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/r_package_nutsa)
 
 November 7-9: R-Ladies Tbilisi is @ DataFest Tbilisi https://datafest.ge/
 
