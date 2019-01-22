@@ -1,0 +1,206 @@
+---
+title: "ვებ-მონაცემთა მოპოვება R-ით"
+author: "ანა მამათელაშვილი"
+date: "22/01/2019"
+output: 
+  ioslides_presentation:
+    logo: rlogo.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+```
+
+## მონაცემები
+
+- ღია მონაცემთა ბაზები: [საქსტატი](http://www.geostat.ge), <http://www.data.gov.ge>
+- API's: Facebook, twitter, ...
+- შევაგროვოთ თავად
+
+## რა გვჭირდება
+
+<img src="rlogo.png" alt="R logo" style="width:120px;height:120px;">
+<img src="html.png" alt="html logo" style="width:140px;height:120px;">
+<img src="css.png" alt="css logo" style="width:120px;height:120px;">
+
+
+```{r}
+library(rvest)
+library(tibble)
+library(magrittr)
+library(stringr)
+library(dplyr)
+library(purrr)
+library(writexl)
+```
+
+## HTML
+
+```{r}
+url_ex <- "https://www.hr.ge/announcement/47787/"
+page_ex <- read_html(url_ex) 
+page_ex
+```
+## HTML
+
+```{r}
+page_body <- page_ex %>% html_node('body')
+page_body
+```
+
+## როგორ მივაკვლიოთ სასურველ ელემენტს
+
+[rvest](https://cran.r-project.org/web/packages/rvest/rvest.pdf)-ის ფუნქციები:
+
+ - `html_node`, `html_nodes`
+ - `html_text`, `html_attr`
+ 
+ 
+```{r}
+job_title <- page_body %>% 
+  html_node(".anncmt-title h1") %>% 
+  html_text(trim=T)
+job_title
+```
+
+## სელექტორები
+
+- CSS
+- XML
+
+### CSS სელექტორები
+
+- `".class"`
+- `"element"`
+
+მაგალითად: `".anncmt-title h1"`
+
+- სხვა ატრიბუტებიც:
+  - `"#id"`, 
+  - `"[attribute]"`, 
+  - `"[attribute=value]"`, ...
+
+## Selectorgadget
+
+ელემენტების ხელით მოძებნის ნაცვლად შეგვიძლია გამოვიყენოთ [Selectorgadget](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html).
+
+```{r}
+job_title <- page_body %>% 
+  html_node("h1") %>% 
+  html_text(trim=T)
+job_title
+```
+
+```{r}
+dates <- page_body %>% 
+  html_node(".firm-card:nth-child(1) td") %>% 
+  html_text(trim=T)
+dates
+```
+
+
+## html_table
+
+```{r}
+page <- read_html("https://www.hr.ge/announcements/of-vacancy")
+table_nodes <- page %>% html_nodes(".table.table-hover.vacanc") 
+
+df <- html_table(table_nodes) %>% `[[`(1) 
+colnames(df) <- c('ვაკანსია', '2', '3', 'დამსაქმებელი',
+                     '4', 'თარიღები_მდებარეობა', '7')
+
+df <- df %>% mutate(თარიღები_მდებარეობა = 
+                     თარიღები_მდებარეობა %>% 
+                       str_replace('\r\n ', ' ')) %>%
+  select(ვაკანსია, დამსაქმებელი, თარიღები_მდებარეობა) 
+```
+
+## html_table
+```{r echo=FALSE}
+library(knitr)
+kable(df[1:3,])
+```
+
+## ETL pipeline
+
+- `ad_urls`: ყველა ვაკანსიის ლინკი
+- `scrape_hrge`: ფუნცია რომელიც აიღებს ვაკანსიის ლინკს და განცხადების გვერდიდან ამოიღებს ყველა მონაცემს და შეინახავს ცხრილის რიგად
+- `purrr::map_df(ad_urls, scrape_hrge)`: შევაგროვებთ ყველარიგს ერთ ბაზაში
+- `write.csv` ან `write_xlsx`: შევინახავთ ბაზას
+
+მთელი პროცესი შეგიძლიათ ნახოთ: etl.r
+
+
+
+## ვაკანსიის ლინკები
+
+```{r}
+page_hrefs <- page %>% 
+  html_nodes(".pagination a") %>% 
+  html_attr("href") %>% 
+  unique()
+urls <- paste("https://hr.ge", page_hrefs, sep = "")
+urls
+```
+
+## ვაკანსიის ლინკები
+```{r}
+get_urls_hrge <- function(url){
+  page <- read_html(url)
+  all_urls <- page %>% 
+    html_nodes("tr") %>%  
+    html_nodes("td") %>% 
+    html_node("a") %>% 
+    html_attr("href") %>% 
+    str_subset("/announcement/") %>% 
+    substr(1,19) %>% 
+    paste("https://hr.ge", ., sep = "") 
+}
+ad_urls <- map(urls, get_urls_hrge) %>% unlist() %>% unique()
+ad_urls[1:5]
+```
+
+## `scrape` ფუნქცია
+
+```{r}
+scrape_hrge <- function(x){
+  ad_html <- read_html(x)
+  # position title
+  A <- ad_html %>% html_nodes(".anncmt-title") %>% 
+    html_text(trim = T) %>% as.data.frame(stringsAsFactors = F)
+  # employer name
+  B <- ad_html %>% html_nodes(".anncmt-customer") %>% 
+    html_text(trim = T) %>% as.data.frame(stringsAsFactors = F)
+  # text from ad body 
+  C <- ad_html %>% html_node(".firm-descr") %>% 
+    html_text(trim = TRUE) %>% as.data.frame(stringsAsFactors = F)
+  
+  df_row <- cbind(A, B, C)
+  names(df_row) <- c("ვაკანსია", "დამსაქმებელი", "ვაკანსიის_დეტალები")
+
+  df_row <- as.tibble(df_row)
+  return(df_row)  
+}
+```
+
+
+
+## ხაფანგები
+
+- loops: არ გამოვიყენოთ
+           
+- ლინკების სია ძალიან გრძელი შეილძლება აღმოჩნდეს: დავყოთ ნაწილებად
+
+- 404 errors:
+
+```{r eval=FALSE}
+tryCatch(read_html(url), 
+           error = function(e){NA})
+```
+
+
+## {.flexbox .vcenter}
+
+<div class="centered">
+### გმადლობთ! 
+</div>
