@@ -18,7 +18,8 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-December: TBC
+ ## 2019
+[2019_01_22_Ana_Mamatelashvili_API].(https://github.com/rladies/meetup-presentations_tbilisi/tree/master/ana_api)
 
 ## Past meetups
  ## 2018
