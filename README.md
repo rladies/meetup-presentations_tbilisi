@@ -18,10 +18,16 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
- ## 2019
-[2019_01_22_Ana_Mamatelashvili_API](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/ana_api)
+11 April - Statistics
+18 April - Visualisation
+
 
 ## Past meetups
+ ## 2019
+[2019_03_28_Nutsa Abazadze_Intro](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2019_Beginners)
+[2019_01_22_Ana_Mamatelashvili_API](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/ana_api)
+
+
  ## 2018
 [2018_11_20_Nutsa_Abazadze_internal_R_package](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/r_package_nutsa)
 
