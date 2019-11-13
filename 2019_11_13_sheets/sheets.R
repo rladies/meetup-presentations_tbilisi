@@ -5,47 +5,31 @@ library(dplyr)
 
 # auth with both drive and sheets
 
-# test folder for today
+# read sheets within your personal drive
 
-test_gdrive_dir <- "tbilisi_meetup"
-drive_mkdir(test_gdrive_dir, overwrite = TRUE)
+chicken_gs <- drive_upload(
+    drive_example("chicken.csv"),
+    "chicken",
+    type = "spreadsheet"
+)
+chicken_gs
 
-# read and write sheets within your personal drive
+drive_download(chicken_gs, "local_chicken.csv", "csv", overwrite = TRUE)
+
+# ?
+drive_download("chicken", "local_chicken.csv", "csv", overwrite = TRUE)
 
 # read public sheet not in your drive
-
-drive_upload(
-    drive_example("chicken.csv"),
-    file.path(test_gdrive_dir, "chicken"),
-    type = "spreadsheet"
-)
-
-drive_download(file.path(test_gdrive_dir, "chicken"), "local_chicken.csv", "csv", overwrite = TRUE)
-drive_download(file.path(test_gdrive_dir, "chicken"), "local_chicken.xlsx", "xlsx", overwrite = TRUE)
-
-drive_upload(
-    drive_example("chicken.csv"),
-    file.path(test_gdrive_dir, "chicken_shared"),
-    type = "spreadsheet"
-)
-drive_share(
-    file.path(test_gdrive_dir, "chicken_shared"),
-    role = "reader", type = "anyone"
-)
+# possible without auth with your personal user but with token, not covered today
 
 gapminder_gs <- sheets_example("gapminder")
+gapminder_gs
 sheets_get(gapminder_gs)
 sheets_read(gapminder_gs, "Asia")
 
-# different ways to identify a google sheet
-
-drive_get(path = file.path(test_gdrive_dir, "chicken"))
-drive_get(id = "1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY")
-drive_get(id = "https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY/edit#gid=780868077")
-drive_find("chick")
-sheets_get("1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY")
-sheets_get(drive_get(path = file.path(test_gdrive_dir, "chicken")))
-sheets_find("chick")
+drive_download(gapminder_gs, "local_gapminder.xlsx", type = "xlsx", overwrite = TRUE)
+# silently only first sheet
+drive_download(gapminder_gs, "local_gapminder_sheet.csv", type = "csv", overwrite = TRUE)
 
 # loop through google sheets worksheets
 
@@ -55,15 +39,42 @@ gapminder_df <- purrr::map_df(
     ~sheets_read(gapminder_gs, .x)
 )
 
+# different ways to identify a google sheet
+
+# ??? not working ATM
+drive_get(path = "chicken")
+
+# working
+drive_get(id = "1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY")
+drive_get(id = "https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY/edit#gid=780868077")
+drive_find("chick")
+sheets_get("1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY")
+sheets_find("chick")
+
+# create new sheet and manage permissions
+
+chicken_shared_gs <- drive_upload(
+    drive_example("chicken.csv"),
+    "chicken_shared",
+    type = "spreadsheet"
+)
+
+drive_reveal(chicken_shared_gs, "permissions")$permissions_resource
+drive_share(
+    chicken_shared_gs,
+    role = "reader", type = "anyone"
+)
+
+drive_reveal(chicken_shared_gs, "permissions")$permissions_resource
+
+drive_trash(chicken_shared_gs)
+
 # read cell formatting
 
 #' color coded data
 #' formula
 #' data validaton
 
-# create new sheet and manage permissions
-
-# auth in non-interactive mode
 
 # motivating example: read complex xlsx
 
@@ -71,4 +82,11 @@ gapminder_df <- purrr::map_df(
 #' - multiple header rows
 #' - excel data format
 
-# loop through worksheets
+# loop through worksheets of excel
+
+read_excel("local_gapminder.xlsx")
+read_excel("local_gapminder.xlsx", sheet = "Asia")
+purrr::map_df(
+    excel_sheets("local_gapminder.xlsx"),
+    ~read_excel("local_gapminder.xlsx", sheet = .x)
+)
