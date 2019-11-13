@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
+*.csv
+*.xlsx
+renv/library

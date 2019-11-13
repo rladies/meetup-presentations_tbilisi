@@ -5,6 +5,10 @@ library(dplyr)
 
 # auth with both drive and sheets
 
+# it will work without this, but with separate tokens: error prone
+drive_auth()
+sheets_auth(token = drive_token())
+
 # read sheets within your personal drive
 
 chicken_gs <- drive_upload(
@@ -24,6 +28,7 @@ drive_download("chicken", "local_chicken.csv", "csv", overwrite = TRUE)
 
 gapminder_gs <- sheets_example("gapminder")
 gapminder_gs
+sheets_browse(gapminder_gs)
 sheets_get(gapminder_gs)
 sheets_read(gapminder_gs, "Asia")
 
@@ -50,6 +55,8 @@ drive_get(id = "https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF3
 drive_find("chick")
 sheets_get("1U6Cf_qEOhiR9AZqTqS3mbMF3zt2db48ZP5v3rkrAEJY")
 sheets_find("chick")
+
+drive_trash(chicken_gs)
 
 # create new sheet and manage permissions
 
