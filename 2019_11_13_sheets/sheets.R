@@ -4,6 +4,8 @@ library(googlesheets4)
 library(readxl)
 library(dplyr)
 
+# links to slides: https://docs.google.com/presentation/d/1YlaFQI1dVZ_5fE6glzBsHc67z02G_kHhlq0WAEobsdM
+
 # auth with both drive and sheets -----------------------
 
 # it will work without this, but with separate tokens: error prone
@@ -13,7 +15,7 @@ sheets_auth(token = drive_token())
 # read sheets within your personal drive -------------------
 
 chicken_gs <- drive_upload(
-    drive_example("chicken.csv"),
+    media = drive_example("chicken.csv"),
     "chicken",
     type = "spreadsheet"
 )
