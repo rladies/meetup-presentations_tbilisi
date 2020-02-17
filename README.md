@@ -18,11 +18,14 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-14-16 November 2019 R-Ladies Tbilisi is at DataFest Tbilisi 
+## 2019
+February-March Beginner workshops
 
 
 ## Past meetups
  ## 2019
+ 14-16 November 2019 R-Ladies Tbilisi was at DataFest Tbilisi 
+ 
 [2019_11_13_Ildi_Czeller](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2019_11_13_sheets) 
  
 [2019_03_28_Nutsa Abazadze_Intro](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2019_Beginners)
