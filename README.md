@@ -19,7 +19,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 ## Upcoming meetups
 ## 2019
-February-March Beginner workshops
+[February-March Beginner workshops](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_Beginners)
 
 
 ## Past meetups
