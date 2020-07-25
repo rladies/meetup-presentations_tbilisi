@@ -18,11 +18,21 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
+TBA
+
+## Past meetups
 ## 2020
+[2020_07_25_Elvira_Nassirova_Kazakh_wages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_25_Elvira)
+
+2020_07_14_Rocio_Joo_Topic_analysis
+
+2020_07_04_Ella_Kaye_Text_analysis
+
+2020_06_27_Hazel_Kavili_Testing
+
 [2020_February-March Beginner workshops](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_Beginners)
 
 
-## Past meetups
  ## 2019
  14-16 November 2019 R-Ladies Tbilisi was at DataFest Tbilisi 
  
