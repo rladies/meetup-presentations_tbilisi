@@ -26,7 +26,7 @@ TBA
 
 2020_07_14_Rocio_Joo_Topic_analysis
 
-2020_07_04_Ella_Kaye_Text_analysis
+[2020_07_04_Ella_Kaye_Text_analysis](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_04_Ella_Kaye)
 
 2020_06_27_Hazel_Kavili_Testing
 
