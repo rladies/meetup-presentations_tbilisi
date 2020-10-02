@@ -33,7 +33,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 [2020_07_04_Ella_Kaye_Text_analysis](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_04_Ella_Kaye)
 
-2020_06_27_Hazel_Kavili_Testing
+[2020_06_27_Hazel_Kavili_Testing](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_06_27_Hazel)
 
 [2020_February-March Beginner workshops](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_Beginners)
 
