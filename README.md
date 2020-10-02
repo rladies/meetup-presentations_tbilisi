@@ -29,7 +29,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 [2020_07_25_Elvira_Nassirova_Kazakh_wages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_25_Elvira)
 
-2020_07_14_Rocio_Joo_Topic_analysis(https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_14_Rocio)
+[2020_07_14_Rocio_Joo_Topic_analysis](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_14_Rocio)
 
 [2020_07_04_Ella_Kaye_Text_analysis](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_04_Ella_Kaye)
 
