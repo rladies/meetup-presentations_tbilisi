@@ -18,13 +18,13 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-2020_10_17_Nato_Khaladze
-
-2020_10_07_Riinu_Pius
+[2020_10_17_Nato_Khaladze](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_10_17_Nato)
 
 
 ## Past meetups
 ## 2020
+2020_10_07_Riinu_Pius
+
 [2020_09_26_Beginners_2020](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_Beginners)
 
 [2020_07_25_Elvira_Nassirova_Kazakh_wages](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_07_25_Elvira)
