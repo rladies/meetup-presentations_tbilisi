@@ -18,10 +18,16 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
+15-17 December R-Ladies Tbilisi is at DataFest Tbilisi!
+
+[2020_12_14_Nino_Gugushvili_Covid_viz](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_12_14_covid_nino)
 
 
 ## Past meetups
 ## 2020
+
+2020_12_05_Ana_Katamadze_datacleaning
+
 [2020_11_14_Mariam_Valida_Titanic](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_11_14_Tianic)
 
 [2020_10_17_Nato_Khaladze](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_10_17_Nato)
