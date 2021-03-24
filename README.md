@@ -26,6 +26,8 @@ E-mail: tbilisi [at] rladies [dot] org
 
 ## 2020
 15-17 December R-Ladies Tbilisi is at DataFest Tbilisi!
+
+
 [2020_12_14_Nino_Gugushvili_Covid_viz](https://github.com/rladies/meetup-presentations_tbilisi/tree/master/2020_12_14_covid_nino)
 
 
