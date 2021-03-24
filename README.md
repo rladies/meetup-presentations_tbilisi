@@ -22,7 +22,7 @@ E-mail: tbilisi [at] rladies [dot] org
 
 ## Past meetups
 ## 2021
-[2021_01_21_Nutsa_Nanuashvili](https://github.com/rladiestbilisi/R-Ladies-Tbilisi-Talk)
+[2021_01_21_Nutsa_Nanuashvili_Tidyverse](https://github.com/rladiestbilisi/R-Ladies-Tbilisi-Talk)
 
 ## 2020
 15-17 December R-Ladies Tbilisi is at DataFest Tbilisi!
