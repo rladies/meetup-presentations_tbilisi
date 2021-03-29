@@ -18,10 +18,12 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-28 March 2021 R-Ladies Tbilisi Bookclub Launch
+R-Ladies Tbilisi Bookclub https://www.meetup.com/rladies-tbilisi/events/
 
 ## Past meetups
 ## 2021
+[2021_03_28_bookclub_launch]
+
 [2021_01_21_Nutsa_Nanuashvili_Tidyverse](https://github.com/rladiestbilisi/R-Ladies-Tbilisi-Talk)
 
 ## 2020
