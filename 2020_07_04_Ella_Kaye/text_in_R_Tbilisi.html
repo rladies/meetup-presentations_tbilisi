@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Working with text in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ella Kaye" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/str_view/str_view.css" rel="stylesheet" />
+    <script src="libs/str_view-binding/str_view.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: left, middle, inverse, title-slide
+
+# Working with text in R
+### Ella Kaye
+### July 4th, 2020, RLadies Tbilisi
+
+---
+
+
+
+
+# About me 
+
+- Studying for a PhD in Statistics at the University of Warwick
+
+- Previous degrees in Mathematics and Philosophy, History and Philosophy of Science, Mathematics Education, Secondary School Mathematics teaching
+
+---
+
+# Me and R
+
+- Getting into R:
+
+  - 2014: first R course
+  - 2015: first taste of `ggplot2` 
+  - 2016: first R package 
+  - 2017: first community involvement (useR!2017, [Oxford R User Group](https://r-oxford.github.io), [rainbowR](https://rainbowr.slack.com), [@R_LGBTQ](https://twitter.com/R_LGBTQ))
+  - 2020: first [TidyTuesday](https://github.com/rfordatascience/tidytuesday) contribution
+  - 2021: first ...
+  
+---
+
+class: center, inverse
+background-image: url("edX_digital_humanities.png")
+background-position: center
+background-size: contain
+
+---
+
+class: center, inverse
+background-image: url("Washington-and-Jefferson.jpg")
+background-position: center
+background-size: contain
+
+---
+
+# Command line
+
+**Research question**: lengths of sentences in presidential speeches over the course of a presidency: terse and to the point at the beginning, long windered towards the end? Do they stay the same?
+
+- Take word counts of each sentence and calculate the average word count per sentence per speech.
+
+- Want table with year, month and sentence length recorded for each presidential speech. 
+
+---
+
+# [https://voyant-tools.org](https://voyant-tools.org)
+
+![](Voyant.png)
+
+
+---
+
+# Libraries
+
+
+```r
+library(tidyverse) # especially `stringr`, `ggplot2`
+library(RVerbalExpressions)
+library(tidytext)
+library(wordcloud)
+library(ggwordcloud)
+library(tidygraph)
+library(ggraph)
+```
+
+---
+
+# Inputting the text
+
+
+```r
+text &lt;- read_file("1790_01_08_Washington1.txt")
+```
+
+--
+
+(show this)
+---
+
+# Regular expressions 
+
+A sequence of characters that defines a search pattern.
+
+--
+
+.e$
+
+--
+
+
+```r
+fruit &lt;- c("apple", "orange", "pear")
+str_view(fruit, ".e$")
+```
+
+<div id="htmlwidget-1ad601b78d3e648cf8d6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ad601b78d3e648cf8d6">{"x":{"html":"<ul>\n  <li>app<span class='match'>le<\/span><\/li>\n  <li>oran<span class='match'>ge<\/span><\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+# Basic `stringr`
+
+
+```r
+fruit &lt;- c("apple", "orange", "pear")
+str_detect(fruit, ".e$")
+```
+
+```
+## [1]  TRUE  TRUE FALSE
+```
+
+```r
+str_extract(fruit, ".e$")
+```
+
+```
+## [1] "le" "ge" NA
+```
+
+```r
+str_subset(fruit, ".e$")
+```
+
+```
+## [1] "apple"  "orange"
+```
+
+
+---
+
+![](regular-expression-example.gif)
+
+See [discussion](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/201378#201378)
+
+---
+
+# `RVerbalExpressions`
+
+[https://github.com/VerbalExpressions/RVerbalExpressions](https://github.com/VerbalExpressions/RVerbalExpressions)
+
+
+
+```r
+span_rx &lt;- rx() %&gt;%
+  rx_find("&lt;") %&gt;%
+  rx_anything_but("&gt;") %&gt;%
+  rx_find("&gt;")
+
+span_rx
+```
+
+```
+## [1] "(&lt;)([^&gt;]*)(&gt;)"
+```
+
+--
+
+## Other Regular Expressions resources in R
+
+- [rex](https://github.com/kevinushey/rex)
+- [RegExplain](https://github.com/gadenbuie/regexplain)
+
+---
+
+# Cleaning the text
+
+
+```r
+text_clean &lt;- text %&gt;%
+* str_remove_all(span_rx) %&gt;% # remove html tags
+  str_remove_all("\\\\xe2\\\\x80\\\\x94") %&gt;% # remove unicode
+  str_replace_all("&amp;#32", " ") %&gt;% # replace html space with space
+* str_squish() %&gt;% # remove excess white space
+  str_replace_all("-", " ") %&gt;% # remove hyphens (pros and cons)
+  str_remove_all("[^[:alnum:][:space:].]") %&gt;% # remove punctuation except "."
+  str_remove("This work is in the.*") # remove final sentence
+
+write_file(text_clean, "1790_01_08_Washington1_clean.txt")
+```
+
+--
+
+## `stringr` resources
+
+- [`stringr` package site](https://stringr.tidyverse.org)
+- [cheatsheet](https://resources.rstudio.com/rstudio-cheatsheets/stringr-cheat-sheet)
+- [Strings chapter in R for Data Science](https://r4ds.had.co.nz/strings.html)
+
+---
+
+# Tidy Text
+
+- The tidy text format is a table with one-token-per-row. 
+- A token is a meaningful unit of text, such as a word, that we are interested in using for analysis
+- Tokenization is the process of splitting text into tokens. 
+
+When text is stored in this way, we can manipulate and plot it with other tidy tools, such as `dplyr`, `tidyr` and `ggplot2`.
+
+--
+
+The tidy text approach was developed by [Julia Silge](https://juliasilge.com) and [David Robinson](http://varianceexplained.org).
+
+The main reference is the book [Text Mining with R: A tidy approach](https://www.tidytextmining.com). 
+
+Tools for this approach are provided in the [`tidytext`](https://juliasilge.github.io/tidytext/) package.
+
+---
+
+# Tokenizing the Washington speech
+
+
+```r
+text_df &lt;- tibble(speech = text_clean) %&gt;%
+* unnest_tokens(sentence, speech, token = "sentences")
+
+text_df
+```
+
+```
+## # A tibble: 28 x 1
+##    sentence                                                                     
+##    &lt;chr&gt;                                                                        
+##  1 i embrace with great satisfaction the opportunity which now presents itself …
+##  2 the recent accession of the important state of north carolina to the constit…
+##  3 in resuming your consultations for the general good you cannot but derive en…
+##  4 still further to realize their expectations and to secure the blessings whic…
+##  5 among the many interesting objects which will engage your attention that of …
+##  6 to be prepared for war is one of the most effectual means of preserving peac…
+##  7 a free people ought not only to be armed but disciplined to which end a unif…
+##  8 the proper establishment of the troops which may be deemed indispensible wil…
+##  9 in the arrangements which may be made respecting it it will be of importance…
+## 10 there was reason to hope that the pacific measures adopted with regard to ce…
+## # … with 18 more rows
+```
+
+---
+
+# Get sentence lengths
+
+```r
+text_df %&gt;%
+  mutate(sentence_length = str_count(sentence, boundary("word"))) %&gt;%
+  summarise(mean_sentence_length = mean(sentence_length))
+```
+
+```
+## # A tibble: 1 x 1
+##   mean_sentence_length
+##                  &lt;dbl&gt;
+## 1                 38.2
+```
+
+---
+
+# Working with multiple text files
+
+
+```r
+washington_speeches &lt;- tibble(speech_name = c("1790_01_08_Washington1.txt",
+                                              "1790_12_08_Washington2.txt",
+                                              "1791_10_25_Washington3.txt",
+                                              "1792_11_08_Washington4.txt"))
+
+washington_speeches_df &lt;- washington_speeches %&gt;%
+* mutate(speech = purrr::map_chr(speech_name, ~read_file(.x))) %&gt;%
+  mutate(speech = str_remove_all(speech, span_rx)) %&gt;% # remove html tags
+  mutate(speech = str_remove_all(speech, "\\\\xe2\\\\x80\\\\x94")) %&gt;% 
+  mutate(speech = str_remove_all(speech, "&amp;#32")) %&gt;% # replace spaces
+  mutate(speech = str_squish(speech)) %&gt;% # remove excess white space
+  mutate(speech = str_replace_all(speech, "-", " ")) %&gt;% # remove hyphens 
+  mutate(speech = str_remove_all(speech, "[^[:alnum:][:space:].]")) %&gt;%
+  mutate(speech = str_remove(speech, "This work is in the.*")) %&gt;%
+  mutate(speech_name = str_remove(speech_name, "[:digit:]\\.txt"))
+```
+
+---
+
+# Split into sentences...
+
+
+```r
+washington_speeches_df %&gt;%
+  unnest_tokens(sentence, speech, token = "sentences")
+```
+
+```
+## # A tibble: 183 x 2
+##    speech_name         sentence                                                 
+##    &lt;chr&gt;               &lt;chr&gt;                                                    
+##  1 1790_01_08_Washing… i embrace with great satisfaction the opportunity which …
+##  2 1790_01_08_Washing… the recent accession of the important state of north car…
+##  3 1790_01_08_Washing… in resuming your consultations for the general good you …
+##  4 1790_01_08_Washing… still further torealize their expectations and to secure…
+##  5 1790_01_08_Washing… among the many interesting objects which will engage you…
+##  6 1790_01_08_Washing… to be prepared for war is one of the most effectual mean…
+##  7 1790_01_08_Washing… a free people ought not only to be armed but disciplined…
+##  8 1790_01_08_Washing… the proper establishment of the troops which may be deem…
+##  9 1790_01_08_Washing… in the arrangements which may be made respecting it it w…
+## 10 1790_01_08_Washing… there was reason to hope that the pacific measures adopt…
+## # … with 173 more rows
+```
+
+---
+
+# ...and get average sentence length
+
+
+```r
+washington_speeches_summary &lt;- washington_speeches_df %&gt;%
+  unnest_tokens(sentence, speech, token = "sentences") %&gt;%
+  mutate(sentence_length = str_count(sentence, boundary("word"))) %&gt;%
+* group_by(speech_name) %&gt;%
+  summarise(mean_sentence_length = mean(sentence_length)) %&gt;%
+  separate(speech_name, sep = "_", into = c("Year", "Month", "Day", "President")) 
+
+washington_speeches_summary
+```
+
+```
+## # A tibble: 4 x 5
+##   Year  Month Day   President  mean_sentence_length
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                     &lt;dbl&gt;
+## 1 1790  01    08    Washington                 38.1
+## 2 1790  12    08    Washington                 36.0
+## 3 1791  10    25    Washington                 39.7
+## 4 1792  11    08    Washington                 35.6
+```
+
+--
+
+
+```
+## # A tibble: 4 x 5
+##   Year  Month Day   President mean_sentence_length
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                    &lt;dbl&gt;
+## 1 1801  12    08    Jefferson                 37.2
+## 2 1802  12    15    Jefferson                 36.7
+## 3 1803  10    17    Jefferson                 49.3
+## 4 1804  11    08    Jefferson                 44.7
+```
+
+---
+
+# Word counts
+
+
+```r
+washington_by_word &lt;- washington_speeches_df %&gt;%
+* unnest_tokens(word, speech, token = "words")
+```
+
+--
+
+
+```r
+washington_by_word %&gt;%
+  count(word, sort = TRUE)
+```
+
+```
+## # A tibble: 1,560 x 2
+##    word      n
+##    &lt;chr&gt; &lt;int&gt;
+##  1 the     650
+##  2 of      445
+##  3 to      280
+##  4 and     214
+##  5 in      135
+##  6 a       115
+##  7 which   109
+##  8 be      101
+##  9 that     89
+## 10 for      76
+## # … with 1,550 more rows
+```
+
+---
+
+# Stop words
+
+
+```r
+data(stop_words) # contained in `tidytext`
+
+washington_words &lt;- washington_by_word %&gt;%
+* anti_join(stop_words, by = "word")
+
+washington_count &lt;- washington_words %&gt;%
+  count(word, sort = TRUE)
+
+washington_count
+```
+
+```
+## # A tibble: 1,285 x 2
+##    word           n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 united        28
+##  2 public        25
+##  3 citizens      17
+##  4 government    17
+##  5 measures      17
+##  6 provision     17
+##  7 proper        16
+##  8 law           15
+##  9 national      13
+## 10 country       12
+## # … with 1,275 more rows
+```
+
+---
+
+class: center, middle
+
+![Careful](https://media.giphy.com/media/WyDOpBN50SRy74GnqP/giphy.gif)
+
+---
+
+# What's missing?
+
+
+```r
+head(washington_count)
+```
+
+```
+## # A tibble: 6 x 2
+##   word           n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 united        28
+## 2 public        25
+## 3 citizens      17
+## 4 government    17
+## 5 measures      17
+## 6 provision     17
+```
+
+--
+
+
+```r
+stop_words %&gt;%
+  filter(word == "states")
+```
+
+```
+## # A tibble: 1 x 2
+##   word   lexicon
+##   &lt;chr&gt;  &lt;chr&gt;  
+## 1 states onix
+```
+
+---
+
+# Try again...
+
+
+```r
+stop_words_modified &lt;- stop_words %&gt;%
+  filter(word != "states")
+
+washington_words &lt;- washington_by_word %&gt;%
+  anti_join(stop_words_modified, by = "word")
+
+washington_count &lt;- washington_words %&gt;%
+  count(word, sort = TRUE)
+
+washington_count
+```
+
+```
+## # A tibble: 1,286 x 2
+##    word           n
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 states        29
+##  2 united        28
+##  3 public        25
+##  4 citizens      17
+##  5 government    17
+##  6 measures      17
+##  7 provision     17
+##  8 proper        16
+##  9 law           15
+## 10 national      13
+## # … with 1,276 more rows
+```
+
+---
+
+# Visualising as bar chart
+
+.pull-left[
+
+```r
+washington_count %&gt;%
+  filter(n &gt; 9) %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+  ggplot(aes(y = word, x = n)) + 
+  geom_col() + 
+  ylab(NULL) 
+```
+]
+
+.pull-right[
+![](text_in_R_Tbilisi_files/figure-html/plot-label-out-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Visualising as `wordcloud`
+
+
+```r
+set.seed(2)
+wordcloud(words = washington_count$word, freq = washington_count$n, 
+          min.freq = 9, rot.per = 0.35, colors = brewer.pal(8, "YlGnBu"))
+```
+
+---
+
+class: center, middle
+
+![](text_in_R_Tbilisi_files/figure-html/wordcloud-out-1.png)&lt;!-- --&gt;
+
+---
+
+# Visualising as `ggwordcloud`
+
+
+```r
+set.seed(2)
+washington_count %&gt;%
+  filter(n &gt;= 9) %&gt;%
+  mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(63, 35))) %&gt;%
+  ggplot(aes(label = word, size = n, colour = n, angle = angle)) +
+*   geom_text_wordcloud() +
+    scale_radius(range = c(0, 15), limits = c(0, NA)) +
+    theme_minimal() +
+    scale_color_viridis_c(direction = -1, end = 0.9, begin = 0.1)
+```
+
+[`ggwordcloud` vignette](https://cran.r-project.org/web/packages/ggwordcloud/vignettes/ggwordcloud.html)
+---
+
+class: center, middle
+
+![](text_in_R_Tbilisi_files/figure-html/ggwordcloud-out-1.png)&lt;!-- --&gt;
+
+---
+
+class: center, middle
+
+![Connected](https://media.giphy.com/media/UrQ3YL7cwrMLLeuGix/source.gif)
+
+---
+
+# Bigrams
+
+
+```r
+washington_bigrams &lt;- washington_speeches_df %&gt;%
+* unnest_tokens(bigram, speech, token = "ngrams", n = 2)
+
+washington_bigrams
+```
+
+```
+## # A tibble: 6,830 x 2
+##    speech_name           bigram            
+##    &lt;chr&gt;                 &lt;chr&gt;             
+##  1 1790_01_08_Washington i embrace         
+##  2 1790_01_08_Washington embrace with      
+##  3 1790_01_08_Washington with great        
+##  4 1790_01_08_Washington great satisfaction
+##  5 1790_01_08_Washington satisfaction the  
+##  6 1790_01_08_Washington the opportunity   
+##  7 1790_01_08_Washington opportunity which 
+##  8 1790_01_08_Washington which now         
+##  9 1790_01_08_Washington now presents      
+## 10 1790_01_08_Washington presents itself   
+## # … with 6,820 more rows
+```
+
+---
+
+# Separate out and remove stop words
+
+
+```r
+washington_bigrams &lt;- washington_bigrams %&gt;%
+  separate(bigram, c("word1", "word2"), sep = " ") %&gt;%
+  filter(!word1 %in% stop_words_modified$word) %&gt;%
+  filter(!word2 %in% stop_words_modified$word) 
+```
+
+
+```r
+washington_bigram_counts &lt;- washington_bigrams %&gt;%
+  count(word1, word2, sort = TRUE)
+
+washington_bigram_counts
+```
+
+```
+## # A tibble: 483 x 3
+##    word1    word2          n
+##    &lt;chr&gt;    &lt;chr&gt;      &lt;int&gt;
+##  1 united   states        27
+##  2 fellow   citizens       6
+##  3 post     office         5
+##  4 post     roads          4
+##  5 public   debt           4
+##  6 national prosperity     3
+##  7 3000000  florins        2
+##  8 adequate provision      2
+##  9 current  service        2
+## 10 due      attention      2
+## # … with 473 more rows
+```
+
+---
+
+# Create a graph
+
+
+```r
+washington_bigram_graph &lt;- washington_bigram_counts %&gt;%
+  filter(n &gt; 1) %&gt;%
+* as_tbl_graph()
+```
+
+---
+
+# The graph object
+
+
+```r
+washington_bigram_graph
+```
+
+```
+## # A tbl_graph: 38 nodes and 23 edges
+## #
+## # A rooted forest with 15 trees
+## #
+## # Node Data: 38 x 1 (active)
+##   name    
+##   &lt;chr&gt;   
+## 1 united  
+## 2 fellow  
+## 3 post    
+## 4 public  
+## 5 national
+## 6 3000000 
+## # … with 32 more rows
+## #
+## # Edge Data: 23 x 3
+##    from    to     n
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1     1    17    27
+## 2     2    18     6
+## 3     3    19     5
+## # … with 20 more rows
+```
+
+---
+
+# Plot the graph
+
+
+```r
+set.seed(1)
+*ggraph(washington_bigram_graph, layout = "fr") +
+  geom_edge_link() +
+  geom_node_point() +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1, repel = TRUE)
+```
+
+---
+
+class: center, middle
+
+![](text_in_R_Tbilisi_files/figure-html/first-graph-out-1.png)&lt;!-- --&gt;
+
+---
+
+# Improve the graph
+
+
+
+```r
+set.seed(1)
+
+a &lt;- grid::arrow(type = "closed", length = unit(.1, "inches"))
+
+ggraph(washington_bigram_graph, layout = "fr") +
+* geom_edge_link(aes(edge_alpha = n), show.legend = FALSE, arrow = a,
+*                end_cap = circle(.07, 'inches')) +
+  geom_node_point(color = "lightblue", size = 5) +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1, repel = TRUE) +
+  theme_void()
+```
+
+---
+
+class: center, middle
+
+![](text_in_R_Tbilisi_files/figure-html/second-graph-out-1.png)&lt;!-- --&gt;
+
+---
+
+## Compare word frequencies in two sets of texts
+
+
+
+
+
+```r
+frequency &lt;- bind_rows(washington_words, jefferson_words) %&gt;%
+  mutate(speech_name = str_extract_all(speech_name, "Washington|Jefferson", 
+                                       simplify = TRUE)) %&gt;%
+  rename(president = speech_name) %&gt;%
+  count(president, word) %&gt;%
+  group_by(president) %&gt;%
+  mutate(proportion = n/sum(n)) %&gt;%
+  select(-n) %&gt;%
+  pivot_wider(names_from = "president", values_from = "proportion") 
+```
+
+--
+
+
+```r
+set.seed(234)
+*slice_sample(frequency, n = 6) # dplyr 1.0.0
+```
+
+```
+## # A tibble: 6 x 3
+##   word         Jefferson Washington
+##   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+## 1 wise         NA          0.000794
+## 2 intercourse   0.00140    0.00198 
+## 3 engage       NA          0.00119 
+## 4 revenue       0.00225    0.000397
+## 5 commodities   0.000281  NA       
+## 6 recollection NA          0.000397
+```
+
+
+---
+
+# Plot
+
+
+```r
+ggplot(frequency, aes(x = Washington, y = Jefferson, 
+                      color = abs(Washington - Jefferson))) +
+  geom_abline(color = "gray40", lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = scales::percent_format()) +
+  scale_y_log10(labels = scales::percent_format()) +
+  scale_color_gradient(limits = c(0, 0.001), 
+                       low = "darkslategray4", high = "gray75") +
+  theme(legend.position="none") 
+```
+
+---
+
+class: center, middle
+
+
+![](text_in_R_Tbilisi_files/figure-html/frequency-plot-out-1.png)&lt;!-- --&gt;
+
+---
+
+class: center, middle
+
+
+![Careful](https://media.giphy.com/media/dXLP6Hw8aMD9VqwicP/source.gif)
+
+---
+
+# Sentiment: AFINN
+
+Score -5 (most negative) to 5 (most positive)
+
+
+```r
+get_sentiments("afinn") 
+```
+
+```
+## # A tibble: 2,477 x 2
+##    word       value
+##    &lt;chr&gt;      &lt;dbl&gt;
+##  1 abandon       -2
+##  2 abandoned     -2
+##  3 abandons      -2
+##  4 abducted      -2
+##  5 abduction     -2
+##  6 abductions    -2
+##  7 abhor         -3
+##  8 abhorred      -3
+##  9 abhorrent     -3
+## 10 abhors        -3
+## # … with 2,467 more rows
+```
+
+---
+
+# Sentiment: bing
+
+binary positive/negative
+
+
+```r
+get_sentiments("bing") 
+```
+
+```
+## # A tibble: 6,786 x 2
+##    word        sentiment
+##    &lt;chr&gt;       &lt;chr&gt;    
+##  1 2-faces     negative 
+##  2 abnormal    negative 
+##  3 abolish     negative 
+##  4 abominable  negative 
+##  5 abominably  negative 
+##  6 abominate   negative 
+##  7 abomination negative 
+##  8 abort       negative 
+##  9 aborted     negative 
+## 10 aborts      negative 
+## # … with 6,776 more rows
+```
+
+---
+
+# Sentiment: nrc
+
+categorizes words in a binary fashion (“yes”/“no”) into categories of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust
+
+
+```r
+get_sentiments("nrc") 
+```
+
+```
+## # A tibble: 13,901 x 2
+##    word        sentiment
+##    &lt;chr&gt;       &lt;chr&gt;    
+##  1 abacus      trust    
+##  2 abandon     fear     
+##  3 abandon     negative 
+##  4 abandon     sadness  
+##  5 abandoned   anger    
+##  6 abandoned   fear     
+##  7 abandoned   negative 
+##  8 abandoned   sadness  
+##  9 abandonment anger    
+## 10 abandonment fear     
+## # … with 13,891 more rows
+```
+
+---
+
+# Notes on sentiments
+
+- Note that all these lexicons are on unigrams, so don't pick up things like 'no good' as negative
+
+--
+
+- Constructed via either crowdsourcing (using, for example, Amazon Mechanical Turk) or by the labor of one of the authors
+
+--
+
+- Validated using some combination of crowdsourcing again, restaurant or movie reviews, or Twitter data
+
+--
+
+- Be hesitant about applying these sentiment lexicons to styles of text dramatically different from what they were validated on, such as presidential speeches from 230 years ago!
+
+--
+
+- There are some other domain-specific sentiment lexicons available, constructed to be used with text from a specific content area
+
+
+---
+
+# Washington sentiment: code
+
+
+```r
+washington_words %&gt;%
+* inner_join(get_sentiments("bing"), by = "word") %&gt;%
+  count(word, sentiment, sort = TRUE) %&gt;%
+  ungroup() %&gt;%
+  group_by(sentiment) %&gt;%
+* slice_max(order_by = n, n = 5) %&gt;% # dplyr 1.0.0
+  ungroup() %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+* ggplot(aes(y = word, x = n, fill = sentiment)) + # ggplot2 3.3.0
+    geom_col(show.legend = FALSE) +
+    facet_wrap(~sentiment, scales = "free_y") +
+    labs(x = "Contribution to sentiment",
+       y = NULL) 
+```
+
+---
+
+# Washington sentiment: plot
+
+&lt;img src="text_in_R_Tbilisi_files/figure-html/wash-sent-out-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center
+
+background-image: url("pride-prej-sent.png")
+background-position: center
+background-size: contain
+
+---
+
+class: center
+
+background-image: url("2020_19_AnimalCrossing_alt_50.png")
+background-position: center
+background-size: contain
+
+---
+
+# Some other resources 
+
+- [Code for graph on previous slide](https://github.com/Z3tt/TidyTuesday/blob/master/R/2020_19_AnimalCrossing.Rmd)
+- [readtext.quanteda.io](https://readtext.quanteda.io) - import and handling for plain and formatted text files
+- [pdftools](https://docs.ropensci.org/pdftools/) - extracting text and metadata from pdf files in R
+- [tesseract](https://cran.r-project.org/web/packages/tesseract/vignettes/intro.html) - optical character recognition in R
+- [quantedo.io](http://quanteda.io) - managing and analyzing texts; apply natural language processing to texts
+
+[@rivaquiroga](https://twitter.com/rivaquiroga) (via [@WeAreRLadies](https://twitter.com/WeAreRLadies))
+
+---
+class: center, middle, inverse
+
+## Please ask me questions!
+
+
+## I'd love to hear from you:
+[E.Kaye.1@warwick.ac.uk](mailto:E.Kaye.1@warwick.ac.uk)
+
+[@ellamkaye](https://twitter.com/ellamkaye)
+
+[ellakaye.rbind.io](https://ellakaye.rbind.io)
+
+[github.com/EllaKaye](https://github.com/ellakaye)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
