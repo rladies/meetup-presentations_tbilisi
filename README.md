@@ -18,12 +18,12 @@ E-mail: tbilisi [at] rladies [dot] org
 
 
 ## Upcoming meetups
-June 10 2021: Elisa Schneider on Git, GitHub & RStudio
-
-R-Ladies Tbilisi Bookclub https://www.meetup.com/rladies-tbilisi/events/
+R-Ladies Tbilisi Bookclub Online Meetups https://www.meetup.com/rladies-tbilisi/events/
 
 ## Past meetups
 ## 2021
+June 10 2021: Elisa Schneider on Git, GitHub & RStudio
+
 [2021_03_28_bookclub_launch]
 
 [2021_01_21_Nutsa_Nanuashvili_Tidyverse](https://github.com/rladiestbilisi/R-Ladies-Tbilisi-Talk)
