@@ -1,0 +1,43 @@
+Series Name,Series Code,Country Name,Country Code,select,YR2009,YR2010,YR2011,YR2012,YR2013
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Abkhazia Aut. Rep.",GEO_Abkhazia_Aut._Rep._GE.AA_1296_GEO001,1,NA,NA,NA,NA,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Adjara Aut. Rep.",GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,2,NA,NA,13.7,15.105,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Guria",GEO_Guria_GE.GU_1298_GEO003,3,NA,NA,21.2,NA,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Imereti",GEO_Imereti_GE.IM_1299_GEO004,4,NA,NA,15.7,NA,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Imereti, Racha-Lechkhumi and Kvemo (lower) Svaneti",GEO_ Imereti_Racha-Lechkhumi_Kvemo_Svaneti_AGG038,0,NA,NA,NA,14.275,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Kakheti",GEO_Kakheti_GE.KA_1300_GEO005,5,NA,NA,27.7,20.118,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Kvemo Kartli",GEO_Kvemo_Kartli_GE.KK_1301_GEO006,6,NA,NA,27.2,26.447,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Mtskheta-Mtianeti",GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,7,NA,NA,26.5,NA,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Samergelo and Zemo (upper) Svaneti",GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,9,NA,NA,19.5,14.789,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Samtskhe-Javakheti",GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,8,NA,NA,9.2,NA,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Samtskhe-Javakheti, Guria, and Mtskheta-Mtianeti",GEO_Samtskhe-Javakheti_Guria_MtskhetaMtian_AGG0095,0,NA,NA,NA,13.709,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Shida Kartli",GEO_Shida_Kartli_GE.SD_1306_GEO011,11,NA,NA,23.8,19.466,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,"Georgia, Tbilisi",GEO_Tbilisi_GE.TB_1307_GEO012,12,NA,NA,11.3,7.577,NA
+Poverty headcount ratio at national poverty line (% of population),SI.POV.NAHC,,,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Abkhazia Aut. Rep.",GEO_Abkhazia_Aut._Rep._GE.AA_1296_GEO001,1,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Adjara Aut. Rep.",GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,2,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Guria",GEO_Guria_GE.GU_1298_GEO003,3,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Imereti",GEO_Imereti_GE.IM_1299_GEO004,4,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Imereti, Racha-Lechkhumi and Kvemo (lower) Svaneti",GEO_ Imereti_Racha-Lechkhumi_Kvemo_Svaneti_AGG038,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Kakheti",GEO_Kakheti_GE.KA_1300_GEO005,5,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Kvemo Kartli",GEO_Kvemo_Kartli_GE.KK_1301_GEO006,6,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Mtskheta-Mtianeti",GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,7,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Samergelo and Zemo (upper) Svaneti",GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,9,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Samtskhe-Javakheti",GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,8,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Samtskhe-Javakheti, Guria, and Mtskheta-Mtianeti",GEO_Samtskhe-Javakheti_Guria_MtskhetaMtian_AGG0095,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Shida Kartli",GEO_Shida_Kartli_GE.SD_1306_GEO011,11,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,"Georgia, Tbilisi",GEO_Tbilisi_GE.TB_1307_GEO012,12,NA,NA,NA,NA,NA
+Poverty headcount ratio at rural poverty line (% of population),SI.POV.RUHC,,,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Abkhazia Aut. Rep.",GEO_Abkhazia_Aut._Rep._GE.AA_1296_GEO001,1,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Adjara Aut. Rep.",GEO_Adjara_Aut._Rep._GE.AR_1297_GEO002,2,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Guria",GEO_Guria_GE.GU_1298_GEO003,3,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Imereti",GEO_Imereti_GE.IM_1299_GEO004,4,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Imereti, Racha-Lechkhumi and Kvemo (lower) Svaneti",GEO_ Imereti_Racha-Lechkhumi_Kvemo_Svaneti_AGG038,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Kakheti",GEO_Kakheti_GE.KA_1300_GEO005,5,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Kvemo Kartli",GEO_Kvemo_Kartli_GE.KK_1301_GEO006,6,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Mtskheta-Mtianeti",GEO_Mtskheta-Mtianeti_GE.MM_1302_GEO007,7,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Samergelo and Zemo (upper) Svaneti",GEO_Samergelo_and_Zemo_upSvaneti_GE.SZ_1304_GEO009,9,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Samtskhe-Javakheti",GEO_Samtskhe-Javakheti_GE.SA_1305_GEO008,8,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Samtskhe-Javakheti, Guria, and Mtskheta-Mtianeti",GEO_Samtskhe-Javakheti_Guria_MtskhetaMtian_AGG0095,0,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Shida Kartli",GEO_Shida_Kartli_GE.SD_1306_GEO011,11,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,"Georgia, Tbilisi",GEO_Tbilisi_GE.TB_1307_GEO012,12,NA,NA,NA,NA,NA
+Poverty headcount ratio at urban poverty line (% of population),SI.POV.URHC,,,0,NA,NA,NA,NA,NA

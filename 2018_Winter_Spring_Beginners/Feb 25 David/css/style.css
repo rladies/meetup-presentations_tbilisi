@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "BPG_upper";
+    src:url("fonts/bpg-arial-caps-webfont.ttf");
+}
+
+@font-face {
+    font-family: "BPG_lower";
+	src:url("fonts/bpg-arial-webfont.ttf");
+}
+
+harlow{
+    font-family:"BPG_upper";
+	font-family:"BPG_lower";
+}
+
+.reveal section del,
+.reveal section p,
+.reveal section li,
+.reveal section ul{
+  font-family: BPG_lower;
+}
+
+.header {
+    color: black; background: #ffffff;
+    position: fixed; top: 92%; right: 3%;
+    text-align:right; width:100%;
+	font-family: "BPG_upper";
+}

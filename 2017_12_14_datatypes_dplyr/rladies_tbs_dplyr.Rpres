@@ -1,0 +1,328 @@
+<style>
+.small-code pre code {
+  font-size: 1em;
+  font-family: monospace;
+}
+</style>
+
+
+Data Wrangling in R
+========================================================
+author: Alexander Matrunich
+date: 14 December 2017, R-Ladies Tbilisi 
+autosize: true
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width=50)
+
+knitr::opts_chunk$set(
+  comment = "",
+  collapse = TRUE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold" #,
+  # dev = "pdf"
+)
+
+
+```
+
+Agenda
+==========
+
+* Introduction
+* Basics of base R
+    * Data types in R
+    * Mysterious square brackets
+* Basics of tidyverse
+    * Pipe %>%
+    * dplyr
+    * tydir
+
+Intro
+============
+type: section
+
+
+Alexander Matrunich: who am I?
+=====================
+
+* Specialist degree in Sociology, 2003
+* Head of SocLab, Pskov Volny Institute (2005-2010)
+* Market Research expert, Danish Economical Support Programme (2008-2010)
+* Data Analyst, Institute of Regional Development (2011-2013)
+* R trainer, Statistian, Food and Agricultural Organization of the United Nations (2013-2017)
+
+
+Questions to audience
+=================
+
+Who does use anything from the following:
+
+* Excel
+* R
+  * dplyr, tidyr, purrr
+  * reshape, reshap2, plyr
+  * ggplot2
+  * lapply, vapply, sapply
+* Any other stat software?
+
+
+Required software today
+===================
+
+* R + RStudio IDE
+* packages: dplyr, tidyr
+
+Some basics of base R
+=================
+type:section
+
+Data types
+============
+
+| Dimensions | Homogeneous | Heterogeneous
+| ---:|----:|----:|
+| 1D | Atomic vector | List
+| 2D | Matrix | Data frame
+| nD | Array  | Nested data frames (purrr)
+
+
+Atomic (not recursive) data types 
+=============
+
+* logical: `TRUE` \ `FALSE`
+* integer: `1L`, `2L`, `100L`
+* double (numeric): 1, 1.1, 2.1, 3.1415
+* character: `I am a string`
+* null object: `NULL`
+
+Extract or Replace Parts of an Object
+===========
+
+* `[` returns candy with paper, `[[` returns the candy only
+* `[` can select more than one element
+* `[[` and `$` select only one element
+* Subsetting drops all attributes except `names`, `dim` and `dimnames`.
+* `[[` supports computed indices 
+
+Your turn
+===========
+
+1. Create a list. 
+2. Extract first element with `[`.
+3. Extract first element with `[[`.
+4. Compare.
+
+Data processing in modern R
+============
+type: section
+
+Pipe %>%
+=============
+
+```r
+read_csv("/path/to/my.csv") %>% 
+  select(age, sex) %>% 
+  group_by(sex) %>% 
+  summarize(age = mean(age))
+```
+```r
+summarize(
+  group_by(
+    select(
+      read_csv("/path/to/my.csv"), age, sex),
+    sex),
+  age = mean(age))
+```
+
+A Grammar of Data Manipulation: dplyr
+===================
+
+* Similar tools to work with different data sources (R data frames, SQL data bases)
+* Many packages follow dplyr's philosophy
+* Easy to read code
+
+Source code as a mean of communication
+===============
+
+![Only God knows](figs/code_and_god.jpg)
+
+tibble - modern reimagining of the data.frame
+===================
+
+* does less (no changes of types or column names);
+* complains more (when a variable doesn't exist);
+* enhanced print method (also check `dplyr::glimpse()`).
+
+Old-style data.frame
+========
+class: small-code
+```{r}
+library(dplyr)
+as.data.frame(starwars)
+```
+
+tibble
+============
+class: small-code
+```{r}
+starwars
+```
+
+glimpse() from dplyr
+============
+class: small-code
+```{r}
+glimpse(starwars)
+```
+
+
+dplyr's verbs (some)
+===========
+
+* `filter()`: filter rows based on conditions
+* `select()`: select columns
+* `mutate()`: create new variables
+* `arrange()`: reorder rows
+* `group_by()`: group rows by categories
+* `summarize()`: calculate [groups] totals
+* `*_join()`: family of functions to merge tables
+
+
+filter()
+===========
+class: small-code
+
+```{r}
+starwars %>% 
+  filter(species == "Droid")
+```
+
+filter()
+===========
+class: small-code
+
+```{r}
+starwars %>% 
+  select(name, ends_with("color"))
+```
+
+mutate() & select()
+===========
+class: small-code
+
+```{r}
+starwars %>% 
+  mutate(name, bmi = mass / ((height / 100)  ^ 2)) %>%
+  select(name:mass, bmi)
+```
+
+arrange()
+===========
+class: small-code
+
+```{r}
+starwars %>% 
+  arrange(desc(mass))
+```
+
+Let's rock!
+=========
+class: small-code
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mass = mean(mass, na.rm = TRUE)
+  ) %>%
+  filter(n > 1)
+```
+
+
+tidyr
+=============
+type: section
+
+What is tidy data?
+===========
+
+1. Each variable is in a column.
+2. Each observation is a row.
+3. Each value is a cell.
+
+The patient
+========
+class: small-code
+
+```{r}
+df1 <- tribble(
+  ~student, ~biology, ~math,
+    "Alex",       82,    70,
+  "Sandro",       NA,    85,
+   "Shura",       71,    68
+)
+df1
+```
+A twin of the patient
+========
+class: small-code
+
+```{r}
+(df2 <- tribble(
+  ~Alex, ~Sandro, ~Shura,
+     82,      NA,     71,
+     70,      85,     68
+))
+df1
+```
+
+Scalpel, please!
+===========
+class: small-code
+
+```{r}
+library(tidyr)
+df1 %>% 
+  gather("subject", "mark", -student)
+  
+
+```
+
+What about the twin?
+===========
+class: small-code
+```{r}
+df2 %>% 
+  mutate(subject = row_number()) %>% 
+  glimpse() %>% 
+  gather("student", "mark", -subject) %>% 
+  select(2, 1, 3)
+```
+
+
+
+Sources
+===========
+* Official `dplyr` web-site [dplyr.tidyverse.org](http://dplyr.tidyverse.org/)
+* Official `tidyr` web-site [tidyr.tidyverse.org](http://tidyr.tidyverse.org/)
+* Tidy data vignette
+* R manual pages: `vector`, `is.atomic`, `Extract`, etc.
+* Brad Boehmke. Data Wrangling in R. [Slides](https://rpubs.com/bradleyboehmke/data_processing)
+* [R and Microsoft R Workflows for Data Science](https://azure.github.io/LearnAnalytics-mr4ds/). 
+
+
+Contacts
+=============
+
+Alexander Matrunich
+
+* [a@rresults.consulting](mailto:a@rresults.consulting)
+* Twitter: [@matrunich](https://twitter.com/matrunich)
+* LinkedIn: [matrunich](https://www.linkedin.com/in/matrunich/)
+* These slides: [rpubs.com/malexan/tidydataslides](http://rpubs.com/malexan/tidydataslides)
+* Source code of the slides: [gitlab.com/rresults/rladies_tbs_dplyr](https://gitlab.com/rresults/rladies_tbs_dplyr)

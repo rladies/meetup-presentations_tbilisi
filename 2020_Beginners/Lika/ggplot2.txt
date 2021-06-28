@@ -1,0 +1,94 @@
+# სამუშაო მისამართის განსაზღვრა
+setwd()
+
+setwd("D:\\R\\R\\R_Introductory_Workshops_Geolab\\ggplot2")
+
+# პაკეტის ჩამოტვირთვა
+install.packages("ggplot2")
+
+# ბიბლიოთეკის გამოძახება
+library(ggplot2)
+
+# მონაცემთა ნაკრების შემოტანა. diamond dataset - შეიცავს ინფორმაციას ფასებისა და ხარისხის შესახებ 54 000 ჩანაწერზე; ხარისხობრივი ინფორმაცია: carat, cut, colour, clarity; ფიზიკური საზომები: depth, table, x, y, z
+d <- ggplot(diamonds)
+d <- data.frame(diamonds)
+d <- diamonds
+d
+
+# შემთხვევითი შერჩევა
+dsmall <- diamonds[sample(nrow(diamonds), 100), ]
+
+# საბაზისო გამოყენება - x-y ღერძები და კოორდინატები
+ggplot(data = d, aes(x = carat, y = price)) + geom_point()
+
+#ggplot() + geom_point(data = d, aes(x = carat, y = price))
+#ggplot(d) + geom_point(aes(carat, price))
+
+# log()
+ggplot(data = d, aes(log(carat), log(price))) + geom_point()
+
+# ცვლადების კომბინაცია - წრფივი ურთიერთკავშირი მოცულობასა და წონას შორის
+ggplot(data = d, aes(carat, x * y * z)) + geom_point()
+
+# ფერი, ზომა, ფორმა და სხვა "ესთეტიური" ატრიბუტები - როგორც დამატებითი ინფორმაცია
+ggplot(data = d, aes(carat, price)) + geom_point(aes(colour = color)) # ფერები კატეგორიების საჩვენებლად
+ggplot(data = dsmall, aes(carat, price)) + geom_point(aes(colour = color))
+
+ggplot(data = d, aes(carat, price)) + geom_point(aes(shape = cut)) # ფორმა კატეგორიების საჩვენებლად
+ggplot(data = dsmall, aes(carat, price)) + geom_point(aes(shape = cut))
+
+ggplot(data = dsmall, aes(carat, price)) + # ზომა
+  geom_point(aes(colour = color,
+                 size = 1))
+
+ggplot(data = d, aes(carat, price)) + geom_point(alpha = 0.1)   # 1/10
+ggplot(data = d, aes(carat, price)) + geom_point(alpha = 0.01)  # 1/100
+ggplot(data = d, aes(carat, price)) + geom_point(alpha = 0.005) # 1/200
+
+# smoother
+ggplot(data = d, aes(carat, price)) + geom_point() + 
+                                      geom_smooth()
+ggplot(data = dsmall, aes(carat, price)) + geom_point() + 
+  geom_smooth()
+
+ggplot(data = dsmall, aes(carat, price)) + geom_point() + # ტალღისებურობის კონტროლი "span' პარამეტრით (მეტისმეტად ტალღისებური 0 - და არც ისე ტალღისებური 1)
+  geom_smooth(span = 0.2)
+
+#facets (facet_grid&facet_wrap)
+ggplot(data = d, aes(carat, price)) + geom_point() + 
+  facet_wrap(~cut)
+
+#plot
+dplot <- ggplot(data = d, aes(carat, price)) + geom_point(aes(colour = cut)) + 
+  facet_wrap(~cut)
+dplot
+
+#ლეგენდა
+dplot_1 <- dplot + 
+  labs(title = "ბრილიანტის მაჩვენებლების შეფასება",
+       subtitle = "ბრილიანტის დამუშავების ხარისხი, კარატი და ფასი",
+       caption = "წყარო: ggplot2, ღია მონაცემთა ბაზა") + 
+  xlab("კარატი") + ylab("ფასი") +
+  theme(
+    plot.title = element_text(colour = "black", size = 14, face = "bold"),
+    plot.subtitle = element_text(colour = "black", size = 12),
+    plot.caption = element_text(colour = "black", size = 10, face = "italic", 
+                                hjust = 1), 
+    strip.text = element_text(size = 10, face = "bold"),
+    axis.text.x = element_text(size = 8), 
+    axis.text.y = element_text(size = 8), 
+    legend.position = "bottom", 
+    legend.text = element_text(size = 12), 
+    legend.justification = 0
+  ) + 
+  scale_color_discrete(name = "დამუშავების ხარისხი")
+
+d$cut <- factor(d$cut, levels = c("Fair", "Good", "Very Good", "Premium", "Ideal"), 
+                labels = c("საშუალო", "კარგი", "ძალიან კარგი", "უმაღლესი", "იდეალური"))
+
+dplot_1
+
+#პლოტის შენახვა
+ggsave("dplot_1.png", width = 29.7, height = 21, units = "cm")
+
+

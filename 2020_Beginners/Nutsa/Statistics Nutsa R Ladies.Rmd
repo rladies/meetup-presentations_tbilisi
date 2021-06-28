@@ -1,0 +1,420 @@
+---
+title: "Basic Statistics in R"
+subtitle: "R Ladies Tbilisi Workshop"
+author: "Nutsa Abazadze"
+date: "2020 Sep"
+output:
+    html_document:
+        code_folding: "show"
+        number_sections: TRUE
+        toc: true
+        toc_depth: 4
+        toc_float: true
+        theme: flatly
+        highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = "#>",
+                      message = FALSE,
+                      options(scipen = 999),
+                      options(digits=2)
+)
+```
+
+
+> Main packages used: `pastecs`,  `psych`, `base R`, `broom`, `ggplot2`, `dplyr` <br>
+
+> Three main topics covered: Descriptive Statistics, Inferential Statistics, Modeling
+
+> Note, this file was made in R markdown, you can check out the .rmd file to see how this was built.
+
+# Basic Statistical analysis and modelling in R
+
+Packages we will need.
+
+```{r eval=FALSE}
+packages <- c("pastecs", "psych", "ggfortify", "effects", "GGally", "broom",
+              "survey", "dplyr", "tidyr", "haven", 
+              "gapminder", "ggplot2", "ggeffects")
+install.packages(packages)
+```
+
+
+```{r echo=FALSE}
+library(survey) # package for analyzing survey data
+library(plm) # package for panel regressions
+```
+
+
+```{r message=FALSE}
+# data import and cleaning
+library(dplyr)
+library(tidyr)
+library(haven)
+library(pastecs)
+library(psych)
+
+#statistical modelling
+library(broom) # extracting model informations
+
+# # practice data
+ library(gapminder)
+#
+# # data visualization
+library(ggplot2)
+library(ggfortify)
+library(effects)
+library(ggeffects)
+library(GGally)
+```
+
+
+
+## Before we start - Project Set-up!
+
+Using Projcets with RStudio will simplify your workflow. Essentially, all your project related files are collected in your selected folder so you don't need to specify a working directory. Your project will be able to run as long as you copy the entire folder (or have it on the cloud).
+
+How to set one up: `File -> New Project` then choose a directory where you want to have your R scripts, data and history files. You should also disable the **"Restore most recently opened project at startup"** and **"Restore .RData ino workspace at startup"**, aNnd also set **"Save workspace to .RData on exit"** to **Never** in `Tools -> Global Options -> General` 
+
+For more help and materials on using projects, see [RStudio's own resource page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) or a [well argued reasoning from Jenny Brian](https://www.tidyverse.org/articles/2017/12/workflow-vs-script/). 
+> Let's set up a new project for this workshop!
+
+To get started:
+
++ **Create a new project** for the course; I recommend working directly in Google Drive or Dropbox. Create a new folder there.
++ **Create a sub-folder for data** - call it `data` and copy the **data** we will use in this workshop. Get it from Github or USB.
++ **Start a new R script** by Ctrl + Shift + N. 
++ **Don't forget to save** the script to your project folder (Ctrl + s)! 
+
+**You can comment your code with `#` (hash-tag). Anything in the given line after `#` will not be taken into R when it runs the code.**  
+
+
+<br>
+<br>
+
+
+> **General tips:**  
+> - Check the [R coding style guide](http://style.tidyverse.org/index.html)  
+> - Comment your codes heavily (with the `#`) because now seemingly straightforward code will not be so in the future; <br>
+> - Indent code with #### or `----` to create a `table of contents`; <br>
+> - Use sensible file names (e.g.: `01_data_cleaning.R`);  
+> - R is case sensitive, so use lowercase file and variable names. Separate words with underscore `_` (e.g.: `ols_reg_1`).
+
+
+## About the dataset that we are going to use - Gapminder data
+
+A part of the data available at Gapminder.org. For each of 142
+countries, the package provides values for life expectancy, GDP per capita,
+and population, every five years, from 1952 to 2007.
+
+
+```{r}
+remove(list = ls())
+```
+
+```{r}
+mydata <- gapminder::gapminder
+```
+
+Below a preview of this dataset and its structure:
+
+```{r}
+head(mydata)
+```
+
+```{r}
+str(mydata)
+```
+
+
+## Descriptive statistics
+
+descriptive statistics is a branch of statistics aiming at summarizing, describing and presenting a series of values or a dataset. Descriptive statistics is often the first step and an important part in any statistical analysis. It allows to check the quality of the data and it helps to “understand” the data by having a clear overview of it. 
+
+R provides a wide range of functions for obtaining summary(descriptive) statistics. 
+
+### Mind and Max
+
+Minimum and maximum can be found thanks to the min() and max() functions:
+
+```{r}
+min(mydata$lifeExp)
+```
+
+```{r}
+max(mydata$lifeExp)
+```
+
+Alternatively the range() function gives you the minimum and maximum directly. 
+
+```{r}
+rng <- range(mydata$lifeExp)
+rng
+```
+
+Note that the output of the range() function is actually an object containing the minimum and maximum (in that order). This means you can actually access the minimum with:
+
+```{r}
+rng[1] # rng = name of the object specified above
+```
+
+and the maximum with:
+
+```{r}
+rng[2]
+```
+
+This reminds us that, in R, there are often several ways to arrive at the same result :)
+
+### Mean
+
+The mean can be computed with the mean() function:
+
+```{r}
+mean(mydata$lifeExp)
+```
+
+if there is at least one missing value in your dataset, use the argument NA:
+
+```{r}
+mean(mydata$lifeExp, na.rm = TRUE) 
+```
+
+```{r}
+sum(is.na(mydata$lifeExp))
+```
+
+### Median
+
+The median can be computed thanks to the median() function:
+
+```{r}
+median(mydata$lifeExp)
+```
+
+or with the quantile() function, since the quantile of order 0.5 (
+q0.5) corresponds to the median.:
+
+```{r}
+quantile(mydata$lifeExp, 0.5)
+```
+
+### First and third quartile
+
+As the median, the first and third quartiles can be computed thanks to the quantile() function and by setting the second argument to 0.25 or 0.75:
+
+```{r}
+quantile(mydata$lifeExp, 0.25) # first quartile
+```
+
+```{r}
+quantile(mydata$lifeExp, 0.75) # third quartile
+```
+
+The results above are slightly different than the results you would have found if you compute the first and third quartiles by hand. It is normal, there are many methods to compute them (R actually has 7 methods to compute the quantiles!). 
+
+### Summary Statistics for the whole dataset (Combination of all above mentioned)
+
+One method of obtaining descriptive statistics is to use the sapply( ) function with a specified summary statistic. Possible functions used in sapply include mean, sd, var, min, max, median, range, and quantile.
+
+
+```{r}
+# get means for variables in data frame mydata
+# excluding missing values
+sapply(mydata, mean, na.rm=TRUE)
+```
+
+There are also numerous R functions designed to provide a range of descriptive statistics at once. For example:
+
+```{r}
+# mean,median,25th and 75th quartiles,min,max
+summary(mydata)
+```
+
+Tip: if you need these descriptive statistics by group use the by() function:
+
+```{r}
+by(mydata, mydata$continent, summary)
+```
+
+or using the "pastecs" package
+```{r}
+# nbr.val, nbr.null, nbr.na, min max, range, sum,
+# median, mean, SE.mean, CI.mean, var, std.dev, coef.var
+stat.desc(mydata)
+```
+
+another alternative is using the  "psych" package
+```{R}
+# item name ,item number, nvalid, mean, sd,
+# median, mad, min, max, skew, kurtosis, se
+describe(mydata)
+```
+
+
+## Correlation
+
+Another descriptive statistics is the correlation coefficient.
+It is perhaps the most common approach to look into associations between variables. There are also different types of correlation, here we will be talking about the Pearson correlation, which is what is usually thought of when people speak about correlation. It shows the association between two continuous variables and is implemented in R in the cor() and cor.test() functions. The first simply calculates the value of the correlation coefficient, the second also performs a statistical test to tell you if the correlation is statistically different from 0.
+We will use the, by now, well known gapminder dataset for both the correlation and both the regression analysis examples. The only modifications we will make to the data is to create a cross-section of it, by limiting all observations to the year 2007.
+
+```{r}
+gapminder_cs <- subset(gapminder, year == 2007)
+summary(gapminder_cs)
+```
+
+The `cor()` function is useful, because it provides the possibility to look at many variables at once. So let’s have a look at all the correlations between the variables in the dataset. The `cor()` function is picky about missing data and therefore we have to tell it to drop the cases with missing values on a variable for the calculation of a specific correlation. The `"pairwise.complete"` option tells it to use for each correlation the set of observations that complete.
+
+In the function call, I specify that I want the correlation between the last three variables.
+
+```{r}
+cor(gapminder_cs[, 4:6], use = "pairwise.complete", method = "pearson")
+```
+
+
+
+We can test with the `cor.test` function if the estimated correlations are statistically significant. Let's check GDP per capita and population. They have a negative correlation, but we do not really know if this is significant or not. (yet)
+
+```{r, collapse=FALSE}
+cor1 <- cor.test(gapminder_cs$pop, gapminder_cs$gdpPercap, method = "pearson")
+cor1
+```
+
+The p-value of the test is above our treshold of p < 0.05, thus the negative correlation between the two variable is not statistically significant. 
+
+
+Let's check life expectancy and GDP per capita.
+
+```{r}
+cor.test(gapminder_cs$lifeExp, gapminder_cs$gdpPercap)
+```
+
+We can see that the correlation between the variables is clearly significant as the p-value is well below our trehsold of p < 0.05.
+
+We can visualise correlation with scatter plots. 
+
+> Plot the relationship between life expectancy and GDP per capita with the `ggplot` package. No need to tinker with the plot this time. For extra, you can add a trend line with the `geom_smooth()`
+
+```{r }
+ggplot(gapminder_cs, aes(gdpPercap, lifeExp)) +
+    geom_point() +
+    geom_smooth(method = "lm")
+```
+
+Or we can plot a correlation heatmap with the `GGally::ggcorr` function of the `GGally` ggplot extension package.
+
+```{r}
+ggcorr(gapminder_cs[, 4:6], label = TRUE)
+```
+
+
+## Contingency table
+
+table() can be used to count occurencies by categories.
+
+
+```{r}
+table(mydata$continent)
+```
+
+
+table() introduced above can also be used on two qualitative variables to create a contingency table. The dataset gapminder has only three qualitative variables  for which we can not create a contigency table. Because of that we create new qualitative variable just for this example. We create the variable GDP_level which corresponds to low if the gdp per capita for the country is smaller than the median of all countries, high otherwise:
+
+```{r}
+mydata$gdp_level <- ifelse(mydata$gdpPercap < median(mydata$gdpPercap),
+  "Low", "High"
+)
+```
+
+
+We now create a contingency table of the two variables Continent and GDP_Level with the table() function:
+
+```{r}
+table(mydata$continent, mydata$gdp_level)
+```
+The contingency table gives the number of cases in each subgroup. 
+
+Instead of having the frequencies (i.e.. the number of cases) you can also have the relative frequencies (i.e., proportions) in each subgroup by adding the table() function inside the prop.table() function:
+
+```{r}
+prop.table(table(mydata$continent, mydata$gdp_level))
+```
+
+Note that you can also compute the percentages by row or by column by adding a second argument to the prop.table() function: 1 for row, or 2 for column:
+
+percentages by row:
+
+```{r}
+round(prop.table(table(mydata$continent, mydata$gdp_level), 1), 2) # round to 2 digits with round()
+```
+
+### Mosaic plot
+A mosaic plot allows to visualize a contingency table of two qualitative variables:
+
+```{r}
+mosaicplot(table(mydata$continent, mydata$gdp_level),
+  color = TRUE,
+  xlab = "Continent", # label for x-axis
+  ylab = "Gdp_level" # label for y-axis
+)
+```
+
+
+
+## Student’s t-test
+The t-test is a simple, yet powerful statistical technique to check whether two sample means differ from each other statistically significantly. For experimental setups you can examine if your treatment caused a statistically significant effect compared to your control group for example. The validity of the test is based on the assumptions that our sample is randomly selected from the population and people are randomly distributed between the treatment and control groups as well.
+
+We’ll keep going with our gapminder data; we want to test if GDP is significantly different between the Americas and Europe in 2007; so we can use a basic two-sample t-test. For that question, we want to use a two-sample t-test. 
+
+In R a t-test is implemented in the t.test() function. As a minimum, for an independent samples t-test, you just need to provide it with two vectors of data values as the first two arguments. It also accepts input in the form of a formula, which might be more convenient in some occasions.
+
+In general R, the formula = argument is made up by a right hand side (our dependent variable usually), which is followed by ~ and the independent variables. For the t-test, we can simply specify sample1~sample2 as our formula and supply the function with the data = argument. This way, we don’t need to specify the variable names by using $. The variable formula is used widely in R modelling and statistical analysis functions, so we should get acquinted with it.
+
+
+Since we’re only interested in Europe and the Americas in 2007, we need to do a bit of filtering of the data.
+
+```{R}
+gdp_07_EuAm <- filter(gapminder, 
+                      continent %in% c("Americas", "Europe"), 
+                      year == 2007)
+summary(gdp_07_EuAm)
+```
+```{r}
+gdp_07_EuAm <- droplevels(gdp_07_EuAm)
+head(gdp_07_EuAm)
+```
+```{r}
+t.test(gdpPercap ~ continent, data = gdp_07_EuAm)
+```
+
+In the output we can see the value of the test statistic t = -4.8438 and the p-value = 0.00001148 Wait..what does that mean?
+
+The t-statistic and p-value are the two most important pieces of information. They give us the same information. Every t-statistic has an associated p-value.
+If the p-value of the test statistic is below a certain threshold that we have set (usually 0.05), then we can reject the null hypothesis and accept the alternative hypothesis that the true difference in means is not equal to 0 (the null hypothesis is that the difference between the sample means is 0). We can also see the confidence interval and the means for the two groups. 
+
+In this case there is a statistically significant difference between the two continents GDP's.
+
+
+## Regression
+
+Perhaps the simplest and most common analysis one would do is linear OLS regression. It allows to model a continuous variable as a linear combination (a sum) of one or several other continuous or binary variables so that in the end we would have a rough idea about how much our response variable would change if our explanatory variable would change by a certain amount. It is a simple, but rather flexible and powerful technique and the basic linear model can be extended to cover most of the analyses one could think of. The basic OLS is good also because it is relatively understandable. Its basic principle is minimising the sum of squared differences between the actual and the predicted values.
+
+OLS is suitable if one has a continuous response variable, which is more or less normally distributed, continuous or binary explanatory variables and a reasonable amount of cases that are independent of each other. Rules of thumb with regard to the latter differ, but it would probably not be a good idea to run a regression with less than 20 cases, especially with many explanatory variables, and one should be OK if there are more than a 100 cases and not a very large amount of predictors. The more we want out of the data, i.e. the more coefficients and relationships we are looking at, the more information (cases) we would need in order to have stable and valid estimates about the associations we are interested in.
+
+Out of the example data that we have had, let’s try to model the life expectancy in certain countries from the `gapminder` dataset as a function of the GDP per capita, population and spatial features (continent). 
+
+In R a linear model can be fitted with the `lm()` function, which has the same familiar arguments as the previous functions we have looked at in this section. We need to specify a formula with the response variable on the right hand side and the explanatory variables on the left hand side. And we need to tell the function the name of the data object.
+
+```{r}
+reg1 <- lm(lifeExp ~ gdpPercap + pop + continent, data = gapminder_cs)
+summary(reg1)
+```
+
+The first thing we should always look at is model fit. This is shown us by the two values of R-squared at the bottom of the output. Out of these two, we should always look at adjusted R-squared, because this also takes into account the number of variables we have in the model and the number of cases that we have at our disposal. Any variable, even if there is no association at all, that is included in a model increases model fit a bit just by chance and we should account for that somehow.
+
+Here we can see that the model fits rather well, the included independent variables help us account for 70% of the variance in a country's average population life expectancy. With such a well fitting model, we can safely move on to interpreting the coefficients. They tell us that a 1 dollar per capita increase in the GDP per capita is associated with a 0.00035 increase in life expectancy (this should make us think a bit about the nature of the relationship and its possible limits). 
+
+We can also see that the effect size of the contient variable dwarfs the gdpPercap. This should not be a big surprise, as we cannot really claim to have a fully specified model so the continent variable is likely capturing a lot of other effects.

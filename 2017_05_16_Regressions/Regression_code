@@ -1,0 +1,130 @@
+#mypath <- "C:/Users/KASUTAJA/Documents/RLadies"
+setwd(paste(mypath))
+library(foreign)
+
+#specify to be a dataframe
+#Georgian & Armenian data
+cbdata<-read.spss("CB_2015_Regional_Only_Responses_140416.sav", to.data.frame=T)
+
+View(cbdata)
+summary(cbdata)
+attributes(cbdata)
+class(cbdata)
+str(cbdata)
+names(cbdata)
+
+#Checking the variables
+class(cbdata$EDUYRS)
+class(cbdata$PERSINC)
+class(cbdata$HLTHRAT) #factor variable
+class(cbdata$IDEALNCH)
+
+#some changes to do in the data
+cbdata$HLTHRAT2<-as.numeric(cbdata$HLTHRAT)
+class(cbdata$HLTHRAT2) #now it's numeric
+cbdata$HLTHRAT2
+hist(cbdata$HLTHRAT2)
+
+#Correlations
+cor(cbdata$HLTHRAT2, cbdata$DISCPRPR)
+cor(cbdata$HLTHRAT2, cbdata$AGE)
+cor(cbdata$HLTHRAT2, cbdata$LIFESAT)
+cor(cbdata$HLTHRAT2, cbdata$EDUYRS)
+cor(cbdata$HLTHRAT2, cbdata$RATEHAP)
+
+#can make a selection of chosen variables
+cbdata2<-subset(cbdata, select=c("ID","COUNTRY", "AGE", "IDEALNCH","RATEHAP", "LIFESAT", "DISCPRPR", "EDUYRS", "HLTHRAT2"))
+class(cbdata2)
+View(cbdata2)
+#correlation matrix
+cor(cbdata2) 
+#scatterplot matrix
+#par("mar")
+par(mar=c(1,1,1,1))
+pairs(cbdata2)
+summary(cbdata2)
+
+#Outcome variable: Ideal number of children per family in a country
+cor(cbdata$IDEALNCH, cbdata$AGE) #not highly correlated (if above 0.6)
+
+#exclude negative values
+cbdata2$IDEALNCH <- ifelse(cbdata2$IDEALNCH < 0, 0, cbdata2$IDEALNCH)
+cbdata2$RATEHAP <- ifelse(cbdata2$RATEHAP < 0, 0, cbdata2$RATEHAP)
+cbdata2$DISCPRPR <- ifelse(cbdata2$DISCPRPR < 0, 0, cbdata2$DISCPRPR)
+cbdata2$LIFESAT <- ifelse(cbdata2$LIFESAT < 0, 0, cbdata2$LIFESAT)
+
+
+#Let's check the data with a scatterplot
+plot (IDEALNCH, EDUYRS, main="Scatterplot", 
+      xlab="Ideal no of children", ylab="Years in education", pch=19)
+abline(lm(EDUYRS~IDEALNCH), col="red") # regression line
+#not so linear
+
+par("mar")
+par(oma=c(0,0,0,0) ) #paramtres of the graph
+par(mar=c(4,4.5,2,1)) #parametres of the graph
+#attach(cbdata2)
+plot(cbdata2$IDEALNCH, cbdata$AGE, main="Scatterplot", 
+     xlab="Ideal no of children in country", ylab="Age", pch=19)
+abline(lm(cbdata2$AGE~cbdata2$IDEALNCH), col="red") # regression line (y~x) 
+#a bit linear
+
+model <- lm(cbdata2$IDEALNCH~cbdata2$AGE)
+summary(model)
+
+#There is also a special outliertest
+install.packages("car")
+library(car)
+#To check for outliers and if they should be thrown out
+outlierTest(model) #should be fine? If p>0.005 -> throw out
+
+
+#Checking linearity (top left) normality (top right), homoscedasticity (below left) assumptions through plotting
+#Residuals vs Leverage plot shows existence of influential cases
+#if figure margins too large, change them
+par("mar")
+par(oma=c(2,2,1,1) ) #paramtres of the graph
+par(mar=c(2,2,1,1)) #parametres of the graph
+
+#Plot 
+op <- par(no.readonly = TRUE )
+par(mfrow=c(2, 2))
+plot(model)
+par(op)
+
+#cases number 193 & 63 seem a bit off
+#normal distribution seems to hold
+#homoscedascity seems to hold
+
+
+#for checking multicollinearity - VIF 
+#need 2+ terms in the model
+library(car)
+vif(model) #seems quite good
+
+
+# LOGISTIC REGRESSION
+#first check the variable that want to use, change it if necessary
+cbdata$HLTHRAT2<-as.numeric(cbdata$HLTHRAT)
+class(cbdata$HLTHRAT2)
+hist(cbdata$HLTHRAT2)
+
+cbdata$HLTHRAT3[cbdata$HLTHRAT2>7] <- as.numeric(1)
+cbdata$HLTHRAT3[cbdata$HLTHRAT2<=7] <- as.numeric(0)
+class(cbdata$HLTHRAT3)
+cbdata$HLTHRAT3<-as.factor(cbdata$HLTHRAT3)
+
+#Compare variables by running frequencies
+table(cbdata$COUNTRY, cbdata$HLTHRAT2)
+table(cbdata$COUNTRY, cbdata$HLTHRAT3)
+
+
+#run the model
+#family specifies the distribution
+logmodel <- glm(HLTHRAT3 ~ SEX, family = binomial(link = "logit"), 
+                data = cbdata)
+summary(logmodel)
+
+
+#Poisson distribution - count data
+#example would be: glm (x ~ y+y1, poisson, data)

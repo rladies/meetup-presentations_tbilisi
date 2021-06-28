@@ -1,0 +1,252 @@
+###############################################
+#### Creating & reading R objects and data ####
+###############################################
+getwd()
+setwd("C:/...")
+rm(list=ls())
+
+#VARIABLES
+#Types of variables - mainly 4: characters, numbers(numeric or integer), logical (True or False), factors
+#R is case-sensitive
+#CHARACTERS
+#a character vector of length of 1 element
+a<-"hello"
+a
+#character vector - length of 3 elements
+a<-c("hello", "you", "there")
+a
+
+aname="Mary"
+bname="Anne"
+b<-paste(aname, bname)
+b
+
+#NUMBERS - numeric or integer
+v<-12.3
+u<-999
+class(u)
+class(v)
+
+#Integer is  is a whole number (not a fractional number) that can be positive, negative, or zero
+
+#LOGICAL
+age_me<-25
+age_you<-35
+z<-age_me>age_you
+class(z)
+
+costs <- c(20, 30, 40)
+income <- c(25, 15, 60)
+total<- costs - income
+total
+class(total)
+y<- costs > income
+y
+class(y)
+
+
+#FACTORS - categorical variables
+a1<-factor(c("male", "female"))
+a1
+levels(a1)
+nlevels(a1)
+
+#read.table will automatically convert character variables to factors unless the as.is= argument is specified
+
+#DATA TYPES
+#How do I know which type is the variable?
+class()
+
+#You can also coerce vectors explicitly using the as.<class_name>.
+is.numeric(2)
+is.integer(2)
+#integers are numerics, but not all numerics are integer
+
+#Coercion - transforming var-s into different type
+#transform TRUE into 1, FALSE into 0
+as.numeric(TRUE)
+as.numeric(FALSE)
+as.character(4)
+
+#characters into numerics
+as.numeric("4.5")
+#character into integer, but lose the decimal
+as.integer("4.5")
+
+#conversion into numeric not always possible
+as.numeric("Hello")
+
+#The coersion rule goes logical -> integer -> numeric -> complex -> character.
+
+
+#### DATA STRUCTURES ######
+#VECTORS, DATAFRAMES, LISTS
+#creating VECTORS --> use c()
+#vectors consist of homogeneous type of elements
+#here create a vector of length 3
+c("Georgia", "Armenia", "Azerbaijan")
+#or as a separate object
+c<-c("Georgia", "Armenia", "Azerbaijan")
+c
+#check if it is a vector
+is.vector(c)
+#check the length of vector
+length(c)
+
+d<-c(1,2,3)
+d
+
+#want to have c accompanied to d --> use names()
+names(d)<-c
+d
+
+#OR do the same like this (it is fine to include ""-marks -> gives the same result)
+e<-c(Georgia=1, Armenia=2, Azerbaijan=3)
+e
+
+#create numeric vectors
+vec1<-c(1,2,3,4,5)
+vec2<-c(6,7,8,9,10)
+
+vec3<-vec1+vec2
+vec3
+
+vec4<-c(vec1, vec2)
+vec4
+
+
+
+ab<-c(1:10)
+ba<-c(10:1)
+
+abc<-rep(1:21, 3)
+abc
+
+#create sequences
+abcd <- seq(1,10, 2) #with a step of 2
+abcd #doesn't print the last element
+g<-seq(1,20,0.1) #big vector, with a step of 0.1
+g
+f<-seq(20,1,-0.1) #same length, reverse order, also step of 0.1, but decreasing values
+f
+h<-seq(5, by=2, length=30)
+h
+
+i<-g+f
+i
+
+j<-seq(10,1,-3) 
+j
+
+#select and add elements from/to vector
+c[2]
+c[1]
+c[4]<-"Poland"
+c
+
+#add several elements at the same time
+c[c(5,6)]<-c("Ukraine", "Hungary")
+
+
+#Creating other objects, like sex, ethnicity, religion, etc.
+#Let 1 stand for "Female" and 2 for "Male" - we make it a "factor" variable - a categorical (not numerical)
+sex <- factor(c(1,2,2,1,2)) 
+sex
+str(sex) #this tells you that "sex" is indeed a factor variable
+
+#lets create another vector with similar length to be used together with sex
+age <- c(20, 34, 56, 33, 78)
+str(age) #numerical var, so this is different from "sex" which is factor
+age1 <-age[sex==1] #this creates a new variable for age of women only (sex=1 stands for females)
+age1
+mean(age1)
+
+#DATAFRAMES
+#(By default, external files get imported as dataframes into R)
+#A vector has 1 dimension, a dataframe 2 dimensions
+#A dataframe can have different data types for each column (dates, numbers, factors). 
+#A dataframe is a list with equal length vectors at each index.
+#Creating a dataframe with data.frame function
+X <- data.frame(S=sex, A=age)
+X
+
+#Store your data
+write.table(X, file="mydata.txt", col.names = TRUE) #col.names=T helps to separate columns in the data
+write.table(X, "mydata.csv", col.names=F)
+
+
+#another dataframe
+age2 <- c(12, 56, 23, 92)
+sex2 <- c("male", "female", "female", "male")
+name <-c("Gio", "Ana", "Nino", "Koba")
+df<-data.frame(age2, sex2, name)
+class(df)
+
+str(df) #this says that name is factor - we need it as a character vector:
+#force name to be as character
+df$name<-as.character(df$name)
+class()
+
+#t for transpose --> class changes into a matrix
+t(df)
+#as.data.frame converts into data.frame
+as.data.frame(df)
+
+#LISTS - elements of different types
+#Lists can contain all kinds of elements - numbers, strings, vectors and another list inside it + matrices + functions
+#Create using list() function
+mylist <- list("School", "Work", c(9,97,30), TRUE, 33.23, 100.1)
+print(mylist)
+mylist
+
+
+
+#READING (IN) & EXPLORING DATA
+objects()
+
+#read in datafiles
+#download cars.csv
+mydata<-read.csv("cars.csv", header=T, sep=",")
+#read.txt for text files, read.csv2 for files where comma used as decimal point, or read.table sometimes
+#have to specify the separator 
+#header=TRUE specifies that the first row includes a header (titles of columns)
+class(mydata)
+
+#SIZE OF OBJECTS/ EXPLORING OBJECTS
+nchar(mydata)
+
+length(mydata) #gives the number of variables
+
+dim(mydata) #dimensions - 406 rows and 12 columns
+nrow(mydata) #number of rows
+ncol(mydata) #number of columns
+
+summary(mydata)
+str(mydata)
+head(mydata) #gives first 6 lines
+head(mydata,20) #have to specify if want to see first 20 lines
+tail()
+
+mydata[1] #selects first value in vector/ dataframe (in this case the first column)
+tail(mydata, n=1) #selects last value (in this case last row)
+head(mydata, n=1) #selects first value (in this case first row)
+mydata[2,3] #selecting a specific element
+
+#SORTING DATA
+a <- c(4, 1, 2, 3)
+sort(a) #sorts a numeric vector in ascending order (default)
+sort(a, decreasing = TRUE) #specify the decreasing arg to reverse default order
+
+A <- c( "D", "B", "C", "A")
+sort(A) #sorts a character vector in alphabetical order (default)
+sort(A, decreasing = TRUE) #specify the decreasing arg to reverse default order
+
+
+#explore existing datasets within R
+data() #gives the list of datafiles
+head(Titanic)
+view(Titanic)
+data(Titanic)
+??Titanic
+str(Titanic)
+dim(Titanic)

@@ -1,0 +1,524 @@
+---
+title: "Doing statistics in R"
+subtitle: "R Ladies Tbilisi Workshop"
+author: "Alexandru D. Moise, PhD."
+date: '2020 February'
+output:
+    html_document:
+        code_folding: "show"
+        number_sections: TRUE
+        toc: true
+        toc_depth: 4
+        toc_float: true
+        theme: flatly
+        highlight: tango
+        css: rmd_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = "#>",
+                      message = FALSE
+)
+```
+
+
+> Main packages used: `base R`, `broom`, `ggplot2`, `dplyr` <br>
+
+> Main functions covered: `t.test`, `cor`, `lm`, `str`, `broom::tidy`, `broom::augment`, `broom::glance`  
+
+> Note, this file was made in R markdown, you can check out the .rmd file to see how this was built.
+
+# Statistical analysis and modelling in R
+
+
+Packages we will need.
+
+```{r eval=FALSE}
+packages <- c("ggfortify", "effects", "GGally", "broom",
+              "survey", "dplyr", "tidyr", "haven", 
+              "gapminder", "ggplot2", "ggeffects")
+install.packages(packages)
+```
+
+```{r echo=FALSE}
+library(survey) # package for analyzing survey data
+library(plm) # package for panel regressions
+```
+
+
+```{r message=FALSE}
+# data import and cleaning
+library(dplyr)
+library(tidyr)
+library(haven)
+# statistical modelling
+library(survey) # package for analyzing survey data
+# library(plm) # package for panel regressions
+library(broom) # extracting model informations
+# practice data
+library(gapminder)
+# data visualization
+library(ggplot2)
+library(ggfortify)
+library(effects)
+library(ggeffects)
+library(GGally)
+```
+
+
+## Before we start - Project Set-up!
+
+Using Projcets with RStudio will simplify your workflow. Essentially, all your project related files are collected in your selected folder so you don't need to specify a working directory. Your project will be able to run as long as you copy the entire folder (or have it on the cloud).
+
+How to set one up: `File -> New Project` then choose a directory where you want to have your R scripts, data and history files. You should also disable the **"Restore most recently opened project at startup"** and **"Restore .RData ino workspace at startup"**, and also set **"Save workspace to .RData on exit"** to **Never** in `Tools -> Global Options -> General` 
+
+For more help and materials on using projects, see [RStudio's own resource page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) or a [well argued reasoning from Jenny Brian](https://www.tidyverse.org/articles/2017/12/workflow-vs-script/). 
+> Let's set up a new project for this workshop!
+
+To get started:
+
++ **Create a new project** for the course; I recommend working directly in Google Drive or Dropbox. Create a new folder there.
++ **Create a sub-folder for data** - call it `data` and copy the **data** we will use in this workshop. Get it from Github or USB.
++ **Start a new R script** by Ctrl + Shift + N. 
++ **Don't forget to save** the script to your project folder (Ctrl + s)! 
+
+**You can comment your code with `#` (hash-tag). Anything in the given line after `#` will not be taken into R when it runs the code.**  
+
+
+<br>
+<br>
+
+
+> **General tips:**  
+> - Check the [R coding style guide](http://style.tidyverse.org/index.html)  
+> - Comment your codes heavily (with the `#`) because now seemingly straightforward code will not be so in the future; <br>
+> - Indent code with #### or `----` to create a `table of contents`; <br>
+> - Use sensible file names (e.g.: `01_data_cleaning.R`);  
+> - R is case sensitive, so use lowercase file and variable names. Separate words with underscore `_` (e.g.: `ols_reg_1`).
+
+
+
+## Student's t-test
+
+The t-test is a simple, yet powerful statistical technique to check whether two sample means differ from each other statistically significantly. For experimental setups you can examine if your treatment caused a statistically significant effect compared to your control group for example. The validity of the test is based on the assumptions that our sample is randomly selected from the population and people are randomly distributed between the treatment and control groups as well.
+
+Let’s look at the survey data of the European Social Survey. It contains a select few variables from the Hungarian survey.
+
+
+```{r}
+ess_data <- read.csv("data/ESS_Hun_7.csv")
+summary(ess_data)
+```
+
+Let's further trim the dataset, so we only have what we need right now. We will also eliminate the "No Response", "Don't Know" codes, by filtering these values out. Note: in a real analysis these still carry information, but for us they would pose needless complications. We also create a factor variable from the gender one, by specifying the levels and corresponding labels.
+
+```{r}
+ess_sample <- subset(ess_data,  #the data
+                     tvpol < 66 & polintr < 7 & trstlgl < 11 & gndr < 3, #the condtitions
+                     select = c(cntry,tvpol:gndr)) #selecting variables
+#recoding gender
+ess_sample$gndr <- ifelse(ess_sample$gndr == 2, "male", "female")
+
+summary(ess_sample)
+```
+
+
+```{r}
+tv_test <- t.test(tvpol ~ gndr, data = ess_sample)
+tv_test
+```
+
+We will use the `gndr` dummy variable (takes the binary values of female or male) and check if the female and male respondents differ in their political interest in a statistically significant way. The `t.test()` function implements the independent samples t-test, where we have two distinct group and we want to know if their group means are different from each other. There are other variants of the t-test, such as the one-sample t-test, the paired samples t-test, but here we are focusing on the independent samples t-test.
+
+In R a t-test is implemented in the `t.test()` function. As a minimum, for an independent samples t-test, you just need to provide it with two vectors of data values as the first two arguments. It also accepts input in the form of a formula, which might be more convenient in some occasions. 
+
+In general R, the `formula = ` argument is made up by a right hand side (our dependent variable usually), which is followed by `~` and the independent variables. For the t-test, we can simply specify `sample1~sample2` as our formula and supply the function with the `data = ` argument. This way, we don't need to specify the variable names by using `$`. The variable formula is used widely in R modelling and statistical analysis functions, so we should get acquinted with it.
+
+So let’s see if men and women differ in political interest. Let’s put the results of the test into an object called `polintr_test` and print them by just calling the name of the object.
+
+```{r}
+polintr_test <- t.test(polintr ~ gndr, data = ess_sample)
+polintr_test
+```
+
+In the output we can see the value of the test statistic t = -4.7959 and the p-value = 1.789e-06. Wait..what does that mean?
+
+We can avoid scientific notation in our output with the following option:
+```{r}
+options(scipen = 999)
+```
+
+Back to the interpretation:
+
+The t-statistic and p-value are the two most important pieces of information. They give us the same information. Every t-statistic has an associated p-value.
+
+If the p-value of the test statistic is below a certain threshold that we have set (usually 0.05), then we can reject the null hypothesis and accept the alternative hypothesis that the true difference in means is not equal to 0 (the null hypothesis is that the difference between the sample means is 0). We can also see the confidence interval and the means for the two groups. In this case there is a statistically significant difference between the two genders about their political interest.
+
+
+## ANOVA (OPTIONAL)
+
+If we are curious about the difference between more than two sample means, we can use the Analysis of Variance test.  The following is a simple one-way analysis of variance – with one response variable and one explanatory variable. There are many other versions of ANOVA, that we will not have the chance to look at here.
+
+We are going to use the `airquality` data from the `survey` package. Let's load it and look around.
+
+```{r}
+data(airquality)
+# ?airquality
+glimpse(airquality)
+```
+
+
+Anova is implemented in R with the `aov()` function and at its simplest the usage is the same as for the t-test function. We have to define the formula and tell the function which data object to use. Let's expand on our previous excercise by using the iris data. We would perform ANOVA and display the results of the analysis with the `summary()` function like this.
+
+
+
+```{r}
+anova1 <- aov(Temp ~ Month, data=airquality)
+anova1
+summary(anova1)
+```
+
+The most important information to look for here is the F value and the associated p-value (Pr(>F)). If the latter is less than our threshold for statistical significance (0.05 in our case), we can conclude that there is a statistically significant difference between the means of the groups. In our case the value is well below our treshold, which means that we can reject our null hypothesis of no difference between the means.
+
+
+If we would want to visualise this, we could plot the group means with the error bars. First, we summarize our data then use `ggplot`.
+
+```{r}
+anova_sum <- airquality %>% 
+    group_by(Month) %>% 
+    summarise(mean_temp = mean(Temp), sd = sd(Temp), se = sd/sqrt(length(Temp)))
+anova_sum
+ggplot(data = anova_sum,
+       mapping = aes(x = Month,
+                     y = mean_temp)) +
+    geom_errorbar(aes(ymin = mean_temp - se, ymax = mean_temp + se), width = 0.1) +
+    geom_line() +
+    geom_point() +
+    theme(legend.position = "none")
+```
+
+
+## Correlation
+
+<br>
+
+![](https://imgs.xkcd.com/comics/correlation.png)
+
+
+*Source: [XKCD](https://xkcd.com/)
+
+<br>
+
+Perhaps the most common approach to look into associations between variables is the correlation. There are also different types of correlation, here we will be talking about the Pearson correlation, which is what is usually thought of when people speak about correlation. It shows the association between two continuous variables and is implemented in R in the `cor()` and `cor.test()` functions. The first simply calculates the value of the correlation coefficient, the second also performs a statistical test to tell you if the correlation is statistically different from 0.
+
+We will use the, by now, well known gapminder dataset for both the correlation and both the regression analysis examples. The only modifications we will make to the data is to create a cross-section of it, by limiting all observations to the year 2007.
+
+```{r}
+gapminder_cs <- subset(gapminder, year == 2007)
+summary(gapminder_cs)
+```
+
+The `cor()` function is useful, because it provides the possibility to look at many variables at once. So let’s have a look at all the correlations between the variables in the dataset. The `cor()` function is picky about missing data and therefore we have to tell it to drop the cases with missing values on a variable for the calculation of a specific correlation. The `"pairwise.complete"` option tells it to use for each correlation the set of observations that complete.
+
+In the function call, I specify that I want the correlation between the last three variables.
+
+```{r}
+cor(gapminder_cs[, 4:6], use = "pairwise.complete", method = "pearson")
+```
+
+
+
+We can test with the `cor.test` function if the estimated correlations are statistically significant. Let's check GDP per capita and population. They have a negative correlation, but we do not really know if this is significant or not. (yet)
+
+```{r, collapse=FALSE}
+cor1 <- cor.test(gapminder_cs$pop, gapminder_cs$gdpPercap, method = "pearson")
+cor1
+```
+
+The p-value of the test is above our treshold of p < 0.05, thus the negative correlation between the two variable is not statistically significant. 
+
+
+Let's check life expectancy and GDP per capita.
+
+```{r}
+cor.test(gapminder_cs$lifeExp, gapminder_cs$gdpPercap)
+```
+
+We can see that the correlation between the variables is clearly significant as the p-value is well below our trehsold of p < 0.05.
+
+We can visualise correlation with scatter plots. 
+
+> Plot the relationship between life expectancy and GDP per capita with the `ggplot` package. No need to tinker with the plot this time. For extra, you can add a trend line with the `geom_smooth()`
+
+```{r }
+ggplot(gapminder_cs, aes(gdpPercap, lifeExp)) +
+    geom_point() +
+    geom_smooth(method = "lm")
+```
+
+Or we can plot a correlation heatmap with the `GGally::ggcorr` function of the `GGally` ggplot extension package.
+
+```{r}
+ggcorr(gapminder_cs[, 4:6], label = TRUE)
+```
+
+
+## Regression
+
+Perhaps the simplest and most common analysis one would do is linear OLS regression. It allows to model a continuous variable as a linear combination (a sum) of one or several other continuous or binary variables so that in the end we would have a rough idea about how much our response variable would change if our explanatory variable would change by a certain amount. It is a simple, but rather flexible and powerful technique and the basic linear model can be extended to cover most of the analyses one could think of. The basic OLS is good also because it is relatively understandable. Its basic principle is minimising the sum of squared differences between the actual and the predicted values.
+
+OLS is suitable if one has a continuous response variable, which is more or less normally distributed, continuous or binary explanatory variables and a reasonable amount of cases that are independent of each other. Rules of thumb with regard to the latter differ, but it would probably not be a good idea to run a regression with less than 20 cases, especially with many explanatory variables, and one should be OK if there are more than a 100 cases and not a very large amount of predictors. The more we want out of the data, i.e. the more coefficients and relationships we are looking at, the more information (cases) we would need in order to have stable and valid estimates about the associations we are interested in.
+
+Out of the example data that we have had, let’s try to model the life expectancy in certain countries from the `gapminder` dataset as a function of the GDP per capita, population and spatial features (continent). 
+
+In R a linear model can be fitted with the `lm()` function, which has the same familiar arguments as the previous functions we have looked at in this section. We need to specify a formula with the response variable on the right hand side and the explanatory variables on the left hand side. And we need to tell the function the name of the data object.
+
+```{r}
+reg1 <- lm(lifeExp ~ gdpPercap + pop + continent, data = gapminder_cs)
+summary(reg1)
+```
+
+The first thing we should always look at is model fit. This is shown us by the two values of R-squared at the bottom of the output. Out of these two, we should always look at adjusted R-squared, because this also takes into account the number of variables we have in the model and the number of cases that we have at our disposal. Any variable, even if there is no association at all, that is included in a model increases model fit a bit just by chance and we should account for that somehow.
+
+Here we can see that the model fits rather well, the included independent variables help us account for 70% of the variance in a country's average population life expectancy. With such a well fitting model, we can safely move on to interpreting the coefficients. They tell us that a 1 dollar per capita increase in the GDP per capita is associated with a 0.00035 increase in life expectancy (this should make us think a bit about the nature of the relationship and its possible limits). 
+
+We can also see that the effect size of the contient variable dwarfs the gdpPercap. This should not be a big surprise, as we cannot really claim to have a fully specified model so the continent variable is likely capturing a lot of other effects.
+
+As in other cases, it might sometimes be better also here to present your results visually. For regressions (and linear models in general) this is made easy with the `effects` package, which can be used to isolate and plot the effect of a single variable together with its confidence intervals. The function `effect()` calculates the effect and takes the name of the variable and the model object as input and the generic `plot()` function can be used to plot the effect. Let’s see how this looks like for the model we just fitted.
+
+```{r, collapse=FALSE}
+plot(effect("gdpPercap", reg1))
+plot(effect("continent", reg1))
+```
+
+Since we know that GDP per capita data is skewed, we can experiment with the log transformed variable. We can do the transformation within the formula, no need to modify the data directly.
+
+```{r}
+reg2 <- lm(lifeExp ~ log(gdpPercap) + pop + continent, data = gapminder_cs)
+summary(reg2)
+```
+
+
+
+For further diagnostic plots, we can use the `ggfortify` extension of ggplot. This allows us to quickly plot key diagnostics and if needed use the `ggplot` syntax to change elements of the plots. The `ggfortify::autoplot()` figures everything out for us. You can select which plots you need with the `which = 1:6` option.
+
+```{r}
+autoplot(reg1, which = 1:6, ncol = 3, label.size = 3)
+```
+
+
+## Model objects and the `broom` package
+
+Let's dig into our regression objects. We'll stick to the `reg1` object for now. A quick way to look into our object is the `str()` function.
+
+```{r, collapse=FALSE}
+str(reg1)
+```
+
+Well, this does look cluttered. Using `names()` helps.
+
+```{r}
+names(reg1)
+```
+
+As our object is basically a list, we can dig into it, with the usual methods.
+
+```{r, collapse=FALSE}
+reg1$coefficients
+```
+
+There are other ways to access this information, with built in functions.
+
+```{r}
+coef(reg1)
+```
+
+It is also useful to keep in mind that if you call the `summary()` function on a model object, then this creates a new kind of an object, also with its own internal structure, that might have useful information for us.
+
+```{r, collapse=FALSE}
+summary_reg1 <- summary(reg1)
+str(summary_reg1)
+```
+
+### Using `broom`
+
+To make the somewhat messy regression output more "tidy", we'll use the `broom` package's `broom::tidy()` function. It creates a data frame from our regression object with the estimate, se, f statistics and p.value columns, and each IV as row. 
+
+```{r}
+reg1_tidy <- tidy(reg1, conf.int = TRUE)
+reg1_tidy
+```
+
+To get more information into our data frame, use the `broom::augment()` function, will add the fitted values, residuals as well. 
+
+```{r}
+reg1_aug <- augment(reg1)
+head(reg1_aug, 10)
+```
+
+
+
+If we need the model diagnostics, use the `broom::glance()` function.
+
+```{r}
+glance(reg1)
+```
+
+As we now have our regression output in a tidy format we can turn to `ggplot2` to exploit its tools and visualize. First, we can plot the fitted values and residuals to check for heteroskedasticity.
+
+```{r}
+ggplot(data = reg1_aug,
+       mapping = aes(x = .fitted,
+                     y = .resid)) +
+    geom_point()
+```
+
+Or create a coefficent plot. (Don't forget to add the `conf.int` parameter as `TRUE` to the `tidy()` call.) For `geom_errorbar` the `width` argument controls the size of the whiskers, for the `geom_errorbarh`, it is the `height = `
+
+Let's do this for our second model, where we used the log of GDP per capita.
+
+```{r}
+reg2_tidy <- tidy(reg2, conf.int = TRUE)
+
+
+ggplot(reg2_tidy, aes(term, estimate, color = term)) +
+    geom_point() +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high, width = 0.1)) +
+    coord_flip()
+```
+
+
+
+## Working with survey data (OPTIONAL)
+
+```{r echo=FALSE}
+# https://medium.com/pew-research-center-decoded/how-to-analyze-pew-research-center-survey-data-in-r-f326df360713
+# http://r-survey.r-forge.r-project.org/survey/survey-wss-2010.pdf
+```
+
+
+For this the `survey` package offers an excellent set of tools. This section briefly introduced the basics and provides an introduction for further use.
+
+
+Data from Euorpean Values Study 2008 (ZA4800: EVS 2008: Integrated Dataset). Variable descriptions are available here: https://zacat.gesis.org/webview/index.jsp?object=http://zacat.gesis.org/obj/fCatalog/Catalog5
+
+```{r}
+evs_aggregated <- read_dta("data/EVSsvy.dta")
+```
+
+Always check that your variables are in the format you want them to be (e.g..: categorical data is factor, numeric is numeric, date is date, etc.)! In this case, we will use three variables, `v214`, `v302`, `v336_r`, `v200`, `age` (trust in EU, gender, education level, opinion on society, age of respondent, respectively).
+
+```{r}
+# checking the type of our selected variables
+vars_evs <- c("v214", "v302", "v336_r", "v200", "age")
+sapply(evs_aggregated[vars_evs], typeof)
+```
+
+Just quickly recode them.
+
+```{r}
+evs_recode <- evs_aggregated %>% 
+    mutate(trust_eu = factor(v214), sex = factor(v302), educ = factor(v336_r), op_soc = factor(v200))
+```
+
+
+The workflow with the `survey` package is usually the following:
+- create a survey object specifying the design of the survey (clustering, weights, data)
+- explore
+- model
+
+Note: we use *formulas* in the functions, similar to what we used for specifying the regression formula. The `ids = 0` means we have no clusters in the survey.
+
+```{r}
+evs_survey <- svydesign(ids = ~0, data = evs_recode, weights = ~weight_s)
+```
+
+After this is done we can carry out the basic summary statistics with survey weights. The applicable functions are `svymean`, `svyvar`, `svytotal`
+
+```{r}
+# age of respondent
+svymean(~age, evs_survey, deff = TRUE, na.rm = TRUE)
+# opinion on society:
+# 1 the entire way our society is organized must be radically changed by revolutionary action
+# 2 our society must be gradually changed by reforms
+# 3 our present society must be valiantly defended against all changes
+svymean(~op_soc, evs_survey, deff = TRUE, na.rm = TRUE)
+```
+
+Create crosstabs using the `svyby()` function in combination with the `ftable()`. V214 (Q63J): how much confidence in: european union. by v302 (Q86) Sex
+
+```{r}
+tab <- svyby(~trust_eu, ~sex, evs_survey, svymean, na.rm = TRUE)
+round(ftable(tab), 2)
+```
+
+Test associaton (is EU opinion different across genders?)
+
+```{r}
+svychisq(~trust_eu + sex, evs_survey)
+```
+
+We can also carry out regression analysis, applying generalized linear models, estimated by `svyglm`.
+
+
+```{r}
+svreg <- svyglm(educ ~ age + v353M_ppp, design=evs_survey, family="binomial")
+summary(svreg)
+```
+
+
+
+We can obtain predicted probabilities with `ggeffects::ggpredict`
+
+```{r}
+
+ggpredict(svreg, terms="v353M_ppp", data=evs_survey$variables)
+
+```
+
+
+To visualize, just wrap a plot around it!
+
+```{r}
+plot(ggpredict(svreg, terms="v353M_ppp", data=evs_survey$variables))
+
+```
+
+
+## Panel regression with `plm` (OPTIONAL)
+
+The `plm` package is designed to estimate panel regressions. You can use it for balanced and unbalanced panels as well for estimating pooled OLS, fixed effects, random effects and dynamic panel models. If you are interested it has a great documentation on all of its features: https://cran.r-project.org/web/packages/plm/vignettes/
+
+```{r}
+gapminder <- gapminder
+panel_gapminder <- pdata.frame(gapminder, index = c("country", "year"))
+```
+
+
+Pooled OLS, by specifying `model = "pooling"`.
+```{r}
+pols <- plm(lifeExp ~ continent + gdpPercap, data = panel_gapminder, model = "pooling")
+summary(pols)
+```
+
+Fixed effects with `model = "within"`. Notice that we loose contitent, as they are differenced out during the estimation as they are time invarient.
+
+```{r}
+fe <- plm(lifeExp ~ continent + gdpPercap, data = panel_gapminder, model = "within")
+summary(fe)
+```
+
+Random effects
+```{r}
+re <- plm(lifeExp ~ continent + gdpPercap, data = panel_gapminder, model = "random")
+summary(re)
+```
+
+
+Which should we use? A general rule of thumb test is the Hausman test. If the p-value is below your significance level (e.g.:0.05), then you should use the fixed effects.
+
+```{r}
+phtest(fe, re)
+```

@@ -1,0 +1,56 @@
+install.packages("shiny")
+library("shiny")
+
+#it is better to have two separate files for ui and server, called exactly "ui.R" and "server.R"
+
+
+ui = fluidPage(
+  # every page needs a title, titlePanel does it.
+  # every element must end with comma if it is followed by a new element in the same scope
+  titlePanel("Our new site"),
+  
+  #sidebarLayout is most common layout type, it has sidebarPanel and mainPanel 
+  sidebarLayout(
+    sidebarPanel(
+      #sliderInput has slider for choosing value(s).
+      sliderInput("slInput",                      # name which is used in server file
+                  label = "Slider Ipnut Sample",  # name which will appear on website
+                  min = 0,                        # minimum value of slider
+                  max = 100,                      # maximum value of slider
+                  value = c(18,70)                # default(selected) value(s) when the webpage loads
+      ),
+      #ADDED selectInput has multiple choices and user can choose one from them.
+      selectInput("yInput",                         # name which is used in server file
+                  label = "Select Input Sample",    # name which will appear on website
+                  choices = colnames(mydata),       # choices from which user chooses one. 
+                                                    # in this case, column names of our datasource
+                  selected = "AGE"                  # default(selected) value when the webpage loads
+      ),
+      p("Some paragraph"),        #html tag for new paragraph
+      
+      h1("Largest (h1) header"),  #html tag for header text, size 1 (largest)
+      h2("(h2) header"),          #html tag for header text, size 2
+      h3("(h3) header"),          #html tag for header text, size 2 
+      h6("Smallest (h6) header"), #html tag for header text, size 6 (smallest)
+      br(),                       #html tag for line breal
+      hr(),                       #html tag for horizontal line
+      
+      #html tag for loading pictures. picture file must be ui/server files directory-> 'www' folder 
+      img(src = "og_logo.png", width = 300, height = 150),    
+      
+      selectInput("SelIput",
+                  label = "Select Input Sample",
+                  choices = seq(1, 10, 1),
+                  selected = 2
+      )
+    ),
+    mainPanel(
+      # for putting our plot on website we need plotOutput function
+      # and it's name which is defined in server file. in this case, 'plt'
+      
+      plotOutput("plt")
+    )
+  )
+)
+
+
